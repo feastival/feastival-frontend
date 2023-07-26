@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function ExploreRoute() {
-  return <div>explore</div>;
+  return <div>test</div>;
 }
