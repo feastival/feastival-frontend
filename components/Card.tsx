@@ -1,4 +1,4 @@
-import Head from "next/head";
+
 import Image from "next/image";
 
 export default function Card() {
@@ -31,9 +31,7 @@ export default function Card() {
 
   return (
     <>
-      <Head>
-        <title>Event Cards</title>
-      </Head>
+    
 
       <main className="py-6 flex items-center justify-center flex-wrap">
         {events.map((event, index) => (
