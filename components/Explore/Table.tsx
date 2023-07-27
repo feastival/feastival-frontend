@@ -52,8 +52,6 @@ export default function Table() {
                   <a
                     href="#"
                     type="button"
-                    data-modal-target="editUserModal"
-                    data-modal-show="editUserModal"
                     className="font-medium hover:underline"
                   >
                     More Detail
