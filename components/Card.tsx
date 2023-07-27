@@ -35,10 +35,12 @@ export default function Card() {
           <a href="#" key={index} className="group block">
             <div className="overflow-hidden bg-white group-hover:opacity-75 rounded m-3 w-64 h-96">
               <div className="relative h-3/4">
-                <img
+                <Image
                   src={event.imageUrl1}
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover opacity-100"
+                  width={2850}
+                  height={1603}
                 />
               </div>
 
