@@ -4,21 +4,21 @@ export default function Table() {
       date: "13 Agustus 2023",
       time: "07.00",
       event: "Young, Live, and Free",
-      name: "Chvrches",
+      artist: "Chvrches",
       venue: "Sentul Convention Center",
     },
     {
       date: "13 Agustus 2023",
       time: "07.00",
       event: "Young, Live, and Free",
-      name: "Chvrches",
+      artist: "Chvrches",
       venue: "Sentul Convention Center",
     },
     {
       date: "13 Agustus 2023",
       time: "07.00",
       event: "Young, Live, and Free",
-      name: "Chvrches",
+      artist: "Chvrches",
       venue: "Sentul Convention Center",
     },
   ];
@@ -43,7 +43,7 @@ export default function Table() {
                   </div>
                 </th>
                 <td className="px-6 py-4 font-bold">{event.event}</td>
-                <td className="px-6 py-4 font-bold">{event.name}</td>
+                <td className="px-6 py-4 font-bold">{event.artist}</td>
                 <td className="px-6 py-4 ">{event.venue}</td>
 
                 <td className="px-6 py-4">
