@@ -3,7 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      'via.placeholder.com'
+      'via.placeholder.com',
+      'assets.ayobandung.com',
     ]
 },
 }

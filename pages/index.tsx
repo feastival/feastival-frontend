@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Home from './home/index';
 import Trending from './home/trending';
 import Upcoming from './home/upcoming';
+import VideoSection from './home/video';
 
 const Index: NextPage = () => {
   return (
@@ -15,6 +16,7 @@ const Index: NextPage = () => {
       <Home />
       <Trending />
       <Upcoming />
+      <VideoSection />
     </>
   );
 };
