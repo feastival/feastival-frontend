@@ -3,7 +3,7 @@ export default function Table() {
     {
       date: "13 Agustus 2023",
       time: "07.00",
-      event: "young, live, and free",
+      event: "Young, Live, and Free",
       name: "Chvrches",
       venue: "Sentul Convention Center",
       
@@ -11,7 +11,7 @@ export default function Table() {
     {
       date: "13 Agustus 2023",
       time: "07.00",
-      event: "young, live, and free",
+      event: "Young, Live, and Free",
       name: "Chvrches",
       venue: "Sentul Convention Center",
       
@@ -19,7 +19,7 @@ export default function Table() {
     {
       date: "13 Agustus 2023",
       time: "07.00",
-      event: "young, live, and free",
+      event: "Young, Live, and Free",
       name: "Chvrches",
       venue: "Sentul Convention Center",
       
