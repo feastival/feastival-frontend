@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 
 export default function Card() {
@@ -31,8 +30,6 @@ export default function Card() {
 
   return (
     <>
-    
-
       <main className="py-6 flex items-center justify-center flex-wrap">
         {events.map((event, index) => (
           <a href="#" key={index} className="group block">
@@ -57,11 +54,10 @@ export default function Card() {
 
                 <div className="text-right">
                   <h3 className="text-black font-bold font-bebasNeue text-lg overflow-hidden overflow-ellipsis">
-                    
                     {event.location}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500 overflow-hidden overflow-ellipsis">
-                  {event.venue}
+                    {event.venue}
                   </p>
                 </div>
               </div>

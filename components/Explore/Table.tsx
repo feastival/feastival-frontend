@@ -6,7 +6,6 @@ export default function Table() {
       event: "Young, Live, and Free",
       name: "Chvrches",
       venue: "Sentul Convention Center",
-      
     },
     {
       date: "13 Agustus 2023",
@@ -14,7 +13,6 @@ export default function Table() {
       event: "Young, Live, and Free",
       name: "Chvrches",
       venue: "Sentul Convention Center",
-      
     },
     {
       date: "13 Agustus 2023",
@@ -22,7 +20,6 @@ export default function Table() {
       event: "Young, Live, and Free",
       name: "Chvrches",
       venue: "Sentul Convention Center",
-      
     },
   ];
 
@@ -42,15 +39,13 @@ export default function Table() {
                 >
                   <div className="pl-3">
                     <div className="text-base font-semibold">{event.date}</div>
-                    <div className="font-normal ">
-                      {event.time}
-                    </div>
+                    <div className="font-normal ">{event.time}</div>
                   </div>
                 </th>
                 <td className="px-6 py-4 font-bold">{event.event}</td>
                 <td className="px-6 py-4 font-bold">{event.name}</td>
                 <td className="px-6 py-4 ">{event.venue}</td>
-            
+
                 <td className="px-6 py-4">
                   <a
                     href="#"
