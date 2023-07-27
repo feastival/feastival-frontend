@@ -32,27 +32,23 @@ export default function Artists() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-3 max-w-3xl mx-auto">
       {artists.map((artist, index) => (
-        <article
-          key={index}
-          className="flex max-w-xs flex-col rounded-xl bg-white px-1 shadow md:max-w-md md:flex-row md:items-center"
-        >
-          <div className="shrink-0 my-1 md:mr-2 md:max-w-xs">
-            <img
-              className="rounded-xl object-cover w-full h-16"
-              src={artist.imageUrl1}
-              alt={artist.name}
-            />
+        <a href="#" key={index}>
+          <div className="flex max-w-xs flex-col rounded-xl bg-white px-1 shadow md:max-w-md md:flex-row md:items-center opacity-100 hover:opacity-75 transition-opacity duration-200">
+            <div className="shrink-0 my-1 md:mr-2 md:max-w-xs">
+              <img
+                className="rounded-xl object-cover w-full h-16"
+                src={artist.imageUrl1}
+                alt={artist.name}
+              />
+            </div>
+            <div className="py-1 sm:py-2">
+              <div className="mb-1 block text-sm font-medium text-gray-700">
+                {artist.name}
+              </div>
+              <p className="mb-1 text-gray-500 text-xs">{artist.location}</p>
+            </div>
           </div>
-          <div className="py-1 sm:py-2">
-            <a
-              href="#"
-              className="mb-1 block text-sm font-medium text-gray-700"
-            >
-              {artist.name}
-            </a>
-            <p className="mb-1 text-gray-500 text-xs">{artist.location}</p>
-          </div>
-        </article>
+        </a>
       ))}
     </div>
   );
