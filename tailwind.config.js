@@ -2,11 +2,11 @@
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -16,10 +16,10 @@ const config = {
       },
     },
     extend: {
-        fontFamily: {
-          poppins: ['Poppins', 'sans-serif'],
-          bebasNeue: ['Bebas Neue', 'sans-serif'],
-        },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        bebasNeue: ["Bebas Neue", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -76,6 +76,6 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
-}
+  plugins: [require("tailwindcss-animate")],
+};
 module.exports = config;
