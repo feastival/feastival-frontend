@@ -34,9 +34,7 @@ export default function Table() {
               <th scope="col" className="px-6 py-3">
                 Venue
               </th>
-              <th scope="col" className="px-6 py-3">
-           
-              </th>
+              <th scope="col" className="px-6 py-3"></th>
             </tr>
           </thead>
           <tbody>
@@ -67,7 +65,7 @@ export default function Table() {
                     type="button"
                     data-modal-target="editUserModal"
                     data-modal-show="editUserModal"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    className="font-medium hover:underline"
                   >
                     More Detail
                   </a>
