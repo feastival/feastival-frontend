@@ -89,12 +89,13 @@ export default function ArtistRoute() {
                 <div className="flex py-2">
                   <img
                     src="https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg"
-                    className="h-10 w-10 rounded-full mr-2 object-cover"
+                    className="h-12 w-12 rounded-full mr-2 object-cover"
                   />
                   <div>
                     <p className="font-semibold text-gray-700 text-sm py-1">
                       Chvrches
                     </p>
+                    <p class="font-semibold text-gray-600 text-xs"> Band </p>
                     <p className="font-semibold text-gray-700 text-sm py-1"></p>
                   </div>
                 </div>
