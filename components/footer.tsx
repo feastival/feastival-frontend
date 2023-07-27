@@ -2,61 +2,79 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <div className="w-[1440px] h-[436px] relative">
-    <div className="w-[1440px] h-[436px] left-0 top-0 absolute bg-black" />
-    <div className="w-[1440px] h-[70px] left-0 top-[366px] absolute">
-        <div className="w-[1440px] h-[70px] left-0 top-0 absolute bg-purple-500" />
-        <div className="left-[120px] top-[25px] absolute text-white text-base font-normal">© Feastival 2023 all rights reserved</div>
-        <div className="w-[382px] h-[22px] left-[938px] top-[24px] absolute justify-start items-start gap-[42px] inline-flex">
-            <div className="text-white text-base font-normal leading-snug">Trems & Condition</div>
-            <div className="text-white text-base font-normal leading-snug">Privacy Policy</div>
-            <div className="text-white text-base font-normal leading-snug">Cookies</div>
+    <footer className="fixed inset-x-0 bottom-0 z-20 border-gray-200 shadow">
+      <div className="text-white bg-black border-t border-gray-200 shadow">
+        <div className="container px-4 py-6 mx-auto sm:px-6 md:px-8">
+          <div className="flex flex-col items-center justify-between md:flex-row">
+            <div className="flex flex-col items-start justify-center gap-4">
+              <div className="text-4xl font-normal leading-9 uppercase font-bebasNeue">feastival</div>
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <div className="text-lg font-medium leading-7">Contact</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">(021) 567-789-123</div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <div className="text-lg font-medium leading-7">Address</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">Jl. Pahlawan Indonesia</div>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2 mt-5 xl:gap-12">
+              <div className="flex flex-col gap-2">
+                <div className="text-lg font-medium leading-7">Menu</div>
+                <div className="flex flex-col gap-2">
+                  <div className="text-base font-normal leading-normal text-neutral-400">Home</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">Tickets</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">Careers</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">Community</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">About</div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4">
+                <div className="text-lg font-medium leading-7">FAQ</div>
+                <div className="flex flex-col gap-2">
+                  <div className="text-base font-normal leading-normal text-neutral-400">Payment</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">Order</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">How Trade Ticket</div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4">
+                <div className="text-lg font-medium leading-7">Support</div>
+                <div className="flex flex-col gap-4">
+                  <div className="text-base font-normal leading-normal text-neutral-400">Send Email</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">Online chat</div>
+                  <div className="text-base font-normal leading-normal text-neutral-400">Call center</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    <div className="w-[1300px] left-[70px] top-[53px] absolute justify-center items-start inline-flex">
-        <div className="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex">
-            <div className="text-white text-4xl font-normal uppercase leading-9">feastival</div>
-            <div className="h-[142px] flex-col justify-start items-start gap-6 flex">
-                <div className="self-stretch h-[59px] flex-col justify-start items-start gap-2 flex">
-                    <div className="text-white text-lg font-medium leading-[27px]">Contact</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">(021) 567-789-123</div>
-                </div>
-                <div className="h-[59px] flex-col justify-start items-start gap-2 flex">
-                    <div className="self-stretch text-white text-lg font-medium leading-[27px]">Address</div>
-                    <div className="self-stretch text-neutral-400 text-base font-normal leading-normal">Jl. Pahlawan Indonesia</div>
-                </div>
-            </div>
+      </div>
+
+      {/* Purple Footer */}
+      <div className="bg-[#9747FF] text-gray-700">
+        <div className="container px-4 py-2 mx-auto sm:px-6 md:px-8">
+          <div className="flex flex-col items-center justify-between md:flex-row">
+            <span className="text-sm md:mr-6">
+              © 2023 <a href="https://flowbite.com/" className="hover:underline">Feastival</a>. All Rights Reserved.
+            </span>
+            <ul className="flex flex-wrap items-center mt-3">
+              <li className="mr-4 hover:underline">
+                <a href="#">About</a>
+              </li>
+              <li className="mr-4 hover:underline">
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li className="mr-4 hover:underline">
+                <a href="#">Licensing</a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">Contact</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="justify-start items-start gap-12 flex">
-            <div className="flex-col justify-start items-start gap-4 inline-flex">
-                <div className="self-stretch text-white text-lg font-medium leading-[27px]">Menu</div>
-                <div className="self-stretch h-[152px] flex-col justify-start items-start gap-2 flex">
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Home</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Tickets</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Careers</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Community</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">About</div>
-                </div>
-            </div>
-            <div className="flex-col justify-start items-start gap-4 inline-flex">
-                <div className="text-white text-lg font-medium leading-[27px]">FAQ</div>
-                <div className="flex-col justify-start items-start gap-2 flex">
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Payment</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Order</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">How Trade Ticket</div>
-                </div>
-            </div>
-            <div className="flex-col justify-start items-start gap-4 inline-flex">
-                <div className="text-white text-lg font-medium leading-[27px]">Support</div>
-                <div className="flex-col justify-start items-start gap-4 flex">
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Send Email</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Online chat</div>
-                    <div className="text-neutral-400 text-base font-normal leading-normal">Call center</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-  
-    );
-}
+      </div>
+  </footer>
+  )
+}  

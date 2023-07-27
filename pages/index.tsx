@@ -15,6 +15,7 @@ const Index: NextPage = () => {
       <Navbar />
       <Home />
       <Footer />
+
     </>
   );
 };
