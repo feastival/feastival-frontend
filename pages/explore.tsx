@@ -3,6 +3,7 @@ import React from 'react';
 import Card from '../components/Card';
 import Table from '@/components/Explore/Table';
 import Head from 'next/head';
+import Sidebar from '@/components/Explore/Sidebar';
 
 export default function ExploreRoute() {
   return (
@@ -10,6 +11,7 @@ export default function ExploreRoute() {
       <Head>
         <title>Explore</title>
       </Head>
+      <Sidebar />
       <Card />
       <Artists />
       <Table />
