@@ -30,30 +30,36 @@ export default function Artists() {
 
   return (
     <div>
-      <h2 className="text-center xl:mr-[40%]">ARTISTS</h2>
       <div className="container flex justify-center mx-auto mt-10">
-        <div className="flex flex-col col-span-2 md:flex-row md:space-x-4">
-          {/* <!-- First row: Two boxes side by side --> */}
-          <div className="flex items-center border border-black rounded-xl pr-24">
-            <img
-              src={artists[0].imageUrl1}
-              alt="Image"
-              className=" h-28 mr-4 rounded-xl"
-            />
-            <div className="text-left">
-              <p className="">{artists[0].name}</p>
-              <p className="">{artists[0].location}</p>
-            </div>
+        <div className="flex flex-col">
+          <div className="flex justify-between">
+            <h2 className="font-bold text-3xl mb-3">ARTISTS</h2>
+            <h2 className="font-bold mt-4">See All</h2>
           </div>
-          <div className="flex items-center border border-black mt-7 xl:mt-0  rounded-xl pr-24">
-            <img
-              src={artists[0].imageUrl1}
-              alt="Image"
-              className=" h-28 mr-4 rounded-xl"
-            />
-            <div className="text-left">
-              <p className="">{artists[1].name}</p>
-              <p className="">{artists[1].location}</p>
+
+          <div className="flex flex-col col-span-2 md:flex-row md:space-x-4">
+            {/* <!-- First row: Two boxes side by side --> */}
+            <div className="flex items-center border border-black rounded-xl pr-24">
+              <img
+                src={artists[0].imageUrl1}
+                alt="Image"
+                className=" h-28 mr-4 rounded-xl"
+              />
+              <div className="text-left">
+                <p className="">{artists[0].name}</p>
+                <p className="">{artists[0].location}</p>
+              </div>
+            </div>
+            <div className="flex items-center border border-black mt-7 xl:mt-0  rounded-xl pr-24">
+              <img
+                src={artists[0].imageUrl1}
+                alt="Image"
+                className=" h-28 mr-4 rounded-xl"
+              />
+              <div className="text-left">
+                <p className="">{artists[1].name}</p>
+                <p className="">{artists[1].location}</p>
+              </div>
             </div>
           </div>
         </div>
