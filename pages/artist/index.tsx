@@ -95,7 +95,10 @@ export default function ArtistRoute() {
                     <p className="font-semibold text-gray-700 text-sm py-1">
                       Chvrches
                     </p>
-                    <p class="font-semibold text-gray-600 text-xs"> Band </p>
+                    <p className="font-semibold text-gray-600 text-xs">
+                      {' '}
+                      Band{' '}
+                    </p>
                     <p className="font-semibold text-gray-700 text-sm py-1"></p>
                   </div>
                 </div>
