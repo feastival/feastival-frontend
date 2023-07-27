@@ -4,15 +4,16 @@ export default function Artists() {
   const artists = [
     {
       name: 'Noah',
-      location: 'Band asal Bandung',
+      location:
+        'Band asal Bandung yang sudah malang melintang di dunia musik uhuy spontan',
       imageUrl1:
-        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688050157/week-20/867115_lwbetr.jpg',
     },
     {
       name: 'Paramore',
       location: 'Band asal Amerika',
       imageUrl1:
-        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688050157/week-20/867115_lwbetr.jpg',
     },
     {
       name: 'Coldplay',
@@ -29,68 +30,30 @@ export default function Artists() {
   ];
 
   return (
-    <div>
-      <div className="container flex justify-center mx-auto mt-10">
-        <div className="flex flex-col">
-          <div className="flex justify-between">
-            <h2 className="font-bold text-3xl mb-3">ARTISTS</h2>
-            <h2 className="font-bold mt-4">See All</h2>
-          </div>
-
-          <div className="flex flex-col col-span-2 md:flex-row md:space-x-4">
-            {/* <!-- First row: Two boxes side by side --> */}
-            <div className="flex items-center border border-black rounded-xl pr-24">
-              <img
-                src={artists[0].imageUrl1}
-                alt="Image"
-                className=" h-28 mr-4 rounded-xl"
-              />
-              <div className="text-left">
-                <p className="">{artists[0].name}</p>
-                <p className="">{artists[0].location}</p>
-              </div>
-            </div>
-            <div className="flex items-center border border-black mt-7 xl:mt-0  rounded-xl pr-24">
-              <img
-                src={artists[0].imageUrl1}
-                alt="Image"
-                className=" h-28 mr-4 rounded-xl"
-              />
-              <div className="text-left">
-                <p className="">{artists[1].name}</p>
-                <p className="">{artists[1].location}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container flex justify-center mx-auto mt-10">
-        <div className="flex flex-col col-span-2 md:flex-row md:space-x-4">
-          {/* <!-- First row: Two boxes side by side --> */}
-          <div className="flex items-center border border-black   rounded-xl pr-24">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-3 max-w-3xl mx-auto">
+      {artists.map((artist, index) => (
+        <article
+          key={index}
+          className="flex max-w-xs flex-col rounded-xl bg-white px-1 shadow md:max-w-md md:flex-row md:items-center"
+        >
+          <div className="shrink-0 my-1 md:mr-2 md:max-w-xs">
             <img
-              src={artists[0].imageUrl1}
-              alt="Image"
-              className=" h-28 mr-4 rounded-xl"
+              className="rounded-xl object-cover w-full h-16"
+              src={artist.imageUrl1}
+              alt={artist.name}
             />
-            <div className="text-left">
-              <p className="">{artists[2].name}</p>
-              <p className="">{artists[2].location}</p>
-            </div>
           </div>
-          <div className="flex items-center border border-black mt-7 xl:mt-0   rounded-xl pr-24">
-            <img
-              src={artists[0].imageUrl1}
-              alt="Image"
-              className=" h-28 mr-4 rounded-xl"
-            />
-            <div className="text-left">
-              <p className="">{artists[3].name}</p>
-              <p className="">{artists[3].location}</p>
-            </div>
+          <div className="py-1 sm:py-2">
+            <a
+              href="#"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
+              {artist.name}
+            </a>
+            <p className="mb-1 text-gray-500 text-xs">{artist.location}</p>
           </div>
-        </div>
-      </div>
+        </article>
+      ))}
     </div>
   );
 }
