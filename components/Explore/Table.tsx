@@ -7,6 +7,13 @@ export default function Table() {
       artist: "Sentul Convention Center",
       venue: "Bogor",
     },
+    {
+      date: "13 Agustus 2023",
+      time: "07.00",
+      name: "Chvrches",
+      artist: "Sentul Convention Center",
+      venue: "Bogor",
+    },
   ];
 
   return (
