@@ -38,7 +38,9 @@ export default function Table() {
                   className="flex items-center px-6 py-4  whitespace-nowrap dark:text-white"
                 >
                   <div className="pl-3">
-                    <div className="text-base font-semibold">{event.date}</div>
+                    <div className="text-base font-semibold mb-2">
+                      {event.date}
+                    </div>
                     <div className="font-normal ">{event.time}</div>
                   </div>
                 </th>
