@@ -1,9 +1,9 @@
-import Navbar from "@/components/navbar";
-import { NextPage } from "next";
-import Head from "next/head";
-import LandingPageTemplate from "../templates/LandingPage/LandingPageTemplate";
-import Footer from "../components/footer";
-import Home from "./home/index";
+import Navbar from '@/components/navbar';
+import { NextPage } from 'next';
+import Head from 'next/head';
+import LandingPageTemplate from '../templates/LandingPage/LandingPageTemplate';
+import Footer from '../components/footer';
+import Home from './home/index';
 
 const Index: NextPage = () => {
   return (

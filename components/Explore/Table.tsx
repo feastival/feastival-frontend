@@ -1,25 +1,25 @@
 export default function Table() {
   const events = [
     {
-      date: "13 Agustus 2023",
-      time: "07.00",
-      event: "Young, Live, and Free",
-      artist: "Chvrches",
-      venue: "Sentul Convention Center",
+      date: '13 Agustus 2023',
+      time: '07.00',
+      event: 'Young, Live, and Free',
+      artist: 'Chvrches',
+      venue: 'Sentul Convention Center',
     },
     {
-      date: "13 Agustus 2023",
-      time: "07.00",
-      event: "Young, Live, and Free",
-      artist: "Chvrches",
-      venue: "Sentul Convention Center",
+      date: '13 Agustus 2023',
+      time: '07.00',
+      event: 'Young, Live, and Free',
+      artist: 'Chvrches',
+      venue: 'Sentul Convention Center',
     },
     {
-      date: "13 Agustus 2023",
-      time: "07.00",
-      event: "Young, Live, and Free",
-      artist: "Chvrches",
-      venue: "Sentul Convention Center",
+      date: '13 Agustus 2023',
+      time: '07.00',
+      event: 'Young, Live, and Free',
+      artist: 'Chvrches',
+      venue: 'Sentul Convention Center',
     },
   ];
 

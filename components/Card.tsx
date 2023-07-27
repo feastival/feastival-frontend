@@ -1,30 +1,30 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Card() {
   const events = [
     {
-      name: "Chvrches",
-      date: "13 Agustus 2023",
-      venue: "Sentul Convention Center",
-      location: "Bogor",
+      name: 'Chvrches',
+      date: '13 Agustus 2023',
+      venue: 'Sentul Convention Center',
+      location: 'Bogor',
       imageUrl1:
-        "https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg",
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
     },
     {
-      name: "Chvrches",
-      date: "13 Agustus 2023",
-      venue: "Sentul ",
-      location: "Bogor",
+      name: 'Chvrches',
+      date: '13 Agustus 2023',
+      venue: 'Sentul ',
+      location: 'Bogor',
       imageUrl1:
-        "https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg",
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
     },
     {
-      name: "Chvrches",
-      date: "13 Agustus 2023",
-      venue: "Sentul Convention Center",
-      location: "bogor",
+      name: 'Chvrches',
+      date: '13 Agustus 2023',
+      venue: 'Sentul Convention Center',
+      location: 'bogor',
       imageUrl1:
-        "https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg",
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
     },
   ];
 

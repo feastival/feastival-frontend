@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function Footer() {
   return (
@@ -84,7 +84,7 @@ export default function Footer() {
         <div className="container px-4 py-2 mx-auto sm:px-6 md:px-8">
           <div className="flex flex-col items-center justify-between md:flex-row">
             <span className="text-sm md:mr-6">
-              © 2023{" "}
+              © 2023{' '}
               <a href="https://flowbite.com/" className="hover:underline">
                 Feastival
               </a>
