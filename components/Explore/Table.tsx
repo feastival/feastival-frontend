@@ -3,42 +3,30 @@ export default function Table() {
     {
       date: "13 Agustus 2023",
       time: "07.00",
-      name: "Chvrches",
-      artist: "Sentul Convention Center",
-      venue: "Bogor",
+      event: "Young, Live, and Free",
+      artist: "Chvrches",
+      venue: "Sentul Convention Center",
     },
     {
       date: "13 Agustus 2023",
       time: "07.00",
-      name: "Chvrches",
-      artist: "Sentul Convention Center",
-      venue: "Bogor",
+      event: "Young, Live, and Free",
+      artist: "Chvrches",
+      venue: "Sentul Convention Center",
+    },
+    {
+      date: "13 Agustus 2023",
+      time: "07.00",
+      event: "Young, Live, and Free",
+      artist: "Chvrches",
+      venue: "Sentul Convention Center",
     },
   ];
 
   return (
     <>
-      <div className="relative overflow-x-auto sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="p-4">
-                Date
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Artist
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Venue
-              </th>
-              <th scope="col" className="px-6 py-3">
-           
-              </th>
-            </tr>
-          </thead>
+      <div className="relative overflow-x-auto sm:rounded-lg font-poppins">
+        <table className="w-full text-sm text-left  dark:text-gray-400">
           <tbody>
             {events.map((event, index) => (
               <tr
@@ -47,27 +35,24 @@ export default function Table() {
               >
                 <th
                   scope="row"
-                  className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+                  className="flex items-center px-6 py-4  whitespace-nowrap dark:text-white"
                 >
                   <div className="pl-3">
                     <div className="text-base font-semibold">{event.date}</div>
-                    <div className="font-normal text-gray-500">
-                      {event.time}
-                    </div>
+                    <div className="font-normal ">{event.time}</div>
                   </div>
                 </th>
-                <td className="px-6 py-4">{event.name}</td>
-                <td className="px-6 py-4">{event.artist}</td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center">{event.venue}</div>
-                </td>
+                <td className="px-6 py-4 font-bold">{event.event}</td>
+                <td className="px-6 py-4 font-bold">{event.artist}</td>
+                <td className="px-6 py-4 ">{event.venue}</td>
+
                 <td className="px-6 py-4">
                   <a
                     href="#"
                     type="button"
                     data-modal-target="editUserModal"
                     data-modal-show="editUserModal"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    className="font-medium hover:underline"
                   >
                     More Detail
                   </a>

@@ -8,7 +8,7 @@ export default function ExploreRoute() {
   return (
     <>
       <Head>
-        <title>Event Cards</title>
+        <title>Explore</title>
       </Head>
       <Card />
       <Artists />
