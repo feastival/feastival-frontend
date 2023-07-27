@@ -3,28 +3,28 @@ import React from 'react';
 export default function Artists() {
   const artists = [
     {
-      name: "Noah",
-      location: "Band asal Bandung",
+      name: 'Noah',
+      location: 'Band asal Bandung',
       imageUrl1:
-        "https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg",
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
     },
     {
-      name: "Paramore",
-      location: "Band asal Amerika",
+      name: 'Paramore',
+      location: 'Band asal Amerika',
       imageUrl1:
-        "https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg",
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
     },
     {
-      name: "Coldplay",
-      location: "Band asal Amerika",
+      name: 'Coldplay',
+      location: 'Band asal Amerika',
       imageUrl1:
-        "https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg",
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
     },
     {
-      name: "Sal Priadi",
-      location: "Penyanyi asal Jakarta",
+      name: 'Sal Priadi',
+      location: 'Penyanyi asal Jakarta',
       imageUrl1:
-        "https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg",
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
     },
   ];
 
@@ -45,7 +45,7 @@ export default function Artists() {
               <p className="">{artists[0].location}</p>
             </div>
           </div>
-          <div className="flex items-center border border-black   rounded-xl pr-24">
+          <div className="flex items-center border border-black mt-7 xl:mt-0  rounded-xl pr-24">
             <img
               src={artists[0].imageUrl1}
               alt="Image"
@@ -72,7 +72,7 @@ export default function Artists() {
               <p className="">{artists[2].location}</p>
             </div>
           </div>
-          <div className="flex items-center border border-black  rounded-xl pr-24">
+          <div className="flex items-center border border-black mt-7 xl:mt-0   rounded-xl pr-24">
             <img
               src={artists[0].imageUrl1}
               alt="Image"
