@@ -30,33 +30,33 @@ export default function Card() {
 
   return (
     <>
-      <main className="py-6 flex items-center justify-center flex-wrap">
+      <main className="flex flex-wrap items-center justify-center py-6">
         {events.map((event, index) => (
-          <a href="#" key={index} className="group block">
-            <div className="overflow-hidden bg-white group-hover:opacity-75 rounded m-3 w-64 h-96">
+          <a href="#" key={index} className="block group">
+            <div className="w-64 m-3 overflow-hidden bg-white rounded group-hover:opacity-75 h-96">
               <div className="relative h-3/4">
                 <img
                   src={event.imageUrl1}
                   alt=""
-                  className="absolute inset-0 h-full w-full object-cover opacity-100"
+                  className="absolute inset-0 object-cover w-full h-full opacity-100"
                 />
               </div>
 
-              <div className="mt-4 flex justify-between">
+              <div className="flex justify-between mt-4">
                 <div>
-                  <h3 className="text-black font-bold font-bebasNeue text-lg overflow-hidden overflow-ellipsis">
+                  <h3 className="overflow-hidden text-lg font-bold text-black font-bebasNeue overflow-ellipsis">
                     {event.name}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500 overflow-hidden overflow-ellipsis">
+                  <p className="mt-1 overflow-hidden text-sm text-gray-500 overflow-ellipsis">
                     {event.date}
                   </p>
                 </div>
 
                 <div className="text-right">
-                  <h3 className="text-black font-bold font-bebasNeue text-lg overflow-hidden overflow-ellipsis">
+                  <h3 className="overflow-hidden text-lg font-bold text-black font-bebasNeue overflow-ellipsis">
                     {event.location}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500 overflow-hidden overflow-ellipsis">
+                  <p className="mt-1 overflow-hidden text-sm text-gray-500 overflow-ellipsis">
                     {event.venue}
                   </p>
                 </div>
