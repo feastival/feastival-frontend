@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -95,7 +95,7 @@ export default function Navbar() {
         </div>
         <div
           className={`md:flex md:w-auto md:order-1 ${
-            isMenuOpen ? "" : "hidden"
+            isMenuOpen ? '' : 'hidden'
           }`}
           id="navbar-search"
         >
