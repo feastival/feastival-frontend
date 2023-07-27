@@ -143,14 +143,7 @@ export default function Navbar() {
                 Explore
               </Link>
             </li>
-            <li>
-              <Link
-                href="/ticket"
-                className="block px-4 py-2 text-white rounded md:hover:bg-transparent hover:bg-purple-500 hover:text-purple-500 font-poppins"
-              >
-                Ticket
-              </Link>
-            </li>
+
             <li>
               <Link
                 href="/community"
