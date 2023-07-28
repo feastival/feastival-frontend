@@ -52,7 +52,7 @@ export default function Card({
       <main className="flex flex-wrap items-center justify-center py-6">
         {events.map((event) => (
           <div key={event.id}>
-            <Link href={`/artist/${event.id}`} passHref className="block group">
+            <Link href={`/event/${event.id}`} passHref className="block group">
               <div className="w-64 m-3 overflow-hidden bg-white rounded group-hover:opacity-75 h-96">
                 <div className="relative h-3/4">
                   <Image
@@ -61,7 +61,7 @@ export default function Card({
                       'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg'
                     }
                     alt=""
-                    className="absolute inset-0 h-full w-full object-cover opacity-100"
+                    className="absolute inset-0 object-cover w-full h-full opacity-100"
                     width={2850}
                     height={1603}
                   />
@@ -91,7 +91,7 @@ export default function Card({
             {isProfilePage && handleDeleteEvent && (
               <button
                 onClick={() => handleDeleteEvent(event.id)}
-                className="mt-2 bg-red-500 text-white font-bold py-2 px-4 rounded"
+                className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded"
               >
                 Delete
               </button>
