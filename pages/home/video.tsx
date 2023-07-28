@@ -4,7 +4,7 @@ export default function VideoSection() {
   return (
     <div className="items-center justify-center w-full h-full p-4 bg-white">
       <div className="w-[542px] flex-col justify-start items-center gap-4 mx-auto">
-        <div className="self-stretch text-center text-black text-[64px] font-normal uppercase font-bebasNeue leading-[64px] mb-10">
+        <div className="self-stretch text-center text-black text-[64px] font-normal uppercase font-bebasNeue leading-[64px] mb-5">
           white shoes and the couples company
         </div>
         <div className="self-stretch text-center text-neutral-500 text-lg font-normal leading-[27px] mb-5">
