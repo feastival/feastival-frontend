@@ -40,7 +40,7 @@ export default function ExploreRoute() {
       <Sidebar handleClick={handleClick} selected={selected} />
       {selected === 'Event' ? (
         <>
-          <Card events={[]} />
+          <Card events={events} />
           <Table />
         </>
       ) : (
