@@ -5,7 +5,7 @@ export default function Artists() {
     {
       name: 'NIKI',
       imageUrl1:
-        'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/wp7368797_fkmyhv.jpg',
+        'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/feastival/wp7368797_fkmyhv.jpg',
     },
     {
       name: 'Tulus',
