@@ -1,3 +1,4 @@
+// pages\explore\index.tsx
 import Artists from '@/components/Explore/Artists';
 import React, { useState } from 'react';
 import Table from '@/components/Explore/Table';

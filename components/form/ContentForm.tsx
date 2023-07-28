@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import axios from 'axios';
+import { API_URL } from '@/lib/api';
+import { setCookie } from 'cookies-next';
+import router from 'next/router';
 
 interface ContentFormProps {
   formData: {
@@ -20,10 +24,40 @@ const ContentForm: React.FC<ContentFormProps> = ({
 }) => {
   const [isRegisterForm, setIsRegisterForm] = useState(true); // Use useState for the form type
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      if (isRegisterForm) {
+        // Handle Register Form
+        await axios.post(`${API_URL}/auth/register`, {
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+        });
+        alert('Registration Successful');
+      } else {
+        // Handle login form
+        const response = await axios.post(`${API_URL}/auth/login`, {
+          email: formData.email || formData.username,
+          password: formData.password,
+        });
+        console.log(response.data.accessToken);
+        // Set the cookie on the server
+        setCookie('token', response.data.accessToken);
+
+        // // Redirect to the home page or do something else
+        // router.push('/');
+        alert('Login Successful');
+      }
+    } catch (error) {
+      alert(error);
+    }
+
     onSubmit();
   };
+
+  console.log(formData);
 
   return (
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
