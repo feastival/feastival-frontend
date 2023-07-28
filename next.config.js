@@ -5,11 +5,11 @@ const nextConfig = {
     domains: [
       'via.placeholder.com',
       'assets.ayobandung.com',
-      'res.cloudinary.com', 
-      'images.unsplash.com', 
-      'cdn.sanity.io'
-    ]
-},
+      'res.cloudinary.com',
+      'images.unsplash.com',
+      'cdn.sanity.io',
+    ],
+  },
 };
 
 module.exports = nextConfig;

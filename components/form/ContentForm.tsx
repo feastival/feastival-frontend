@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
 
 interface ContentFormProps {
   formData: {
@@ -30,21 +30,23 @@ const ContentForm: React.FC<ContentFormProps> = ({
       <h2 className="text-2xl font-bold text-center text-purple-500 font-poppins">
         {isRegisterForm ? 'Register' : 'Login'} to
       </h2>
-      <h1 className="text-center text-[60px] text-white font-bold font-bebasNeue">FEASTIVAL</h1>
+      <h1 className="text-center text-[60px] text-white font-bold font-bebasNeue">
+        FEASTIVAL
+      </h1>
       <div>
         <form onSubmit={handleSubmit}>
-            <label className="flex flex-col mt-2">
-              <input
-                className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
-                type="text"
-                name="username"
-                placeholder="Insert your username"
-                value={formData.username}
-                onChange={onChange}
-                required
-              />
-              <span className="mt-1 ml-2 text-sm text-red-600"></span>
-            </label>
+          <label className="flex flex-col mt-2">
+            <input
+              className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
+              type="text"
+              name="username"
+              placeholder="Insert your username"
+              value={formData.username}
+              onChange={onChange}
+              required
+            />
+            <span className="mt-1 ml-2 text-sm text-red-600"></span>
+          </label>
           {isRegisterForm && (
             // Render email input only for the login form
             <label className="flex flex-col mt-2">
@@ -57,7 +59,9 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 onChange={onChange}
                 required
               />
-              <span className="mt-1 ml-2 text-sm text-red-600">{emailError}</span>
+              <span className="mt-1 ml-2 text-sm text-red-600">
+                {emailError}
+              </span>
             </label>
           )}
           <label className="flex flex-col mt-2">
@@ -82,7 +86,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
         <div className="flex items-center justify-center mt-2 text-center text-white">
           {isRegisterForm ? (
             <>
-              Already have an account?{' '} 
+              Already have an account?{' '}
               <button
                 className="ml-1 text-blue-600 underline"
                 onClick={() => setIsRegisterForm(false)} // Use setIsRegisterForm to toggle to login form
@@ -108,8 +112,3 @@ const ContentForm: React.FC<ContentFormProps> = ({
 };
 
 export default ContentForm;
-
-
-
-
-

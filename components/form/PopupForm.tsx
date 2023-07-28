@@ -10,7 +10,10 @@ const PopupForm: React.FC<PopupFormProps> = ({ onClose, children }) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     };
@@ -23,9 +26,14 @@ const PopupForm: React.FC<PopupFormProps> = ({ onClose, children }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-opacity-50/50">
-      <div ref={popupRef} className="max-w-[600px] min-h-[300px] bg-white rounded-lg flex flex-col items-center justify-center">
-        <button className="absolute text-gray-500 top-4 right-4 hover:text-gray-700" onClick={onClose}>
-        </button>
+      <div
+        ref={popupRef}
+        className="max-w-[600px] min-h-[300px] bg-white rounded-lg flex flex-col items-center justify-center"
+      >
+        <button
+          className="absolute text-gray-500 top-4 right-4 hover:text-gray-700"
+          onClick={onClose}
+        ></button>
         {children}
       </div>
     </div>
@@ -33,8 +41,3 @@ const PopupForm: React.FC<PopupFormProps> = ({ onClose, children }) => {
 };
 
 export default PopupForm;
-
-
-
-
-
