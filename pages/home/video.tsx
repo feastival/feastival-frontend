@@ -4,11 +4,11 @@ export default function VideoSection() {
   return (
     <div className="items-center justify-center w-full h-full p-4 bg-white">
       <div className="w-[542px] flex-col justify-start items-center gap-4 mx-auto">
-        <div className="self-stretch text-center text-black text-[64px] font-normal uppercase font-bebasNeue leading-[64px]">
+        <div className="self-stretch text-center text-black text-[64px] font-normal uppercase font-bebasNeue leading-[64px] mb-10">
           white shoes and the couples company
         </div>
-        <div className="self-stretch text-center text-neutral-500 text-lg font-normal leading-[27px]">
-          White Shoes And Couples Company pada gelaran Sychronize Fest 2018.
+        <div className="self-stretch text-center text-neutral-500 text-lg font-normal leading-[27px] mb-5">
+          White Shoes And The Couples Company pada gelaran Sychronize Fest 2018.
         </div>
       </div>
       <div className="w-[1300px] h-[633px] bg-zinc-300 rounded-xl mx-auto my-4">

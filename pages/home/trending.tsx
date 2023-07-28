@@ -18,7 +18,7 @@ export default function Trending() {
               Coldplay Music of The Spheres World Tour 2023
             </div>
             <div className="w-[528.09px] h-[157px] flex-col justify-start items-start gap-6 inline-flex">
-              <div className="self-stretch text-zinc-500 text-lg font-normal leading-[27px]">
+              <div className="self-stretch text-white text-lg font-normal leading-[27px]">
                 Coldplay have announced their hugely-anticipated return to Asia
                 and Australia with a special run of stadium shows in November
                 2023, as part of their record-breaking Music Of The Spheres
