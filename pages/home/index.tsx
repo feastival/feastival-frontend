@@ -40,7 +40,6 @@ export default function Home() {
           src="https://res.cloudinary.com/djudfrj8s/image/upload/v1690507784/867104_resize_2_eszosn.png"
           width={693}
           height={533}
-          objectFit="contain"
         />
         <div className="w-[651px] h-[84px] left-[96px] top-[505px] absolute">
           <div className="w-[651px] h-[84px] left-0 top-0 absolute bg-white rounded-[20px] shadow border border-black" />
