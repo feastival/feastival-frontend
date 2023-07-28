@@ -28,17 +28,28 @@ const ContentForm: React.FC<ContentFormProps> = ({
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, {
-        email: formData.email || formData.username,
-        password: formData.password,
-      });
-      console.log(response.data.accessToken);
-      // Set the cookie on the server
-      setCookie('token', response.data.accessToken);
+      if (isRegisterForm) {
+        // Handle Register Form
+        await axios.post(`${API_URL}/auth/register`, {
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+        });
+        alert('Registration Successful');
+      } else {
+        // Handle login form
+        const response = await axios.post(`${API_URL}/auth/login`, {
+          email: formData.email || formData.username,
+          password: formData.password,
+        });
+        console.log(response.data.accessToken);
+        // Set the cookie on the server
+        setCookie('token', response.data.accessToken);
 
-      // // Redirect to the home page
-      // router.push('/');
-      alert('Login Successful');
+        // // Redirect to the home page or do something else
+        // router.push('/');
+        alert('Login Successful');
+      }
     } catch (error) {
       alert(error);
     }
