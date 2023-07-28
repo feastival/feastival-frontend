@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
+import { API_URL } from '@/lib/api';
+import { setCookie } from 'cookies-next';
+import router from 'next/router';
 
 interface ContentFormProps {
   formData: {
@@ -20,31 +24,52 @@ const ContentForm: React.FC<ContentFormProps> = ({
 }) => {
   const [isRegisterForm, setIsRegisterForm] = useState(true); // Use useState for the form type
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        email: formData.email || formData.username,
+        password: formData.password,
+      });
+      console.log(response.data.accessToken);
+      // Set the cookie on the server
+      setCookie('token', response.data.accessToken);
+
+      // // Redirect to the home page
+      // router.push('/');
+      alert('Login Successful');
+    } catch (error) {
+      alert(error);
+    }
+
     onSubmit();
   };
+
+  console.log(formData);
 
   return (
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
       <h2 className="text-2xl font-bold text-center text-purple-500 font-poppins">
         {isRegisterForm ? 'Register' : 'Login'} to
       </h2>
-      <h1 className="text-center text-[60px] text-white font-bold font-bebasNeue">FEASTIVAL</h1>
+      <h1 className="text-center text-[60px] text-white font-bold font-bebasNeue">
+        FEASTIVAL
+      </h1>
       <div>
         <form onSubmit={handleSubmit}>
-            <label className="flex flex-col mt-2">
-              <input
-                className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
-                type="text"
-                name="username"
-                placeholder="Insert your username"
-                value={formData.username}
-                onChange={onChange}
-                required
-              />
-              <span className="mt-1 ml-2 text-sm text-red-600"></span>
-            </label>
+          <label className="flex flex-col mt-2">
+            <input
+              className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
+              type="text"
+              name="username"
+              placeholder="Insert your username"
+              value={formData.username}
+              onChange={onChange}
+              required
+            />
+            <span className="mt-1 ml-2 text-sm text-red-600"></span>
+          </label>
           {isRegisterForm && (
             // Render email input only for the login form
             <label className="flex flex-col mt-2">
@@ -57,7 +82,9 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 onChange={onChange}
                 required
               />
-              <span className="mt-1 ml-2 text-sm text-red-600">{emailError}</span>
+              <span className="mt-1 ml-2 text-sm text-red-600">
+                {emailError}
+              </span>
             </label>
           )}
           <label className="flex flex-col mt-2">
@@ -82,7 +109,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
         <div className="flex items-center justify-center mt-2 text-center text-white">
           {isRegisterForm ? (
             <>
-              Already have an account?{' '} 
+              Already have an account?{' '}
               <button
                 className="ml-1 text-blue-600 underline"
                 onClick={() => setIsRegisterForm(false)} // Use setIsRegisterForm to toggle to login form
@@ -108,8 +135,3 @@ const ContentForm: React.FC<ContentFormProps> = ({
 };
 
 export default ContentForm;
-
-
-
-
-
