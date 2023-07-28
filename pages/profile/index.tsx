@@ -1,12 +1,23 @@
-import MyProfile from '@/components/Explore/MyProfile';
-import Sidebar from '@/components/Explore/Sidebar';
+import Artists from '@/components/Explore/Artists';
 import React from 'react';
 
-export default function ProfileRoute() {
+import Table from '@/components/Explore/Table';
+import Head from 'next/head';
+import Sidebar from '@/components/Explore/Sidebar';
+import Card from '@/components/Card';
+
+export default function ExploreRoute() {
   return (
     <div className="mt-32">
-      <Sidebar />
-      <MyProfile />
+      <Head>
+        <title>Explore</title>
+      </Head>
+      <h2 className="font-bold text-center text-xl">My Upcoming Event</h2>
+      <Card />
+      <h2 className="font-bold text-center text-xl">
+        My Recent Attended Event
+      </h2>
+      <Card />
     </div>
   );
 }

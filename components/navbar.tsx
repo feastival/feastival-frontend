@@ -239,6 +239,14 @@ export default function Navbar() {
                 About
               </Link>
             </li>
+            <li>
+              <Link
+                href="/profile"
+                className="block px-4 py-2 text-white rounded md:hover:bg-transparent hover:bg-purple-500 hover:text-purple-500 font-poppins"
+              >
+                Profile
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -7,7 +7,7 @@ export default function Sidebar() {
         <div className="w-14 lg:w-52">
           <div className="p-2">
             <h2 className="text-lg  text-center hover:border-r-4 hover:border-[#9747FF] cursor-pointer">
-              Explore
+              Event
             </h2>
           </div>
         </div>
@@ -16,7 +16,7 @@ export default function Sidebar() {
         <div className="w-14 lg:w-52 ">
           <div className="p-2">
             <h2 className="lg:text-lg text-center hover:border-r-4 hover:border-[#9747FF] cursor-pointer lg:hover:border-r-4 lg:hover:border-[#9747FF]">
-              My Profile
+              Artist
             </h2>
           </div>
         </div>
