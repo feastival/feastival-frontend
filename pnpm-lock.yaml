@@ -4682,7 +4682,6 @@ packages:
     engines: { node: '>= 0.6' }
     dev: true
 
-
   /cookie@0.5.0:
     resolution:
       {

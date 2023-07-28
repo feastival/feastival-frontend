@@ -1,6 +1,6 @@
+// pages\explore\index.tsx
 import Artists from '@/components/Explore/Artists';
 import React, { useEffect, useState } from 'react';
-
 import Table from '@/components/Explore/Table';
 import Head from 'next/head';
 import Sidebar from '@/components/Explore/Sidebar';
@@ -11,7 +11,7 @@ import { Event } from '@/lib/eventsInterface';
 
 export default function ExploreRoute() {
   const [events, setEvents] = useState<Event[]>([]);
-
+  const [selected, setSelected] = useState('Event');
   const fetchEvents = async () => {
     try {
       const response = await axios.get(`${API_URL}/events`);
@@ -28,14 +28,25 @@ export default function ExploreRoute() {
   useEffect(() => {
     fetchEvents();
   }, []);
+
+  const handleClick = (selection: string) => {
+    setSelected(selection);
+  };
+
   return (
     <div className="mt-32">
       <Head>
         <title>Explore</title>
       </Head>
-      <Sidebar />
-      <Card events={events} />
-      <Table />
+      <Sidebar handleClick={handleClick} />
+      {selected === 'Event' ? (
+        <>
+          <Card events={[]} />
+          <Table />
+        </>
+      ) : (
+        <Artists />
+      )}
     </div>
   );
 }
