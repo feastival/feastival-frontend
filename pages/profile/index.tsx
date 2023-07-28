@@ -13,11 +13,11 @@ export default function ExploreRoute() {
         <title>Explore</title>
       </Head>
       <h2 className="font-bold text-center text-xl">My Upcoming Event</h2>
-      <Card />
+      <Card events={[]} />
       <h2 className="font-bold text-center text-xl">
         My Recent Attended Event
       </h2>
-      <Card />
+      <Card events={[]} />
     </div>
   );
 }
