@@ -14,7 +14,6 @@ export default function ExploreRoute() {
       </Head>
       <Sidebar />
       <Card />
-      <Artists />
       <Table />
     </div>
   );
