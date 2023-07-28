@@ -1,4 +1,3 @@
-// pages\explore\index.tsx
 import Artists from '@/components/Explore/Artists';
 import React, { useEffect, useState } from 'react';
 import Table from '@/components/Explore/Table';
@@ -38,7 +37,7 @@ export default function ExploreRoute() {
       <Head>
         <title>Explore</title>
       </Head>
-      <Sidebar handleClick={handleClick} />
+      <Sidebar handleClick={handleClick} selected={selected} />
       {selected === 'Event' ? (
         <>
           <Card events={[]} />

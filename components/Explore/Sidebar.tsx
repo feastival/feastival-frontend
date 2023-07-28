@@ -1,18 +1,20 @@
-// components\Explore\Sidebar.tsx
 import React from 'react';
 
 interface SidebarProps {
   handleClick: (selection: string) => void;
+  selected: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ handleClick }) => {
+const Sidebar: React.FC<SidebarProps> = ({ handleClick, selected }) => {
   return (
     <div>
       <div className="relative">
         <div className="w-14 lg:w-52">
           <div className="p-2">
             <h2
-              className="text-lg  text-center hover:border-r-4 hover:border-[#9747FF] cursor-pointer"
+              className={`text-lg  text-center cursor-pointer hover:border-r-4 hover:border-[#9747FF] ${
+                selected === 'Event' ? 'font-bold' : ''
+              }`}
               onClick={() => handleClick('Event')}
             >
               Event
@@ -24,7 +26,9 @@ const Sidebar: React.FC<SidebarProps> = ({ handleClick }) => {
         <div className="w-14 lg:w-52 ">
           <div className="p-2">
             <h2
-              className="lg:text-lg text-center hover:border-r-4 hover:border-[#9747FF] cursor-pointer lg:hover:border-r-4 lg:hover:border-[#9747FF]"
+              className={`lg:text-lg text-center cursor-pointer hover:border-r-4 hover:border-[#9747FF] ${
+                selected === 'Artist' ? 'font-bold' : ''
+              }`}
               onClick={() => handleClick('Artist')}
             >
               Artist
