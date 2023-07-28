@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com', 'images.unsplash.com', 'cdn.sanity.io'],
+    domains: [
+      'via.placeholder.com',
+      'assets.ayobandung.com',
+      'res.cloudinary.com',
+      'images.unsplash.com',
+      'cdn.sanity.io',
+    ],
   },
 };
 

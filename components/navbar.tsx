@@ -2,15 +2,82 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import PopupForm from './form/PopupForm';
+import ContentForm from './form/ContentForm';
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    username: '',
+  });
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const validateEmail = (email: string) => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      setEmailError('Invalid email format');
+      return false;
+    } else {
+      setEmailError('');
+      return true;
+    }
+  };
+
+  const handleFormSubmit = async () => {
+    const isValidEmail = validateEmail(formData.email);
+
+    if (
+      formData.email.trim() === '' ||
+      formData.username.trim() === '' ||
+      formData.password.trim() === ''
+    ) {
+      setEmailError('All fields are required');
+      return closePopup;
+    }
+    if (!isValidEmail) {
+      return;
+    }
+    try {
+      localStorage.setItem('formData', JSON.stringify(formData));
+      setFormData({
+        email: '',
+        username: '',
+        password: '',
+      });
+      closePopup();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-[#070707] border-gray-200 z-50">
+    <div className="fixed top-0 w-full bg-[#070707] border-gray-200 z-50">
       <div className="bg-[#070707] flex flex-wrap items-center justify-between max-w-screen-xl md:w-[1440px] h-[100px] p-4 mx-auto">
         <h1 className="self-center h-8 mr-3 font-normal leading-normal text-white uppercase whitespace-nowrap md:text-3xl text-md font-bebasNeue">
           FEASTIVAL
@@ -68,6 +135,7 @@ export default function Navbar() {
             <span className="sr-only">Open main menu</span>
           </button>
           <Button
+            onClick={openPopup}
             variant="outline"
             className="bg-purple-500 xl:ml-4 rounded-xl hover:bg-purple-900 xl:w-[199px] w-[50px] xl:h-[50px] h-[30px]"
           >
@@ -92,6 +160,18 @@ export default function Navbar() {
               </div>
             </div>
           </Button>
+          {isPopupOpen && (
+            <PopupForm onClose={closePopup}>
+              <ContentForm
+                formData={formData}
+                onChange={handleInputChange}
+                onSubmit={() => {
+                  handleFormSubmit(), closePopup;
+                }}
+                emailError={emailError}
+              />
+            </PopupForm>
+          )}
         </div>
         <div
           className={`md:flex md:w-auto md:order-1 ${
@@ -143,7 +223,6 @@ export default function Navbar() {
                 Explore
               </Link>
             </li>
-
             <li>
               <Link
                 href="/community"
@@ -163,6 +242,6 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
-    </nav>
+    </div>
   );
 }
