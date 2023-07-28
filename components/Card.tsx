@@ -1,33 +1,18 @@
-import { API_URL } from '@/lib/api';
 import { Event } from '@/lib/eventsInterface';
-import axios from 'axios';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
-export default function Card() {
-  const [events, setEvents] = useState<Event[]>([]);
+interface CardProps {
+  events: Event[]; // Updated to accept the events prop
+}
+
+export default function Card({ events }: CardProps) {
   const dateOptions = {
     hour12: false,
     day: '2-digit' as const,
     month: 'long' as const,
     year: 'numeric' as const,
   };
-  const fetchEvents = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/events`);
-      setEvents(response.data);
-    } catch (error) {
-      alert(error);
-    }
-  };
 
-  for (const index in events) {
-    events[index].startedAt = new Date(events[index].startedAt);
-  }
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
   // const events = [
   //   {
   //     name: 'Chvrches',
@@ -63,7 +48,10 @@ export default function Card() {
             <div className="w-64 m-3 overflow-hidden bg-white rounded group-hover:opacity-75 h-96">
               <div className="relative h-3/4">
                 <Image
-                  src="https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg"
+                  src={
+                    event.imageUrl ||
+                    'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg'
+                  }
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover opacity-100"
                   width={2850}
