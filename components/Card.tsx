@@ -20,33 +20,6 @@ export default function Card({
     year: 'numeric' as const,
   };
 
-  // const events = [
-  //   {
-  //     name: 'Chvrches',
-  //     date: '13 Agustus 2023',
-  //     venue: 'Sentul Convention Center',
-  //     location: 'Bogor',
-  //     imageUrl1:
-  //       'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
-  //   },
-  //   {
-  //     name: 'Chvrches',
-  //     date: '13 Agustus 2023',
-  //     venue: 'Sentul ',
-  //     location: 'Bogor',
-  //     imageUrl1:
-  //       'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
-  //   },
-  //   {
-  //     name: 'Chvrches',
-  //     date: '13 Agustus 2023',
-  //     venue: 'Sentul Convention Center',
-  //     location: 'bogor',
-  //     imageUrl1:
-  //       'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
-  //   },
-  // ];
-
   return (
     <>
       <main className="flex flex-wrap items-center justify-center py-6">
@@ -67,22 +40,14 @@ export default function Card({
                   />
                 </div>
 
-                <div className="flex justify-between mt-4">
-                  <div>
-                    <h3 className="overflow-hidden text-lg font-bold text-black font-bebasNeue overflow-ellipsis">
-                      {event.name}
-                    </h3>
-                    <p className="mt-1 overflow-hidden text-sm text-gray-500 overflow-ellipsis">
+                <div className="mt-4">
+                  <h3 className="overflow-hidden text-lg font-bold text-black font-bebasNeue overflow-ellipsis text">
+                    {event.name}
+                  </h3>
+                  <div className="flex justify-between mt-1 overflow-hidden text-sm text-gray-500 overflow-ellipsis">
+                    <p>{event.location}</p>
+                    <p>
                       {event.startedAt.toLocaleString('id-ID', dateOptions)}
-                    </p>
-                  </div>
-
-                  <div className="text-right">
-                    <h3 className="overflow-hidden text-lg font-bold text-black font-bebasNeue overflow-ellipsis">
-                      {event.location}
-                    </h3>
-                    <p className="mt-1 overflow-hidden text-sm text-gray-500 overflow-ellipsis">
-                      {event.venue}
                     </p>
                   </div>
                 </div>
