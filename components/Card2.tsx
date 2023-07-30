@@ -98,7 +98,13 @@ const EventCard: React.FC = () => (
             style={{ backgroundImage: `url(${event.LineupImg})` }}
           >
             <div className="flex justify-end">
-              {/* You need to add an SVG here */}
+              <svg
+                className="h-5 w-5 text-white fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12.76 3.76a6 6 0 0 1 8.48 8.48l-8.53 8.54a1 1 0 0 1-1.42 0l-8.53-8.54a6 6 0 0 1 8.48-8.48l.76.75.76-.75zm7.07 7.07a4 4 0 1 0-5.66-5.66l-1.46 1.47a1 1 0 0 1-1.42 0L9.83 5.17a4 4 0 1 0-5.66 5.66L12 18.66l7.83-7.83z"></path>
+              </svg>
             </div>
           </div>
           <div className="p-4 py-5 overflow-y-auto">
@@ -125,27 +131,28 @@ const EventCard: React.FC = () => (
               </svg>
               <p className="pl-2 text-sm whitespace-nowrap">{event.date}</p>
             </div>
-            <div className=''>
-            <div className="flex-1 inline-flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                className="feather feather-map-pin"
-              >
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <p className=" text-sm pl-2 whitespace-nowrap">{event.location}</p>
+            <div className="">
+              <div className="flex-1 inline-flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="feather feather-map-pin"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <p className=" text-sm pl-2 whitespace-nowrap">
+                  {event.location}
+                </p>
+              </div>
             </div>
-            </div>
-    
           </div>
 
           <div className="px-4 pt-3 pb-4 border-t border-gray-200 bg-gray-100">
