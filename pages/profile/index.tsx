@@ -6,10 +6,14 @@ import { Event } from '@/lib/eventsInterface';
 import axios from 'axios';
 import { API_URL } from '@/lib/api';
 import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 export default function ExploreRoute() {
   const [events, setEvents] = useState<any>([]);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const token = getCookie('token');
+  const router = useRouter();
 
   const fetchEvents = async () => {
     try {
@@ -18,7 +22,8 @@ export default function ExploreRoute() {
       });
       setEvents(response.data.events);
     } catch (error) {
-      alert(error);
+      alert('Please register or login first.');
+      router.push('/');
     }
   };
 
@@ -31,15 +36,18 @@ export default function ExploreRoute() {
   }
 
   const handleDeleteEvent = async (eventId: string) => {
+    setSubmitLoading(true);
     try {
       // Make the API call to delete the event
       await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      setSubmitLoading(false);
       alert(`Successfully deleted!!`);
       fetchEvents();
     } catch (error) {
       alert(error);
+      setSubmitLoading(false);
     }
   };
 
@@ -58,6 +66,7 @@ export default function ExploreRoute() {
         events={events}
         isProfilePage={true}
         handleDeleteEvent={handleDeleteEvent}
+        submitLoading={submitLoading}
       />
       <h2 className="font-bold text-center text-xl">
         My Recent Attended Event
