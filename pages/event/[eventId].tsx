@@ -6,11 +6,13 @@ import axios from 'axios';
 import { Event } from '@/lib/eventsInterface';
 import { API_URL } from '@/lib/api';
 import { getCookie } from 'cookies-next';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 export default function ArtistRouteById() {
   const router = useRouter();
   const { eventId } = router.query;
   const [event, setEvent] = useState<any>([]);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [artists, setArtists] = useState<any>([]);
   const token = getCookie('token');
   const dateOptionsHour = {
@@ -40,6 +42,7 @@ export default function ArtistRouteById() {
   const formattedTime = new Date(event.startedAt);
 
   const handleSaveEvent = async (id: string | string[] | undefined) => {
+    setSubmitLoading(true);
     try {
       await axios.post(
         `${API_URL}/user/me/track-event`,
@@ -48,10 +51,13 @@ export default function ArtistRouteById() {
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
-
+      setSubmitLoading(false);
       alert('Save Event Success!!!');
+      router.push('/profile');
     } catch (error) {
-      alert('Error saving event data');
+      alert('Please register or login first.');
+      setSubmitLoading(false);
+      router.push('/');
     }
   };
 
@@ -90,7 +96,10 @@ export default function ArtistRouteById() {
                 </h1>
               </div>
               <img
-                src="https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg"
+                src={
+                  event.imageUrl ||
+                  'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg'
+                }
                 className="object-cover w-[1000px] rounded-2xl shadow-sm shadow-slate-500 lg:rounded mx-auto"
               />
             </div>
@@ -105,7 +114,11 @@ export default function ArtistRouteById() {
                 className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-6 mt-4 rounded-xl"
               >
                 <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
-                  Remind This Event
+                  {submitLoading ? (
+                    <ScaleLoader color="#d3dddb" height={4} width={4} />
+                  ) : (
+                    <span className="drop-shadow-lg">Remind This Event</span>
+                  )}
                 </div>
               </Button>
             </div>

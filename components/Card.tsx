@@ -1,10 +1,12 @@
 import { Event } from '@/lib/eventsInterface';
 import Image from 'next/image';
 import Link from 'next/link';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 interface CardProps {
   events: Event[]; // Updated to accept the events prop
   isProfilePage?: boolean; // New prop to indicate if user is on the profile page
+  submitLoading?: boolean;
   handleDeleteEvent?: (eventId: string) => void;
 }
 
@@ -12,6 +14,7 @@ export default function Card({
   events,
   isProfilePage,
   handleDeleteEvent,
+  submitLoading,
 }: CardProps) {
   const dateOptions = {
     hour12: false,
@@ -55,12 +58,12 @@ export default function Card({
             <Link href={`/event/${event.id}`} passHref className="block group">
               <div className="w-64 m-3 overflow-hidden bg-white rounded group-hover:opacity-75 h-96">
                 <div className="relative h-3/4">
-                  <Image
+                  <img
                     src={
                       event.imageUrl ||
                       'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg'
                     }
-                    alt=""
+                    alt="artist/event"
                     className="absolute inset-0 object-cover w-full h-full opacity-100"
                     width={2850}
                     height={1603}
@@ -93,7 +96,11 @@ export default function Card({
                 onClick={() => handleDeleteEvent(event.id)}
                 className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded"
               >
-                Delete
+                {submitLoading ? (
+                  <ScaleLoader color="#d3dddb" height={4} width={4} />
+                ) : (
+                  <span className="drop-shadow-lg">Delete</span>
+                )}
               </button>
             )}
           </div>
