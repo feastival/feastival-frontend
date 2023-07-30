@@ -49,7 +49,7 @@ const events: Event[] = [
       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
   },
   {
-    Lineup: 'Niki, Vierratale, Sheila On 7, Rich Brian',
+    Lineup: 'Niki, Vierratale, Sheila On 7 Sheila On 7 Sheila On 7, Rich Brian',
     LineupImg:
       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/feastival/wp7368797_fkmyhv.jpg',
     event: 'We The Fest 2024',
@@ -61,7 +61,7 @@ const events: Event[] = [
       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
   },
   {
-    Lineup: 'Chvrches',
+    Lineup: 'Chvrches Chvrches Chvrches Chvrches',
     LineupImg:
       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690506223/feastival/867104_xnbla7.jpg',
     event: 'ONE OK ROCK Luxury Disease Asia Tour 2023',
@@ -108,7 +108,7 @@ const EventCard: React.FC = () => (
             </div>
           </div>
           <div className="p-4 py-5 overflow-y-auto">
-            <p className="uppercase tracking-wide text-sm font-semibold text-gray-700">
+            <p className="uppercase tracking-wide text-sm font-semibold text-gray-700 overflow-hidden overflow-ellipsis whitespace-nowrap">
               {event.Lineup.split(', ').slice(0, 3).join(' • ')}
             </p>
             <p className="text-lg font-bold text-black-900 mt-1.5 mb-1.5 overflow-hidden overflow-ellipsis whitespace-nowrap">
