@@ -1,10 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
-import { Event } from '@/lib/eventsInterface';
-import { API_URL } from '@/lib/api';
 
 export default function ArtistRoute() {
   const router = useRouter();
