@@ -4,6 +4,7 @@ import Table from '@/components/Explore/Table';
 import Head from 'next/head';
 import Sidebar from '@/components/Explore/Sidebar';
 import Card from '@/components/Card';
+import Card2 from '@/components/Card2';
 import { API_URL } from '@/lib/api';
 import axios from 'axios';
 import { Event } from '@/lib/eventsInterface';
@@ -41,7 +42,7 @@ export default function ExploreRoute() {
       {selected === 'Event' ? (
         <>
           <Card events={events} />
-          <Table />
+          <Card2 />
         </>
       ) : (
         <Artists />
