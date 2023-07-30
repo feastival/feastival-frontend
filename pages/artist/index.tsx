@@ -36,22 +36,22 @@ export default function ArtistRoute() {
             Nicole Zefanya (born 24 January 1999), known professionally as NIKI,
             is an Indonesian singer, songwriter, and record producer. She is
             currently based in the United States and signed with the record
-            label 88rising. At 15, she was the opening act for Taylor Swift's
+            label 88rising. At 15, she was the opening act for Taylor Swift`s
             The Red Tour in Jakarta after winning a competition arranged by
-            Swift and the ice cream brand Wall's, called Ride to Fame. Zefanya
+            Swift and the ice cream brand Wall`s, called Ride to Fame. Zefanya
             maintained a YouTube channel throughout her teenage years, on which
             she uploaded original songs and covers, which were eventually
             released on Spotify under the name Nicole Zefanya. In 2017, Zefanya
             moved to Nashville, Tennessee to study music at Lipscomb University.
-            She released two singles, "See U Never" and "I Like U" under the
+            She released two singles, `See U Never` and `I Like U` under the
             American mass media company 88rising as an artist under their label.
-            She released the song "Vintage" in May 2018 as the first single for
+            She released the song `Vintage` in May 2018 as the first single for
             her debut extended play, Zephyr. On April 24, 2019, Zefanya released
-            a visualizer of her single titled "lowkey" from her album Nicole,
-            which would become one of 88rising's most popular videos uploaded on
+            a visualizer of her single titled `lowkey` from her album Nicole,
+            which would become one of 88rising`s most popular videos uploaded on
             its Youtube channel. In September 2020, Zefanya released her debut
-            album, Moonchild. In December 2020, Zefanya released "Hallway
-            Weather", a holiday single. On 12 August 2022, Zefanya's second
+            album, Moonchild. In December 2020, Zefanya released `Hallway
+            Weather`, a holiday single. On 12 August 2022, Zefanya`s second
             album, Nicole, was released.
           </p>
         </div>
