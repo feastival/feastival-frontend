@@ -7,6 +7,7 @@ import { Event } from '@/lib/eventsInterface';
 import { API_URL } from '@/lib/api';
 import { getCookie } from 'cookies-next';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import Head from 'next/head';
 
 export default function ArtistRouteById() {
   const router = useRouter();
@@ -85,6 +86,16 @@ export default function ArtistRouteById() {
     },
   ];
   return (
+    <>
+    <Head>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  integrity="sha512-..."
+  crossOrigin="anonymous"
+  referrerPolicy="no-referrer"
+/>
+    </Head>
     <div className="pt-32 bg-black">
       <div className="mx-auto">
         <main className="mt-10">
@@ -101,7 +112,7 @@ export default function ArtistRouteById() {
                   'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg'
                 }
                 className="object-cover w-[1000px] rounded-2xl shadow-sm shadow-slate-500 lg:rounded mx-auto"
-              />
+                />
             </div>
           </div>
           <div className="w-full pt-5 bg-white">
@@ -112,13 +123,13 @@ export default function ArtistRouteById() {
               <Button
                 onClick={() => handleSaveEvent(eventId)}
                 className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-6 mt-4 rounded-xl"
-              >
+                >
                 <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
                   {submitLoading ? (
                     <ScaleLoader color="#d3dddb" height={4} width={4} />
-                  ) : (
-                    <span className="drop-shadow-lg">Remind This Event</span>
-                  )}
+                    ) : (
+                      <span className="drop-shadow-lg">Remind This Event</span>
+                      )}
                 </div>
               </Button>
             </div>
@@ -152,18 +163,18 @@ export default function ArtistRouteById() {
                       <td className="px-6 py-2 ">
                         {formattedTime
                           ? formattedTime.toLocaleString(
-                              'id-ID',
-                              dateOptionsDay,
+                            'id-ID',
+                            dateOptionsDay,
                             )
-                          : 'Sedang di update..'}
+                            : 'Sedang di update..'}
                       </td>
                       <td className="px-6 py-2 ">
                         {formattedTime
                           ? formattedTime.toLocaleString(
-                              'id-ID',
-                              dateOptionsHour,
+                            'id-ID',
+                            dateOptionsHour,
                             )
-                          : 'Sedang di update..'}
+                            : 'Sedang di update..'}
                       </td>
                       <td className="px-6 py-2 ">{event.location}</td>
                       <td className="px-6 py-2 ">{event.venue}</td>
@@ -195,7 +206,7 @@ export default function ArtistRouteById() {
                     <img
                       src="https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg"
                       className="object-cover w-12 h-12 mr-2 rounded-full"
-                    />
+                      />
                     <div>
                       <p className="py-1 text-sm font-semibold text-gray-700">
                         {''}
@@ -214,5 +225,6 @@ export default function ArtistRouteById() {
         </main>
       </div>
     </div>
+                      </>
   );
 }

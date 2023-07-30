@@ -36,6 +36,13 @@ export default function ExploreRoute() {
   return (
     <div className="mt-32">
       <Head>
+      <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  integrity="sha512-..."
+  crossOrigin="anonymous"
+  referrerPolicy="no-referrer"
+/>
         <title>Explore</title>
       </Head>
       <Sidebar handleClick={handleClick} selected={selected} />
