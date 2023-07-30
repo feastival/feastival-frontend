@@ -28,10 +28,10 @@ export default function Upcoming() {
 
   return (
     <div className="flex items-center justify-between w-full h-full p-4 mx-auto bg-white">
-      <div className="w-[1440px] relative mx-auto">
-        <div className="w-[606.02px] text-black text-[64px] font-normal uppercase leading-[64px] font-bebasNeue">
+      <div className="relative mx-auto">
+        <h2 className="text-5xl font-normal text-black uppercase font-bebasNeue">
           UPCOMING EVENT in 2023
-        </div>
+        </h2>
         <Card events={events} />
       </div>
     </div>
