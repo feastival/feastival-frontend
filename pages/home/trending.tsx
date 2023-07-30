@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 export default function Trending() {
   return (
-    <div className="bg-[#070707] flex items-center justify-between w-full h-full p-4 mx-auto">
-      <div className="w-[1440px] h-full relative mx-auto">
-        <div className="w-[1440px] px-[69.95px] pb-[107px] shadow flex-col justify-start items-start gap-[55.19px] inline-flex">
+    <div className="bg-[#070707] items-center justify-center w-full md:w-xl h-full p-4 mx-auto">
+      <div className="relative w-full h-full mx-auto md:w-xl">
+        <div className="flex flex-col items-center justify-center gap-3 pb-10 shadow">
           <Image
             className="mx-auto rounded-xl bg-zinc-300"
             width={1450}
@@ -13,12 +13,12 @@ export default function Trending() {
             src="https://res.cloudinary.com/djudfrj8s/image/upload/v1690508758/coldplay-a-sky-full-of-stars-rh2pn7xytifyaa7m_qxdeso.jpg"
             alt={''}
           />
-          <div className="self-stretch justify-start items-start gap-[92px] inline-flex">
-            <div className="w-[679.88px] text-white text-[60px] font-normal font-bebasNeue uppercase leading-[88px]">
+          <div className="container grid items-center grid-cols-1 px-4 py-4 mx-auto md:grid-cols-2">
+            <h2 className="text-5xl font-normal text-white uppercase text-10xl font-bebasNeue md:text-6xl">
               Coldplay Music of The Spheres World Tour 2023
-            </div>
-            <div className="w-[528.09px] h-[157px] flex-col justify-start items-start gap-6 inline-flex">
-              <div className="self-stretch text-white text-lg font-normal leading-[27px]">
+            </h2>
+            <div className="inline-flex flex-col gap-6 md:items-start md:justify-start">
+              <div className="text-lg font-normal text-white">
                 Coldplay have announced their hugely-anticipated return to Asia
                 and Australia with a special run of stadium shows in November
                 2023, as part of their record-breaking Music Of The Spheres

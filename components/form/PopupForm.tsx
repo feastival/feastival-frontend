@@ -25,7 +25,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onClose, children }) => {
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50/50">
+    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-lg">
       <div
         ref={popupRef}
         className="max-w-[600px] min-h-[300px] bg-white rounded-lg flex flex-col items-center justify-center"
