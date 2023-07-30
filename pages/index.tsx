@@ -26,6 +26,7 @@ NEAR YOU"
       </Head>
       <Home />
       <Trending />
+      <Upcoming />
       <VideoSection />
     </>
   );

@@ -32,7 +32,7 @@ export default function Upcoming() {
         <h2 className="text-5xl font-normal text-black uppercase font-bebasNeue">
           UPCOMING EVENT in 2023
         </h2>
-        <Card events={events} />
+        <Card events={[]} />
       </div>
     </div>
   );
