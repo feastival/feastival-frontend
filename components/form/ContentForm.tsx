@@ -42,7 +42,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
           email: formData.email || formData.username,
           password: formData.password,
         });
- 
+
         // Set the cookie on the server
         setCookie('token', response.data.accessToken);
 
@@ -56,7 +56,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
 
     onSubmit();
   };
-
 
   return (
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">

@@ -70,7 +70,6 @@ export default function ExploreRoute() {
     fetchEventById();
   }, []);
 
-
   return (
     <div className="mt-32">
       {/* <Head>

@@ -19,7 +19,9 @@ export default function Home() {
             NEAR YOU
           </h1>
           <p className="text-xl font-normal text-left text-white font-poppins md:w-2/3">
-            {"Dive into Feastival, your ultimate event guide. From concerts to sports events, we bring the world's happenings to your fingertips. Start exploring, start celebrating!"}
+            {
+              "Dive into Feastival, your ultimate event guide. From concerts to sports events, we bring the world's happenings to your fingertips. Start exploring, start celebrating!"
+            }
           </p>
           <SearchBarHome />
         </div>
