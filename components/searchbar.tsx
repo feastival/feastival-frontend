@@ -89,11 +89,11 @@ const SearchBar = () => {
     return (
       <div
       ref={searchContainerRef}
-        className="relative w-92"
+        className="relative"
       >  <Input
       type="text"
       id="search-navbar-mobile"
-      className="block w-full font-poppins z-40 py-4 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      className="block md:w-full font-poppins z-40 py-6 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       placeholder="Search here..."
       value={query}
       onClick={toggleSearchBar}
