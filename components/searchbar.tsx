@@ -135,7 +135,7 @@ const SearchBar = () => {
                 <h3>Artists:</h3>
                 <ul>
                   {artistsData.map((artist) => (
-                    <li className="border-b-2 border-purple-500 hover:text-purple-500" key={artist.id}><Link href="/artist/${artist.id}">{artist.name} </Link></li>
+                    <li className="border-b-2 border-purple-500 hover:text-purple-500" key={artist.id}><Link href={`/event/${artist.id}`}>{artist.name} </Link></li>
                   ))}
                 </ul>
               </div>
@@ -146,7 +146,7 @@ const SearchBar = () => {
                 <ul>
                   {eventsData.map((event) => (
                     <li className="border-b-2 border-purple-500 hover:text-purple-500" key={event.id}>
-                      <Link href="/event/${event.id}">{event.name}</Link>
+                      <Link href={`/event/${event.id}`}>{event.name}</Link>
                     </li>
                   ))}
                 </ul>
