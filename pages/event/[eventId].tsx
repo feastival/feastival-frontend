@@ -105,7 +105,6 @@ export default function ArtistRouteById() {
         setGenre(response.data.genre);
         setOrganizer(response.data.organizer);
 
-     
         const MapboxGL = require('mapbox-gl');
         MapboxGL.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -136,7 +135,7 @@ export default function ArtistRouteById() {
 
       const MapboxDirections = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
 
-     
+      //  dapetin lokasi user
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           const userLocation: [number, number] = [
@@ -145,7 +144,6 @@ export default function ArtistRouteById() {
           ];
           setUserLocation(userLocation);
 
-     
           const mapContainer = document.getElementById('map');
           if (mapContainer && !mapContainer.childNodes.length) {
             const map = new MapboxGL.Map({
@@ -189,7 +187,6 @@ export default function ArtistRouteById() {
           const response = await axios.get(url);
           const data = response.data;
 
-     
           const distanceInKilometers = data.routes[0].distance / 1000;
 
           setDistance(distanceInKilometers);
