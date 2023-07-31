@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API_URL } from '@/lib/api';
 import { getCookie } from 'cookies-next';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import Head from 'next/head';
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import HeroEvent from '@/components/Event/HeroEvent';
@@ -166,6 +167,16 @@ export default function ArtistRouteById() {
   ];
   return (
     <>
+      {/* NEW */}
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-..."
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </Head>
       <div className="pt-32 bg-black">
         <div className="mx-auto">
           <main className="mt-10">
@@ -206,6 +217,7 @@ export default function ArtistRouteById() {
               </div>
 
               {/* NANTI DI CUT SAMPAI SINI */}
+
               <div className="flex justify-center mt-10 font-poppins">
                 <div className="relative overflow-x-auto sm:rounded-lg font-poppins">
                   <table className="w-full text-sm text-left dark:text-gray-400">
@@ -231,7 +243,6 @@ export default function ArtistRouteById() {
                         </th>
                       </tr>
                     </thead>
-
                     <tbody>
                       <tr
                         key={event.id}
@@ -311,9 +322,11 @@ export default function ArtistRouteById() {
               </div>
 
               {/* NANTI DI CUT SAMPAI SINI */}
+
               <div className="md:w-[1000px] pb-10 md:pb-20 mt-12 w-full flex items-center justify-center mx-auto">
                 <div className="items-start text-lg leading-relaxed text-gray-700 md:mx-auto justisfy-center">
                   <p className="mx-auto leading-[32px] pr-0 md:pr-20">
+                    {' '}
                     {event.description}
                   </p>
                 </div>
@@ -331,10 +344,10 @@ export default function ArtistRouteById() {
                         <p className="py-1 text-sm font-semibold text-gray-700">
                           {artists}
                         </p>
-                        {/* <p className="text-xs font-semibold text-gray-600">
-                          {' '}
-                          Band{' '}
-                        </p> */}
+                        <p className="text-xs font-semibold text-gray-600">
+                          {/* {' '}
+                          Band{' '} */}
+                        </p>
                         <p className="py-1 text-sm font-semibold text-gray-700"></p>
                       </div>
                     </div>

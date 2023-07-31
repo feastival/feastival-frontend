@@ -8,7 +8,7 @@ import { API_URL } from '@/lib/api';
 import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import ScaleLoader from 'react-spinners/ScaleLoader';
-import Card2 from '@/components/Card';
+import Card from '@/components/Card';
 
 export default function ExploreRoute() {
   const [events, setEvents] = useState<any>([]);
@@ -75,19 +75,25 @@ export default function ExploreRoute() {
   return (
     <div className="mt-32">
       {/* <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-..."
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
         <title>Explore</title>
       </Head>
-      <h2 className="font-bold text-center text-xl">My Upcoming Event</h2>
-      <Card2
+      <h2 className="text-xl font-bold text-center">My Upcoming Event</h2>
+      <Card
         events={events}
         isProfilePage={true}
         handleDeleteEvent={handleDeleteEvent}
         submitLoading={submitLoading}
       />
-      <h2 className="font-bold text-center text-xl">
+      <h2 className="text-xl font-bold text-center">
         My Recent Attended Event
-      </h2>
-      <Card2 events={[]} /> */}
+      </h2> */}
     </div>
   );
 }
