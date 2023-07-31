@@ -214,7 +214,7 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                     <p className="text-sm pl-2 whitespace-nowrap">
-                      {event.location.venue}
+                      {event.location.city.toUpperCase()}
                     </p>
                   </div>
                 </div>
