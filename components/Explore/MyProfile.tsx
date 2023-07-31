@@ -56,7 +56,7 @@ export default function MyProfile() {
     <>
       <main className="py-6 flex items-center justify-center flex-wrap">
         <div className="flex flex-col w-full">
-          <h2 className="font-bold text-3xl mb-3">My Upcoming Event</h2>
+          <h2 className="font-bold text-3xl mb-3">My Upcoming Events</h2>
           {/* Additional content for the ARTISTS card can be added here */}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

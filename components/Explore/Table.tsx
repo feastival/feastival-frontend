@@ -28,7 +28,7 @@ export default function Table() {
       <div className="flex mt-10 justify-center">
         <div className="flex flex-col">
           <div className="flex justify-between">
-            <h2 className="font-bold text-3xl mb-3">UPCOMING EVENT</h2>
+            <h2 className="font-bold text-3xl mb-3">UPCOMING EVENTS</h2>
 
             <h2 className="font-bold mt-4">Category</h2>
           </div>
