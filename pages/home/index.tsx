@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <div className="bg-black">
-      <div className="container grid items-center grid-cols-1 gap-4 px-4 mx-auto pt-36 xl:py-0 md:grid-cols-2">
+      <div className="container grid items-center grid-cols-1 gap-5 px-4 mx-auto pt-36 xl:py-0 md:grid-cols-2">
         {/* Column 1: Text Content and Search Bar */}
         <div className="md:text-left">
           <h1

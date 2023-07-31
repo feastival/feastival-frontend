@@ -88,12 +88,12 @@ const SearchBar = () => {
   
     return (
       <div
-        ref={searchContainerRef}
-        className="relative w-92"
-      >  <input
+      ref={searchContainerRef}
+        className="relative"
+      >  <Input
       type="text"
       id="search-navbar-mobile"
-      className="block w-full font-poppins z-40 py-4 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      className="block md:w-full font-poppins z-40 py-6 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       placeholder="Search here..."
       value={query}
       onClick={toggleSearchBar}
@@ -104,18 +104,19 @@ const SearchBar = () => {
         ></i>
         {/* Popup */}
         {isOpen && (
-          <div className="fixed inset-0 z-50 backdrop-blur-md"></div>
+          <div className="fixed inset-0 backdrop-blur-md" onMouseDown={toggleSearchBar}></div>
+          
         )}
         {isOpen && (
           <div className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                <div
-        ref={searchContainerRef}
+       
         className="relative w-92"
       >
               <i
           className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer left-3 top-1/2 fas fa-search"
         ></i>
-              <input
+              <Input
                 type="text"
                 id="search-navbar-mobile"
                 className="block font-poppins w-full py-4 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -128,14 +129,14 @@ const SearchBar = () => {
               {/* Search input */}
   
       </div>
-          <div className="p-4 text-white bg-black shadow-lg opacity-80 font-poppins rounded-xl w-80">
+          <div className="z-50 p-4 text-white bg-black shadow-lg opacity-80 font-poppins rounded-xl w-80">
             {/* Render artistsData and eventsData here in a table format */}
             {artistsData && (
               <div>
                 <h3>Artists:</h3>
                 <ul>
                   {artistsData.map((artist) => (
-                    <li className="border-b-2 border-purple-500 hover:text-purple-500" key={artist.id}><Link href="/artist/${artist.id}">{artist.name} </Link></li>
+                    <li className="border-b-2 border-purple-500 hover:text-purple-500" key={artist.id}><Link onClick={toggleSearchBar} href={`/artist/${artist.id}`}>{artist.name}</Link></li>
                   ))}
                 </ul>
               </div>
@@ -146,7 +147,7 @@ const SearchBar = () => {
                 <ul>
                   {eventsData.map((event) => (
                     <li className="border-b-2 border-purple-500 hover:text-purple-500" key={event.id}>
-                      <Link href="/event/${event.id}">{event.name}</Link>
+                      <Link  onClick={toggleSearchBar} href={`/event/${event.id}`}>{event.name}</Link>
                     </li>
                   ))}
                 </ul>
