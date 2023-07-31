@@ -71,7 +71,7 @@ export default function SearchBarHome() {
       <div className="relative w-full md:w-1/2 lg:w-1/3"> {/* Add relative class for positioning the navigation icon */}
         <i className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2 fas fa-map-marker-alt"></i>
         <Input
-          className="font-thin text-center border-0 shadow  xl:text-base lg:font-normal hover:border-collapse placeholder:text-slate-500 bg-stone-50 font-poppins rounded-xl" 
+          className="font-thin text-center border-0 shadow xl:text-base lg:font-normal hover:border-collapse placeholder:text-slate-500 bg-stone-50 font-poppins rounded-xl" 
           placeholder="Select a city"
           value={selectedCity || ""}
           onChange={handleCityInputChange}
