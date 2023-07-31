@@ -46,7 +46,7 @@ const Countdown: React.FC<CountdownProps> = ({ date }) => {
 
   return (
     <div className="flex font-poppins">
-      <div className="flex gap-3 sm:gap-1   flex-row bg-black h-36 rounded-lg overflow-hidden pt-5 pr-3 sm:pt-0 sm:pr-0">
+      <div className="flex gap-3 sm:gap-1 flex-row bg-black h-36 rounded-2xl overflow-hidden pt-5 pr-3 sm:pt-0 sm:pr-0">
         {Object.keys(timeLeft).map((key) => (
           <div key={key} className="flex flex-col bg-black p-8 sm:w-32 w-16">
             <div className="h-16 sm:h-20 bg-[#2A303C]">

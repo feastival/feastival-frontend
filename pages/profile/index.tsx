@@ -1,17 +1,19 @@
 import Artists from '@/components/Explore/Artists';
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Card from '@/components/Card';
+
 import { Event } from '@/lib/eventsInterface';
 import axios from 'axios';
 import { API_URL } from '@/lib/api';
 import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import Card2 from '@/components/Card';
 
 export default function ExploreRoute() {
   const [events, setEvents] = useState<any>([]);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [eventRelation, setEventRelation] = useState<any>();
   const token = getCookie('token');
   const router = useRouter();
 
@@ -20,10 +22,22 @@ export default function ExploreRoute() {
       const response = await axios.get(`${API_URL}/user/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setEvents(response.data.events);
+      setEvents(response.data.trackedEvents);
     } catch (error) {
       alert('Please register or login first.');
       router.push('/');
+    }
+  };
+
+  const fetchEventById = async () => {
+    if (events) {
+      try {
+        // Fetch event data by its ID from the API using Axios
+        const response = await axios.get(`${API_URL}/events/${events.id}`);
+        setEventRelation(response);
+      } catch (error) {
+        console.error('Error fetching event data:', error);
+      }
     }
   };
 
@@ -53,16 +67,18 @@ export default function ExploreRoute() {
 
   useEffect(() => {
     fetchEvents();
+    fetchEventById();
   }, []);
 
   console.log(events);
+  console.log(eventRelation);
   return (
     <div className="mt-32">
-      <Head>
+      {/* <Head>
         <title>Explore</title>
       </Head>
       <h2 className="font-bold text-center text-xl">My Upcoming Event</h2>
-      <Card
+      <Card2
         events={events}
         isProfilePage={true}
         handleDeleteEvent={handleDeleteEvent}
@@ -71,7 +87,7 @@ export default function ExploreRoute() {
       <h2 className="font-bold text-center text-xl">
         My Recent Attended Event
       </h2>
-      <Card events={[]} />
+      <Card2 events={[]} /> */}
     </div>
   );
 }
