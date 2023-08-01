@@ -12,15 +12,15 @@ export default function VideoSection() {
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto my-4 bg-zinc-300 rounded-xl">
-  <div className="relative w-full" style={{ paddingBottom: '50%' }}>
-    <iframe
-      className="absolute top-0 left-0 w-full h-full"
-      src="https://www.youtube.com/embed/cej8-8z2b6M"
-      title="YouTube video player"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowFullScreen
-    ></iframe>
-  </div>
+        <div className="relative w-full" style={{ paddingBottom: '50%' }}>
+          <iframe
+            className="absolute top-0 left-0 w-full h-full"
+            src="https://www.youtube.com/embed/cej8-8z2b6M"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
     </div>
   );

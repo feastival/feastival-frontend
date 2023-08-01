@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <div className="bg-black">
-      <div className="container grid items-center grid-cols-1 gap-4 px-4 mx-auto pt-36 xl:py-0 md:grid-cols-2">
+      <div className="container grid items-center grid-cols-1 gap-5 px-4 mx-auto pt-36 xl:py-0 md:grid-cols-2">
         {/* Column 1: Text Content and Search Bar */}
         <div className="md:text-left">
           <h1
@@ -19,7 +19,9 @@ export default function Home() {
             NEAR YOU
           </h1>
           <p className="text-xl font-normal text-left text-white font-poppins md:w-2/3">
-            {"Dive into Feastival, your ultimate event guide. From concerts to sports events, we bring the world's happenings to your fingertips. Start exploring, start celebrating!"}
+            {
+              "Dive into Feastival, your ultimate event guide. From concerts to sports events, we bring the world's happenings to your fingertips. Start exploring, start celebrating!"
+            }
           </p>
           <SearchBarHome />
         </div>

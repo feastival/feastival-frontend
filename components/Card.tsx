@@ -167,9 +167,40 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
               <div
                 className="bg-cover bg-center h-48 p-4"
                 style={{ backgroundImage: `url(${event.imageUrl})` }}
-              ></div>
+              >
+                <div className="flex justify-end text-white group">
+                  <svg
+                    className="w-6 h-6 ml-2 place-items-end group-hover:animate-ping absolute "
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                  <svg
+                    className="w-6 h-6 ml-2 place-items-end relative"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
               <div className="p-4 py-5 overflow-y-auto">
-                <p className="uppercase tracking-wide text-sm font-semibold text-gray-700 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                <p className=" tracking-wide text-sm font-regular text-gray-700 overflow-hidden overflow-ellipsis whitespace-nowrap">
                   {event.artists.slice(0, 3).join(' • ')}
                 </p>
                 <p className="text-lg font-bold text-black-900 mt-1.5 mb-1.5 overflow-hidden overflow-ellipsis whitespace-nowrap">
@@ -205,23 +236,23 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="feather feather-map-pin"
                     >
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
-                    <p className="text-sm pl-2 whitespace-nowrap">
-                      {event.location.city.toUpperCase()}
+                    <p className="text-sm pl-1 whitespace-nowrap">
+                      {event.location.city}
                     </p>
                   </div>
                 </div>
               </div>
 
               <div className="px-4 pt-3 pb-4 border-t border-gray-200 bg-gray-100">
-                <div className="text-xs uppercase font-bold text-gray-600 tracking-wide ">
+                <div className="text-xs font-semibold text-gray-600 tracking-wide ">
                   Organizer
                 </div>
                 <div className="flex items-center pt-2">

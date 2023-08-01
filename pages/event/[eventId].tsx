@@ -11,6 +11,7 @@ import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import HeroEvent from '@/components/Event/HeroEvent';
 import Countdown from '@/components/EventById/Countdown';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface Location {
   id: string;
@@ -53,7 +54,7 @@ interface EventId {
   createdAt: string;
   updatedAt: string;
   status: string;
-  artists: any[]; // Update the type of 'artists' array according to its structure if available
+  artists: any[];
   genre: string[];
   location: Location;
   organizer: Organizer;
@@ -68,6 +69,12 @@ export default function ArtistRouteById() {
   const [location, setLocation] = useState<Location>();
   const [genre, setGenre] = useState<string[]>([]);
   const [organizer, setOrganizer] = useState<Organizer>();
+  const [destination, setDestination] = useState<[number, number] | null>(null);
+  const [distance, setDistance] = useState<number | null>(null);
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(
+    null,
+  );
+
   const token = getCookie('token');
   const dateOptionsHour = {
     hour: '2-digit' as const,
@@ -91,18 +98,106 @@ export default function ArtistRouteById() {
   const fetchEvent = async () => {
     if (eventId) {
       try {
-        // Fetch event data by its ID from the API using Axios
         const response = await axios.get(`${API_URL}/events/${eventId}`);
         setEvent(response.data);
         setArtists(response.data.artists);
         setLocation(response.data.location);
         setGenre(response.data.genre);
         setOrganizer(response.data.organizer);
+
+        const MapboxGL = require('mapbox-gl');
+        MapboxGL.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+
+        const address = `${response.data.location.venue}, ${response.data.location.address}, ${response.data.location.city}`;
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          address,
+        )}.json?access_token=${MapboxGL.accessToken}`;
+
+        const locationResponse = await axios.get(url);
+        const locationData = locationResponse.data;
+
+        if (locationData.features && locationData.features.length > 0) {
+          const coordinates: [number, number] = locationData.features[0].center;
+          setDestination(coordinates);
+        } else {
+          console.error('No coordinates found for this address.');
+        }
       } catch (error) {
         console.error('Error fetching event data:', error);
       }
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && destination) {
+      const MapboxGL = require('mapbox-gl');
+      MapboxGL.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+
+      const MapboxDirections = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
+
+      //  dapetin lokasi user
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const userLocation: [number, number] = [
+            position.coords.longitude,
+            position.coords.latitude,
+          ];
+          setUserLocation(userLocation);
+
+          const mapContainer = document.getElementById('map');
+          if (mapContainer && !mapContainer.childNodes.length) {
+            const map = new MapboxGL.Map({
+              container: 'map',
+              style: 'mapbox://styles/mapbox/streets-v11',
+              center: userLocation,
+              zoom: 12,
+            });
+
+            const directions = new MapboxDirections({
+              accessToken: MapboxGL.accessToken,
+              controls: {
+                inputs: false,
+                instructions: false,
+                profileSwitcher: false,
+              },
+              profile: 'mapbox/driving',
+            });
+
+            map.addControl(directions, 'top-left');
+
+            map.on('load', () => {
+              directions.setOrigin(userLocation);
+              directions.setDestination(destination);
+            });
+          }
+        });
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    }
+  }, [destination]);
+
+  useEffect(() => {
+    if (userLocation && destination) {
+      const calculateDistance = async () => {
+        const MapboxGL = require('mapbox-gl');
+        const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLocation[0]},${userLocation[1]};${destination[0]},${destination[1]}?access_token=${MapboxGL.accessToken}`;
+
+        try {
+          const response = await axios.get(url);
+          const data = response.data;
+
+          const distanceInKilometers = data.routes[0].distance / 1000;
+
+          setDistance(distanceInKilometers);
+        } catch (error) {
+          console.error(`Error: ${error}`);
+        }
+      };
+
+      calculateDistance();
+    }
+  }, [userLocation, destination]);
 
   const handleSaveEvent = async (id: string | string[] | undefined) => {
     setSubmitLoading(true);
@@ -129,18 +224,12 @@ export default function ArtistRouteById() {
   }, [eventId]);
 
   if (!event) {
-    // If the event is not found or the data is still loading, you can handle the case accordingly (e.g., show a loading state or an error message).
     return <div>Loading...</div>;
   }
 
   const formattedTime = new Date(event.startedAt);
   const timer = String(event.startedAt);
   const formattedTimeFinished = new Date(event.finishedAt);
-
-  // const formattedDate = (date: any) => {
-  //   if (!date) return 'Sedang di update..';
-  //   return format(date, 'dd MMMM yyyy, HH:mm');
-  // };
 
   const formatToIDR = (data: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -150,21 +239,6 @@ export default function ArtistRouteById() {
     }).format(data);
   };
 
-  console.log(event);
-  console.log(artists);
-  console.log(location);
-  const events = [
-    {
-      date: '13 Agustus 2023',
-      time: '07.00',
-      event: 'Young, Live, and Free',
-      artist: 'Chvrches',
-      venue: 'Sentul Convention Center',
-      location: 'Jakarta',
-      category: 'Concert',
-      organizer: 'Ismaya Live',
-    },
-  ];
   return (
     <>
       {/* NEW */}
@@ -281,12 +355,6 @@ export default function ArtistRouteById() {
                         <th scope="col" className="px-6 py-3">
                           Status
                         </th>
-                        {/* <th scope="col" className="px-6 py-3">
-                          Started At
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Finished At
-                        </th> */}
                       </tr>
                     </thead>
                     <tbody>
@@ -298,23 +366,6 @@ export default function ArtistRouteById() {
                           {formatToIDR(event.price)}
                         </td>
                         <td className="px-6 py-2 ">{event.status}</td>
-                        {/* <td className="px-6 py-2 ">
-                          {!formattedTime && formattedTime === null
-                            ? 'sedang update...'
-                            : formattedTime.toLocaleString(
-                                'en-gb',
-                                dateOptions,
-                              )}
-                        </td>
-                        <td className="px-6 py-2 ">
-                          {!formattedTimeFinished &&
-                          formattedTimeFinished === null
-                            ? 'sedang update...'
-                            : formattedTimeFinished.toLocaleString(
-                                'en-gb',
-                                dateOptions,
-                              )}
-                        </td> */}
                       </tr>
                     </tbody>
                   </table>
@@ -344,15 +395,20 @@ export default function ArtistRouteById() {
                         <p className="py-1 text-sm font-semibold text-gray-700">
                           {artists}
                         </p>
-                        <p className="text-xs font-semibold text-gray-600">
-                          {/* {' '}
-                          Band{' '} */}
-                        </p>
+                        <p className="text-xs font-semibold text-gray-600"></p>
                         <p className="py-1 text-sm font-semibold text-gray-700"></p>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+              {distance && (
+                <p className=" text-center text-lg">
+                  Jarak Anda ke lokasi konser: {distance.toFixed(2)} kilometer
+                </p>
+              )}
+              <div className="flex flex-col items-center h-[50vh] w-full  bg-white">
+                <div id="map" className="w-[500px] h-full my-auto pt-10" />
               </div>
             </div>
           </main>
