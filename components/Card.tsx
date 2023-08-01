@@ -252,7 +252,7 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
               </div>
 
               <div className="px-4 pt-3 pb-4 border-t border-gray-200 bg-gray-100">
-                <div className="text-xs uppercase font-bold text-gray-600 tracking-wide ">
+                <div className="text-xs font-semibold text-gray-600 tracking-wide ">
                   Organizer
                 </div>
                 <div className="flex items-center pt-2">
