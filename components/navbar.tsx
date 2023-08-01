@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button';
 import PopupForm from './form/PopupForm';
 import ContentForm from './form/ContentForm';
 import { Input } from './ui/input';
+import { useRouter } from 'next/router';
 import SearchBar from './searchbar';
 import { classNames } from '../templates/LandingPage/utils/class-names';
 export default function Navbar() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [emailError, setEmailError] = useState('');
@@ -19,10 +21,12 @@ export default function Navbar() {
 
   const openPopup = () => {
     setIsPopupOpen(true);
+    router.push({ query: { form: 'login' } });
   };
 
   const closePopup = () => {
     setIsPopupOpen(false);
+    router.push({ query: {} });
   };
 
   const closeMenu = () => {
@@ -65,7 +69,6 @@ export default function Navbar() {
         username: '',
         password: '',
       });
-      closePopup();
     } catch (error) {
       console.log(error);
     }
