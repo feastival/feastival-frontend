@@ -25,10 +25,10 @@ const ContentForm: React.FC<ContentFormProps> = ({
 }) => {
   const [isRegisterForm, setIsRegisterForm] = useState(false); // Use useState for the form type
   const router = useRouter();
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       if (isRegisterForm) {
         // Handle Register Form
@@ -45,10 +45,10 @@ const ContentForm: React.FC<ContentFormProps> = ({
           email: formData.email || formData.username,
           password: formData.password,
         });
-        
+
         // Set the cookie on the server
         setCookie('token', response.data.accessToken);
-        
+
         // // Redirect to the home page or do something else
         // router.push('/');
         alert('Login Successful');
@@ -57,15 +57,16 @@ const ContentForm: React.FC<ContentFormProps> = ({
     } catch (error) {
       alert(error);
     }
-    
+
     onSubmit();
   };
-  useEffect(() => {{
+  useEffect(() => {
+    {
       const { form } = router.query;
       setIsRegisterForm(form === 'register');
     }
   }, [router.query]);
-  
+
   return (
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
       <h2 className="text-2xl font-bold text-center text-purple-500 font-poppins">
@@ -130,7 +131,8 @@ const ContentForm: React.FC<ContentFormProps> = ({
               Already have an account?{' '}
               <button
                 className="ml-1 text-blue-600 underline"
-                onClick={() => {setIsRegisterForm(false);
+                onClick={() => {
+                  setIsRegisterForm(false);
                   router.push('/?form=login');
                 }}
               >
@@ -140,13 +142,13 @@ const ContentForm: React.FC<ContentFormProps> = ({
           ) : (
             <>
               Don{"'"}t have an account?{' '}
-              
               <button
                 className="ml-1 text-blue-600 underline"
-                onClick={() => {setIsRegisterForm(true);
+                onClick={() => {
+                  setIsRegisterForm(true);
                   router.push('/?form=register');
                 }}
-                 // Use setIsRegisterForm to toggle to register form
+                // Use setIsRegisterForm to toggle to register form
               >
                 Register
               </button>

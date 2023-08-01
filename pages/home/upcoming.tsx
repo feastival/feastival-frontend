@@ -26,13 +26,11 @@ export default function Upcoming() {
     queryFn: fetchEvents,
   });
 
-
   if (events) {
     for (const index in events) {
       events[index].startedAt = new Date(events[index].startedAt);
     }
   }
-
 
   const limitedEvents = events ? events.slice(0, 4) : [];
 

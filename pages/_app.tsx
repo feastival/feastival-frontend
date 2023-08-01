@@ -9,7 +9,6 @@ import PopupForm from '@/components/form/PopupForm';
 import ContentForm from '@/components/form/ContentForm';
 import router from 'next/router';
 
-
 const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = React.useState(() => new QueryClient());
   return (
