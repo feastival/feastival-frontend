@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import PopupForm from './form/PopupForm';
 import ContentForm from './form/ContentForm';
 import { Input } from './ui/input';
 import { useRouter } from 'next/router';
@@ -156,8 +155,7 @@ export default function Navbar() {
             Login / Register
           </button>
           {isPopupOpen && (
-            <PopupForm onClose={closePopup}>
-              <ContentForm
+              <ContentForm 
                 formData={formData}
                 onChange={handleInputChange}
                 onSubmit={() => {
@@ -165,7 +163,6 @@ export default function Navbar() {
                 }}
                 emailError={emailError}
               />
-            </PopupForm>
           )}
           {/* Hamburger Menu */}
           <div

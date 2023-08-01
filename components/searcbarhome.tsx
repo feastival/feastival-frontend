@@ -108,7 +108,6 @@ export default function SearchBarHome() {
                 <thead>
                   <tr>
                     <th className=""></th>
-                    <th className=""></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -120,9 +119,8 @@ export default function SearchBarHome() {
                           href={`/event/${event.id}`}
                         >
                           {event.name}
-                        </Link>
+                        </Link> {event.location.city}
                       </td>
-                      <td className="p-2">{event.location.city}</td>
                     </tr>
                   ))}
                 </tbody>
