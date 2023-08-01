@@ -36,7 +36,7 @@ export default function Upcoming() {
     <div className="flex items-center justify-between w-full h-full p-4 mx-auto bg-white">
       <div className="relative mx-auto">
         <h2 className="text-5xl font-normal text-black uppercase font-bebasNeue">
-          UPCOMING EVENT in 2023
+          UPCOMING EVENTS in 2023
         </h2>
         <Card events={events} isLoading={isLoading} isError={isError} />
       </div>

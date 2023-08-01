@@ -70,8 +70,6 @@ export default function ExploreRoute() {
     fetchEventById();
   }, []);
 
-  console.log(events);
-  console.log(eventRelation);
   return (
     <div className="mt-32">
       {/* <Head>
