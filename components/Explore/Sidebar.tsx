@@ -7,13 +7,15 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ handleClick, selected }) => {
   return (
-    <div>
-      <div className="relative">
-        <div className="w-14 lg:w-52">
+    <>
+      <div className="">
+        <div className="">
           <div className="p-2">
             <h2
               className={`text-lg  text-center cursor-pointer hover:border-r-4 hover:border-[#9747FF] ${
-                selected === 'Event' ? 'font-bold' : ''
+                selected === 'Event'
+                  ? 'font-bold border-r-4 border-[#9747FF] px-2'
+                  : ''
               }`}
               onClick={() => handleClick('Event')}
             >
@@ -22,12 +24,14 @@ const Sidebar: React.FC<SidebarProps> = ({ handleClick, selected }) => {
           </div>
         </div>
       </div>
-      <div className="relative mt-10">
-        <div className="w-14 lg:w-52 ">
+      <div className=" mt-10 ">
+        <div className="">
           <div className="p-2">
             <h2
               className={`lg:text-lg text-center cursor-pointer hover:border-r-4 hover:border-[#9747FF] ${
-                selected === 'Artist' ? 'font-bold' : ''
+                selected === 'Artist'
+                  ? 'font-bold border-r-4 border-[#9747FF] px-2'
+                  : ''
               }`}
               onClick={() => handleClick('Artist')}
             >
@@ -36,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleClick, selected }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
