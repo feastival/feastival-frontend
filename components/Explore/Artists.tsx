@@ -60,7 +60,7 @@ export default function Artists({ artists, isLoading, isError }: ArtistsProps) {
           style={{
             backgroundImage: `url(${
               artist.imageUrl ||
-              'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/feastival/wp7368797_fkmyhv.jpg'
+              'https://www.exscribe.com/wp-content/uploads/2021/08/placeholder-image-person-jpg.jpg'
             })`,
           }}
           passHref
