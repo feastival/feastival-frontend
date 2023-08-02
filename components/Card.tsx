@@ -243,7 +243,7 @@ const EventCard: React.FC<CardProps> = ({
   }
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center mt-5">
+      <div className="flex justify-center items-center mt-10 mb-20">
         <ScaleLoader color="#d3dddb" height={20} width={20} />
       </div>
     );
@@ -254,7 +254,7 @@ const EventCard: React.FC<CardProps> = ({
   }
   if (isLoadingMyEvent) {
     return (
-      <div className="flex justify-center items-center mt-5">
+      <div className="flex justify-center items-center mt-28">
         <ScaleLoader color="#d3dddb" height={20} width={20} />
       </div>
     );
