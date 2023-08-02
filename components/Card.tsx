@@ -223,7 +223,7 @@ const EventCard: React.FC<CardProps> = ({
       // Toggle the love button state
       setLoveButton((prevLoveButton) => !prevLoveButton);
     } catch (error) {
-      alert('Error occurred while processing the LoveClick.');
+      alert('An error occurred, Make sure you have register and login first.');
     } finally {
       // Reset the love processing state after the operation is done
       setLoveProcessing(false);

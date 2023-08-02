@@ -33,7 +33,7 @@ export default function MyEventRoute() {
     userEvents[index].startedAt = new Date(userEvents[index].startedAt);
   }
 
-  if (!token || userEvents.length === 0) {
+  if (!token || !Array.isArray(userEvents) || userEvents.length === 0) {
     return (
       <h2 className="font-bold text-center text-4xl mt-52 mb-56 ">
         You have no tracked event`s
