@@ -8,8 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import Card from '@/components/Card';
 
 export default function Upcoming() {
-  // const [events, setEvents] = useState<any>([]);
-
   const fetchEvents = async () => {
     try {
       const response = await axios.get(`${API_URL}/events`);
@@ -28,9 +26,13 @@ export default function Upcoming() {
     queryFn: fetchEvents,
   });
 
-  for (const index in events) {
-    events[index].startedAt = new Date(events[index].startedAt);
+  if (events) {
+    for (const index in events) {
+      events[index].startedAt = new Date(events[index].startedAt);
+    }
   }
+
+  const limitedEvents = events ? events.slice(0, 4) : [];
 
   return (
     <div className="flex items-center justify-between w-full h-full p-4 mx-auto bg-white">
@@ -38,7 +40,7 @@ export default function Upcoming() {
         <h2 className="text-5xl font-normal text-black uppercase font-bebasNeue">
           UPCOMING EVENTS in 2023
         </h2>
-        <Card events={events} isLoading={isLoading} isError={isError} />
+        <Card events={limitedEvents} isLoading={isLoading} isError={isError} />
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { API_URL } from '@/lib/api';
 import { setCookie } from 'cookies-next';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
+import { redirect } from 'next/navigation';
 
 interface ContentFormProps {
   formData: {
@@ -22,7 +23,8 @@ const ContentForm: React.FC<ContentFormProps> = ({
   onSubmit,
   emailError,
 }) => {
-  const [isRegisterForm, setIsRegisterForm] = useState(true); // Use useState for the form type
+  const [isRegisterForm, setIsRegisterForm] = useState(false); // Use useState for the form type
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
           password: formData.password,
         });
         alert('Registration Successful');
+        router.push('/?form=login');
       } else {
         // Handle login form
         const response = await axios.post(`${API_URL}/auth/login`, {
@@ -49,6 +52,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
         // // Redirect to the home page or do something else
         // router.push('/');
         alert('Login Successful');
+        router.push('/');
       }
     } catch (error) {
       alert(error);
@@ -56,6 +60,12 @@ const ContentForm: React.FC<ContentFormProps> = ({
 
     onSubmit();
   };
+  useEffect(() => {
+    {
+      const { form } = router.query;
+      setIsRegisterForm(form === 'register');
+    }
+  }, [router.query]);
 
   return (
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
@@ -121,7 +131,10 @@ const ContentForm: React.FC<ContentFormProps> = ({
               Already have an account?{' '}
               <button
                 className="ml-1 text-blue-600 underline"
-                onClick={() => setIsRegisterForm(false)} // Use setIsRegisterForm to toggle to login form
+                onClick={() => {
+                  setIsRegisterForm(false);
+                  router.push('/?form=login');
+                }}
               >
                 Login
               </button>
@@ -131,7 +144,11 @@ const ContentForm: React.FC<ContentFormProps> = ({
               Don{"'"}t have an account?{' '}
               <button
                 className="ml-1 text-blue-600 underline"
-                onClick={() => setIsRegisterForm(true)} // Use setIsRegisterForm to toggle to register form
+                onClick={() => {
+                  setIsRegisterForm(true);
+                  router.push('/?form=register');
+                }}
+                // Use setIsRegisterForm to toggle to register form
               >
                 Register
               </button>
