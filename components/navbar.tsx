@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { deleteCookie } from 'cookies-next';
 import { Button } from '@/components/ui/button';
 import PopupForm from './form/PopupForm';
 import ContentForm from './form/ContentForm';
 import { Input } from './ui/input';
 import { useRouter } from 'next/router';
 import SearchBar from './searchbar';
-import { classNames } from '../templates/LandingPage/utils/class-names';
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -20,13 +21,15 @@ export default function Navbar() {
   });
 
   const openPopup = () => {
-    setIsPopupOpen(true);
     router.push({ query: { form: 'login' } });
+    setIsPopupOpen(true);
+
   };
 
   const closePopup = () => {
     setIsPopupOpen(false);
-    router.push({ query: {} });
+    router.push({ query: {  } });
+    localStorage.setItem('isPopupOpen', 'false');
   };
 
   const closeMenu = () => {
@@ -35,6 +38,7 @@ export default function Navbar() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    
   };
 
   const validateEmail = (email: string) => {
@@ -69,11 +73,18 @@ export default function Navbar() {
         username: '',
         password: '',
       });
+      setIsLoggedIn(true);
+      closePopup();
+    localStorage.removeItem('isPopupOpen');
     } catch (error) {
       console.log(error);
     }
   };
-
+  const handleLogout = () => {
+    deleteCookie('token');
+    setIsLoggedIn(false);
+    router.push('/login'); // Replace '/login' with the actual login page URL
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -85,7 +96,13 @@ export default function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
-
+  useEffect(() => {
+    const storedIsPopupOpen = localStorage.getItem('isPopupOpen');
+    if (storedIsPopupOpen === 'true') {
+      setIsPopupOpen(true);
+    }
+  }, []);
+  
   return (
     <div className="fixed top-0 w-full bg-[#070707] border-gray-200 z-30">
       <div className="bg-[#070707] flex flex-wrap items-center justify-between max-w-screen-xl xl:w-[1440px] xl:h-[100px] p-4 mx-auto">
@@ -136,6 +153,15 @@ export default function Navbar() {
           <div className="block px-4">
             <SearchBar />
           </div>
+           {/* Render Logout button if isLoggedIn is true, otherwise render Login / Register button */}
+           {isLoggedIn ? (
+            <button
+              onClick={handleLogout} // Add the logout function here (implement handleLogout)
+              className="ml-4 gap-2 items-center justify-center mx-auto lg:flex bg-red-500 text-white font-poppins rounded-xl hover:bg-red-900 w-[199px] h-[50px] hidden"
+            >
+              Logout
+            </button>
+          ) : (
           <button
             onClick={openPopup}
             className="ml-4 gap-2 items-center justify-center mx-auto lg:flex bg-purple-500 text-white font-poppins rounded-xl hover:bg-purple-900 w-[199px] h-[50px] hidden"
@@ -155,6 +181,7 @@ export default function Navbar() {
             </svg>
             Login / Register
           </button>
+                    )}
           {isPopupOpen && (
             <PopupForm onClose={closePopup}>
               <ContentForm
