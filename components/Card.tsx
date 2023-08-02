@@ -1,11 +1,12 @@
 import { API_URL } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import { getCookie } from 'cookies-next';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { toast } from './ui/use-toast';
 
 // type Event = {
 //   Lineup: string;
@@ -151,8 +152,12 @@ const EventCard: React.FC<CardProps> = ({
 }) => {
   const [loveButton, setLoveButton] = useState(false);
   const [isLoveProcessing, setLoveProcessing] = useState(false);
-  // const [currentUserEvent, setCurrentUserEvent] = useState<string[]>([]);
-  const currentUserEvent: any = [];
+  const [currentUserEvent, setCurrentUserEvent] = useState<string[]>([]);
+  // Get QueryClient from the context
+  const queryClient = useQueryClient();
+
+  // const currentUserEvent: any = [];
+  const router = useRouter();
 
   const token = getCookie('token');
 
@@ -187,12 +192,21 @@ const EventCard: React.FC<CardProps> = ({
 
   const handleLoveClick = async (eventId: string, event: React.MouseEvent) => {
     event.preventDefault();
-    if (isLoveProcessing) {
-      // If the previous click is still being processed, return early to avoid overlapping clicks
-      return;
-    }
 
-    setLoveProcessing(true);
+    // Optimistic update: Toggle the love button state immediately
+    // setLoveButton((prevLoveButton) => !prevLoveButton);
+
+    // // Add or remove the event from the currentUserEvent state immediately
+    // if (currentUserEvent.includes(eventId)) {
+    //   // Remove the event from currentUserEvent
+    //   setCurrentUserEvent((prevEvents) =>
+    //     prevEvents.filter((id) => id !== eventId),
+    //   );
+    // } else {
+    //   // Add the event to currentUserEvent
+    //   setCurrentUserEvent((prevEvents) => [...prevEvents, eventId]);
+    // }
+
     try {
       // Check if the event is already loved by the user
       const isLoved = currentUserEvent.includes(eventId);
@@ -201,34 +215,50 @@ const EventCard: React.FC<CardProps> = ({
         await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        alert('Untrack Event Success');
+        queryClient.invalidateQueries();
+        toast({
+          className: 'bg-black text-white rounded-xl',
+          description: 'Untrack Event Successfully 📝',
+        });
       } else {
         // Track the event
         await axios.post(
           `${API_URL}/user/me/track-event`,
-          { eventId }, // Replace this with the correct property name for your API
+          { eventId },
           { headers: { Authorization: `Bearer ${token}` } },
         );
-        alert('Track Event Success');
-      }
-      // Fetch the updated user tracked events after the API call
-      const updatedUserTrackedEvents = await fetchCurrentUser();
-
-      // Update the currentUserEvent state with the updated user tracked events
-      for (const index in updatedUserTrackedEvents) {
-        const event = updatedUserTrackedEvents[index];
-        currentUserEvent.push(event.id);
+        queryClient.invalidateQueries();
+        toast({
+          className: 'bg-black text-white rounded-xl',
+          title: 'Ta-daa!!',
+          description: 'Congratulations! Event Successfully Tracked! 😎',
+        });
       }
 
-      // Toggle the love button state
       setLoveButton((prevLoveButton) => !prevLoveButton);
+
+      // If the API call is successful, you don't need to do anything as the local state has already been updated optimistically.
     } catch (error) {
-      alert('An error occurred, Make sure you have register and login first.');
-    } finally {
-      // Reset the love processing state after the operation is done
-      setLoveProcessing(false);
+      // // If the API call fails, revert the local state to the previous state to keep it in sync with the backend.
+      // if (currentUserEvent.includes(eventId)) {
+      //   setCurrentUserEvent((prevEvents) =>
+      //     prevEvents.filter((id) => id !== eventId),
+      //   );
+      // } else {
+      //   setCurrentUserEvent((prevEvents) => [...prevEvents, eventId]);
+      // }
+      alert(
+        'An error occurred, Make sure you have registered and logged in first.',
+      );
     }
   };
+
+  useEffect(() => {
+    if (userTrackedEvents) {
+      const trackedEventIds = userTrackedEvents.map((event: any) => event.id);
+      setCurrentUserEvent(trackedEventIds);
+    }
+  }, [userTrackedEvents]);
 
   const formatToIDR = (data: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -260,12 +290,13 @@ const EventCard: React.FC<CardProps> = ({
     );
   }
   // Extracting the array of event IDs from current logged in user to compare with even.id from props
-  if (userTrackedEvents) {
-    for (const index in userTrackedEvents) {
-      const event = userTrackedEvents[index];
-      currentUserEvent.push(event.id);
-    }
-  }
+  // if (userTrackedEvents) {
+  //   for (const index in userTrackedEvents) {
+  //     const event = userTrackedEvents[index];
+  //     currentUserEvent.push(event.id);
+  //   }
+  // }
+
   console.log(currentUserEvent);
   return (
     <section className="container mx-auto p-5 antialiased grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
@@ -288,11 +319,6 @@ const EventCard: React.FC<CardProps> = ({
                       : 'text-white'
                   }  group`}
                 >
-                  {/* {isLoveProcessing ? (
-                    <ScaleLoader color="#d3dddb" height={16} width={2} />
-                  ) : (
-                    <>
-                      {' '} */}
                   <svg
                     className="w-6 h-6 ml-2 place-items-end group-hover:animate-ping absolute "
                     xmlns="http://www.w3.org/2000/svg"

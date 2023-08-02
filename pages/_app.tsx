@@ -8,6 +8,7 @@ import Navbar from '@/components/navbar';
 import PopupForm from '@/components/form/PopupForm';
 import ContentForm from '@/components/form/ContentForm';
 import router from 'next/router';
+import { Toaster } from '@/components/ui/toaster';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = React.useState(() => new QueryClient());
@@ -17,6 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <ReactQueryDevtools />
         <Navbar />
         <Component {...pageProps} />
+        <Toaster />
         <Footer />
       </QueryClientProvider>
     </>
