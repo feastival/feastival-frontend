@@ -6,6 +6,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import Head from 'next/head';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -33,6 +36,7 @@ NEAR YOU"
         <Navbar />
         <Component {...pageProps} />
         <Footer />
+        <ToastContainer />
       </QueryClientProvider>
     </>
   );

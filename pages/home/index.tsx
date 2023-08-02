@@ -14,13 +14,13 @@ export default function Home() {
             className="mb-4 text-5xl font-semibold text-center text-white md:text-left md:text-6xl font-bebasNeue"
             style={{ lineHeight: '1.5' }}
           >
-            FIND AMAZING EVENT
+            DISCOVER AMAZING MUSIC EVENT
             <br />
             NEAR YOU
           </h1>
           <p className="text-xl font-normal text-left text-white font-poppins md:w-2/3">
             {
-              "Dive into Feastival, your ultimate event guide. We bring the world's happenings to your fingertips. Start exploring, start celebrating!"
+              "Dive into Feastival, where music takes center stage. your ultimate music event guide. We bring the world's happenings to your fingertips. Start exploring, start celebrating!"
             }
           </p>
           <SearchBarHome />
