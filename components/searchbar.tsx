@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router'; 
+import { useRouter } from 'next/router';
 import { useState, ChangeEvent, useRef, useEffect } from 'react';
 import useSWR from 'swr';
 import { Input } from './ui/input';
@@ -44,14 +44,18 @@ const SearchBar = () => {
 
   // Fetch artists data
   const { data: artistsData, error: artistsError } = useSWR<any[]>(
-    isOpen && query ? `https://feastival-api.up.railway.app/artists?q=${query}` : null,
-    fetcher
+    isOpen && query
+      ? `https://feastival-api.up.railway.app/artists?q=${query}`
+      : null,
+    fetcher,
   );
 
   // Fetch events data
   const { data: eventsData, error: eventsError } = useSWR<EventData[]>(
-    isOpen && query ? `https://feastival-api.up.railway.app/events?name=${query}` : null,
-    fetcher
+    isOpen && query
+      ? `https://feastival-api.up.railway.app/events?name=${query}`
+      : null,
+    fetcher,
   );
 
   // Function to handle input change
@@ -70,7 +74,6 @@ const SearchBar = () => {
     } else {
       router.push({ pathname: router.pathname, query: {} }); // Hapus query 'search' dari URL saat menutup modal
     }
-
   };
 
   // Function to update modal status in localStorage
@@ -88,9 +91,7 @@ const SearchBar = () => {
   useEffect(() => {
     const modalStatus = getModalStatus();
     setIsOpen(modalStatus);
-  }, 
-
-  []);
+  }, []);
 
   return (
     <div ref={searchContainerRef} className="relative">
@@ -101,75 +102,81 @@ const SearchBar = () => {
         className="block md:w-full font-poppins z-40 py-6 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search here..."
         value={query}
-    onClick={toggleSearchBar}
+        onClick={toggleSearchBar}
       />
       {/* Search icon */}
       <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer left-3 top-1/2 fas fa-search"></i>
       {/* Popup */}
       {isOpen && (
-        <Modal isOpen={isOpen}  onRequestClose={toggleSearchBar} className="fixed inset-0 flex items-center justify-center backdrop-blur-lg">
-        <div  onBlur={toggleSearchBar} className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-md top-1/2 left-1/2" >
-          <div className="relative w-92">
-            <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer bg left-3 top-1/2 fas fa-search"></i>
-            <Input
-              type="text"
-              id="search-navbar-mobile"
-              className="block font-poppins w-full py-4 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search here..."
-              value={query}
-              onChange={handleInputChange}
+        <Modal
+          isOpen={isOpen}
+          onRequestClose={toggleSearchBar}
+          className="fixed inset-0 flex items-center justify-center backdrop-blur-lg"
+        >
+          <div
+            onBlur={toggleSearchBar}
+            className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-md top-1/2 left-1/2"
+          >
+            <div className="relative w-92">
+              <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer bg left-3 top-1/2 fas fa-search"></i>
+              <Input
+                type="text"
+                id="search-navbar-mobile"
+                className="block font-poppins w-full py-4 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search here..."
+                value={query}
+                onChange={handleInputChange}
               />
-          </div>
-          <div className="">{/* Search input */}</div>
-          <div className="z-50 p-4 text-white bg-black shadow-lg opacity-80 font-poppins rounded-xl w-80">
-            {/* Render artistsData and eventsData here in a table format */}
-            {artistsData && (
-              <div>
-                <h3>Artists:</h3>
-                <ul>
-                {artistsData.slice(0, 3).map((artist) => (
-                    <li
-                    className="border-b-2 border-purple-500 hover:text-purple-500"
-                    key={artist.id}
-                    >
-                      <Link
-                        onClick={toggleSearchBar}
-                        href={`/artist/${artist.id}`}
+            </div>
+            <div className="">{/* Search input */}</div>
+            <div className="z-50 p-4 text-white bg-black shadow-lg opacity-80 font-poppins rounded-xl w-80">
+              {/* Render artistsData and eventsData here in a table format */}
+              {artistsData && (
+                <div>
+                  <h3>Artists:</h3>
+                  <ul>
+                    {artistsData.slice(0, 3).map((artist) => (
+                      <li
+                        className="border-b-2 border-purple-500 hover:text-purple-500"
+                        key={artist.id}
+                      >
+                        <Link
+                          onClick={toggleSearchBar}
+                          href={`/artist/${artist.id}`}
                         >
-                        {artist.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {eventsData && (
-              <div>
-                <h3>Events:</h3>
-                <ul>
-                {eventsData.slice(0, 3).map((event) => (
-                    <li
-                    className="border-b-2 border-purple-500 hover:text-purple-500"
-                    key={event.id}
-                    >
-                      <Link
-                        onClick={toggleSearchBar}
-                        href={`/event/${event.id}`}
+                          {artist.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {eventsData && (
+                <div>
+                  <h3>Events:</h3>
+                  <ul>
+                    {eventsData.slice(0, 3).map((event) => (
+                      <li
+                        className="border-b-2 border-purple-500 hover:text-purple-500"
+                        key={event.id}
+                      >
+                        <Link
+                          onClick={toggleSearchBar}
+                          href={`/event/${event.id}`}
                         >
-                        {event.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {artistsError && <div>Error loading artists data.</div>}
-            {eventsError && <div>Error loading events data.</div>}
-          </div>
+                          {event.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {artistsError && <div>Error loading artists data.</div>}
+              {eventsError && <div>Error loading events data.</div>}
+            </div>
           </div>
         </Modal>
       )}
-
     </div>
   );
 };

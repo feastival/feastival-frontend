@@ -38,7 +38,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
           password: formData.password,
         });
         alert('Registration Successful');
-        router.push({ query: { form: 'login' } });;
+        router.push({ query: { form: 'login' } });
       } else {
         // Handle login form
         const response = await axios.post(`${API_URL}/auth/login`, {
@@ -77,39 +77,37 @@ const ContentForm: React.FC<ContentFormProps> = ({
       </h1>
       <div>
         <form onSubmit={handleSubmit}>
-        {isRegisterForm && (
-          <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
-            Username
-            <input
-              className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
-              type="text"
-              name="username"
-              placeholder="Insert your username"
-              value={formData.username}
-              onChange={onChange}
-              required
-            />
-            <span className="mt-1 ml-2 text-sm text-red-600"></span>
-          </label>
-          )}
-             <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
-              Email
+          {isRegisterForm && (
+            <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+              Username
               <input
-                className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl font-poppins"
-                type="email"
-                name="email"
-                placeholder="Insert your email"
-                value={formData.email}
+                className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
+                type="text"
+                name="username"
+                placeholder="Insert your username"
+                value={formData.username}
                 onChange={onChange}
                 required
               />
-              <span className="mt-1 ml-2 text-sm text-red-600">
-                {emailError}
-              </span>
+              <span className="mt-1 ml-2 text-sm text-red-600"></span>
             </label>
-        
-            <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
-              Password
+          )}
+          <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+            Email
+            <input
+              className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl font-poppins"
+              type="email"
+              name="email"
+              placeholder="Insert your email"
+              value={formData.email}
+              onChange={onChange}
+              required
+            />
+            <span className="mt-1 ml-2 text-sm text-red-600">{emailError}</span>
+          </label>
+
+          <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+            Password
             <input
               className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl"
               type="password"

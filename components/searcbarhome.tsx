@@ -57,13 +57,11 @@ export default function SearchBarHome() {
   };
   const handleCityInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const userInput = event.target.value.toLowerCase();
-    const matchingCity = cities.find(city => city.toLowerCase().startsWith(userInput));
+    const matchingCity = cities.find((city) =>
+      city.toLowerCase().startsWith(userInput),
+    );
     setSelectedCity(userInput.length >= 3 ? matchingCity || null : null);
   };
-
-
-
-
 
   return (
     <div className="items-center justify-center w-full p-4 my-3 bg-white lg:w-11/12 max-md:mx-auto md:items-start md:justify-items-start rounded-xl">
@@ -86,7 +84,7 @@ export default function SearchBarHome() {
           <Input
             className="font-thin text-center border-0 shadow xl:text-base lg:font-normal hover:border-collapse placeholder:text-slate-500 bg-stone-50 font-poppins rounded-xl"
             placeholder="Select a city"
-            value={selectedCity || ""}
+            value={selectedCity || ''}
             onChange={handleCityInputChange}
             list="city-suggestions" // Referencing the datalist id
           />

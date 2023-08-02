@@ -23,12 +23,11 @@ export default function Navbar() {
   const openPopup = () => {
     router.push({ query: { form: 'login' } });
     setIsPopupOpen(true);
-
   };
 
   const closePopup = () => {
     setIsPopupOpen(false);
-    router.push({ query: {  } });
+    router.push({ query: {} });
     localStorage.setItem('isPopupOpen', 'false');
   };
 
@@ -38,7 +37,6 @@ export default function Navbar() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-    
   };
 
   const validateEmail = (email: string) => {
@@ -75,7 +73,7 @@ export default function Navbar() {
       });
       setIsLoggedIn(true);
       closePopup();
-    localStorage.removeItem('isPopupOpen');
+      localStorage.removeItem('isPopupOpen');
     } catch (error) {
       console.log(error);
     }
@@ -102,7 +100,7 @@ export default function Navbar() {
       setIsPopupOpen(true);
     }
   }, []);
-  
+
   return (
     <div className="fixed top-0 w-full bg-[#070707] border-gray-200 z-30">
       <div className="bg-[#070707] flex flex-wrap items-center justify-between max-w-screen-xl xl:w-[1440px] xl:h-[100px] p-4 mx-auto">
@@ -153,8 +151,8 @@ export default function Navbar() {
           <div className="block px-4">
             <SearchBar />
           </div>
-           {/* Render Logout button if isLoggedIn is true, otherwise render Login / Register button */}
-           {isLoggedIn ? (
+          {/* Render Logout button if isLoggedIn is true, otherwise render Login / Register button */}
+          {isLoggedIn ? (
             <button
               onClick={handleLogout} // Add the logout function here (implement handleLogout)
               className="ml-4 gap-2 items-center justify-center mx-auto lg:flex bg-red-500 text-white font-poppins rounded-xl hover:bg-red-900 w-[199px] h-[50px] hidden"
@@ -162,26 +160,26 @@ export default function Navbar() {
               Logout
             </button>
           ) : (
-          <button
-            onClick={openPopup}
-            className="ml-4 gap-2 items-center justify-center mx-auto lg:flex bg-purple-500 text-white font-poppins rounded-xl hover:bg-purple-900 w-[199px] h-[50px] hidden"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              className="w-4 h-4 text-white"
+            <button
+              onClick={openPopup}
+              className="ml-4 gap-2 items-center justify-center mx-auto lg:flex bg-purple-500 text-white font-poppins rounded-xl hover:bg-purple-900 w-[199px] h-[50px] hidden"
             >
-              <path
-                fill="white"
-                d="M134 2009c-2.217 0-4.019-1.794-4.019-4s1.802-4 4.019-4 4.019 1.794 4.019 4-1.802 4-4.019 4m3.776.673a5.978 5.978 0 0 0 2.182-5.603c-.397-2.623-2.589-4.722-5.236-5.028-3.652-.423-6.75 2.407-6.75 5.958 0 1.89.88 3.574 2.252 4.673-3.372 1.261-5.834 4.222-6.22 8.218a1.012 1.012 0 0 0 1.004 1.109.99.99 0 0 0 .993-.891c.403-4.463 3.836-7.109 7.999-7.109s7.596 2.646 7.999 7.109a.99.99 0 0 0 .993.891c.596 0 1.06-.518 1.003-1.109-.385-3.996-2.847-6.957-6.22-8.218"
-                transform="translate(-124 -1999)"
-              />
-            </svg>
-            Login / Register
-          </button>
-                    )}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                className="w-4 h-4 text-white"
+              >
+                <path
+                  fill="white"
+                  d="M134 2009c-2.217 0-4.019-1.794-4.019-4s1.802-4 4.019-4 4.019 1.794 4.019 4-1.802 4-4.019 4m3.776.673a5.978 5.978 0 0 0 2.182-5.603c-.397-2.623-2.589-4.722-5.236-5.028-3.652-.423-6.75 2.407-6.75 5.958 0 1.89.88 3.574 2.252 4.673-3.372 1.261-5.834 4.222-6.22 8.218a1.012 1.012 0 0 0 1.004 1.109.99.99 0 0 0 .993-.891c.403-4.463 3.836-7.109 7.999-7.109s7.596 2.646 7.999 7.109a.99.99 0 0 0 .993.891c.596 0 1.06-.518 1.003-1.109-.385-3.996-2.847-6.957-6.22-8.218"
+                  transform="translate(-124 -1999)"
+                />
+              </svg>
+              Login / Register
+            </button>
+          )}
           {isPopupOpen && (
             <PopupForm onClose={closePopup}>
               <ContentForm
