@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import HeroEvent from '@/components/Event/HeroEvent';
 import Countdown from '@/components/EventById/Countdown';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { DiscussionEmbed } from 'disqus-react';
 
 interface Location {
   id: string;
@@ -75,7 +76,7 @@ export default function ArtistRouteById() {
     null,
   );
   const [activeTab1, setActiveTab1] = useState('Event Detail');
-  const [activeTab2, setActiveTab2] = useState('Fan Review');
+  const [activeTab2, setActiveTab2] = useState('Discussion');
 
   const token = getCookie('token');
   const dateOptionsHour = {
@@ -420,6 +421,7 @@ export default function ArtistRouteById() {
                       <ScaleLoader color="#d3dddb" height={4} width={4} />
                     ) : (
                       <span className="drop-shadow-lg">Track This Event</span>
+                      
                     )}
                   </div>
                 </Button>
@@ -430,15 +432,15 @@ export default function ArtistRouteById() {
               <div className="border-b border-gray-300">
                 <nav className="flex gap-4">
                   <button
-                    onClick={() => handleTab2Click('Fan Review')}
+                    onClick={() => handleTab2Click('Discussion')}
                     title=""
                     className={`border-b-2 py-4 text-sm font-medium ${
-                      activeTab2 === 'Fan Review'
+                      activeTab2 === 'Discussion'
                         ? 'border-purple-500 text-purple-500'
                         : 'border-transparent text-gray-600'
                     }`}
                   >
-                    Fan Review
+                    Discussion
                   </button>
 
                   <button
@@ -455,11 +457,22 @@ export default function ArtistRouteById() {
                 </nav>
               </div>
 
-              {activeTab2 === 'Fan Review' && (
+              {activeTab2 === 'Discussion' && (
                 <div className="">
                   <div className="">
                     <div className="flow-root">
-                      <h2>This Fan Review</h2>
+                      <DiscussionEmbed
+                        shortname={
+                          process.env.NEXT_PUBLIC_DISQUS_SHORTNAME || ''
+                        }
+                        config={{
+                          url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/event/${eventId}`,
+                          identifier: Array.isArray(eventId)
+                            ? eventId.join('')
+                            : eventId,
+                          title: event.name,
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -469,9 +482,9 @@ export default function ArtistRouteById() {
                 <div className="">
                   <div className="">
                     <div className="flow-root">
-                      <div>
+                      <div className=" flex-row">
                         {distance && (
-                          <p className=" text-center text-lg">
+                          <p className=" flex text-center text-lg">
                             Jarak Anda ke lokasi konser: {distance.toFixed(2)}{' '}
                             kilometer
                           </p>
