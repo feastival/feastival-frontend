@@ -335,7 +335,7 @@ export default function ArtistRouteById() {
                     </span>
                   </div>
                   <div className="flex border-t border-gray-200 py-2">
-                    <span className="text-gray-500">Price</span>
+                    <span className="text-gray-500">Starting At Price</span>
                     <span className="ml-auto text-gray-900">
                       {formatToIDR(event.price)}
                     </span>
