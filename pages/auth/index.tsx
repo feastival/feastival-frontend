@@ -5,7 +5,6 @@ import { API_URL } from '@/lib/api';
 import { setCookie } from 'cookies-next';
 import router, { useRouter } from 'next/router';
 
-
 interface ContentFormProps {
   formData: {
     email: string;
@@ -17,10 +16,7 @@ interface ContentFormProps {
   emailError: string;
 }
 
-const ContentForm: React.FC<ContentFormProps> = ({
-
-  emailError,
-}) => {
+const ContentForm: React.FC<ContentFormProps> = ({ emailError }) => {
   const [isRegisterForm, setIsRegisterForm] = useState(false); // Use useState for the form type
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -31,7 +27,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-    
   };
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +48,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
         });
 
         // Set the cookie on the server
-   
 
         // // Redirect to the home page or do something else
         // router.push('/');
@@ -67,7 +61,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-    
   };
 
   const validateEmail = (email: string) => {
@@ -107,7 +100,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
     }
   };
 
-
   return (
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
       <h2 className="text-2xl font-bold text-center text-purple-500 font-poppins">
@@ -118,39 +110,37 @@ const ContentForm: React.FC<ContentFormProps> = ({
       </h1>
       <div>
         <form onSubmit={onSubmit}>
-        {isRegisterForm && (
-          <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
-            Username
-            <input
-              className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
-              type="text"
-              name="username"
-              placeholder="Insert your username"
-              value={formData.username}
-              onChange={onChange}
-              required
-            />
-            <span className="mt-1 ml-2 text-sm text-red-600"></span>
-          </label>
-          )}
-             <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
-              Email
+          {isRegisterForm && (
+            <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+              Username
               <input
-                className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl font-poppins"
-                type="email"
-                name="email"
-                placeholder="Insert your email"
-                value={formData.email}
+                className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
+                type="text"
+                name="username"
+                placeholder="Insert your username"
+                value={formData.username}
                 onChange={onChange}
                 required
               />
-              <span className="mt-1 ml-2 text-sm text-red-600">
-                {emailError}
-              </span>
+              <span className="mt-1 ml-2 text-sm text-red-600"></span>
             </label>
-        
-            <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
-              Password
+          )}
+          <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+            Email
+            <input
+              className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl font-poppins"
+              type="email"
+              name="email"
+              placeholder="Insert your email"
+              value={formData.email}
+              onChange={onChange}
+              required
+            />
+            <span className="mt-1 ml-2 text-sm text-red-600">{emailError}</span>
+          </label>
+
+          <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+            Password
             <input
               className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl"
               type="password"
