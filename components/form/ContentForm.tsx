@@ -4,7 +4,7 @@ import axios from 'axios';
 import { API_URL } from '@/lib/api';
 import { setCookie } from 'cookies-next';
 import router, { useRouter } from 'next/router';
-import { redirect } from 'next/navigation';
+import PopupForm from './PopupForm';
 
 interface ContentFormProps {
   formData: {
@@ -38,7 +38,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
           password: formData.password,
         });
         alert('Registration Successful');
-        router.push('/?form=login');
+        router.push({ query: { form: 'login' } });;
       } else {
         // Handle login form
         const response = await axios.post(`${API_URL}/auth/login`, {
@@ -68,6 +68,11 @@ const ContentForm: React.FC<ContentFormProps> = ({
   }, [router.query]);
 
   return (
+    <PopupForm
+    onClose={() => {
+      router.push({ query: {} });
+    }}
+  >
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
       <h2 className="text-2xl font-bold text-center text-purple-500 font-poppins">
         {isRegisterForm ? 'Register' : 'Login'} to
@@ -77,6 +82,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
       </h1>
       <div>
         <form onSubmit={handleSubmit}>
+        {isRegisterForm && (
           <label className="flex flex-col mt-2">
             <input
               className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
@@ -89,8 +95,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
             />
             <span className="mt-1 ml-2 text-sm text-red-600"></span>
           </label>
-          {isRegisterForm && (
-            // Render email input only for the login form
+          )}
             <label className="flex flex-col mt-2">
               <input
                 className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl font-poppins"
@@ -105,7 +110,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 {emailError}
               </span>
             </label>
-          )}
+        
           <label className="flex flex-col mt-2">
             <input
               className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl"
@@ -133,7 +138,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 className="ml-1 text-blue-600 underline"
                 onClick={() => {
                   setIsRegisterForm(false);
-                  router.push('/?form=login');
+                  router.push({ query: { form: 'login' } });
                 }}
               >
                 Login
@@ -146,7 +151,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 className="ml-1 text-blue-600 underline"
                 onClick={() => {
                   setIsRegisterForm(true);
-                  router.push('/?form=register');
+                  router.push({ query: { form: 'register' } });
                 }}
                 // Use setIsRegisterForm to toggle to register form
               >
@@ -157,6 +162,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
         </div>
       </div>
     </div>
+    </PopupForm>
   );
 };
 

@@ -108,21 +108,20 @@ export default function SearchBarHome() {
                 <thead>
                   <tr>
                     <th className=""></th>
-                    <th className=""></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredEvents.map((event: EventData) => (
+                  {filteredEvents.slice(0, 3).map((event: EventData) => (
                     <tr key={event.id} className="text-left font-poppins">
                       <td key={event.id} className="p-2">
                         <Link
                           className="border-b-2 border-purple-500 hover:text-purple-500"
                           href={`/event/${event.id}`}
                         >
-                          {event.name}
+                          {event.name} <br />
                         </Link>
+                        {event.location.city}
                       </td>
-                      <td className="p-2">{event.location.city}</td>
                     </tr>
                   ))}
                 </tbody>

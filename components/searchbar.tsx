@@ -70,6 +70,7 @@ const SearchBar = () => {
     } else {
       router.push({ pathname: router.pathname, query: {} }); // Hapus query 'search' dari URL saat menutup modal
     }
+
   };
 
   // Function to update modal status in localStorage
@@ -100,14 +101,14 @@ const SearchBar = () => {
         className="block md:w-full font-poppins z-40 py-6 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search here..."
         value={query}
-        onClick={toggleSearchBar}
+    onClick={toggleSearchBar}
       />
       {/* Search icon */}
       <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer left-3 top-1/2 fas fa-search"></i>
       {/* Popup */}
       {isOpen && (
-        <Modal isOpen={isOpen} onRequestClose={toggleSearchBar} className="fixed inset-0 flex items-center justify-center backdrop-blur-lg">
-        <div  className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-md top-1/2 left-1/2" onMouseLeave={toggleSearchBar}>
+        <Modal isOpen={isOpen}  onRequestClose={toggleSearchBar} className="fixed inset-0 flex items-center justify-center backdrop-blur-lg">
+        <div  onBlur={toggleSearchBar} className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-md top-1/2 left-1/2" >
           <div className="relative w-92">
             <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer bg left-3 top-1/2 fas fa-search"></i>
             <Input
@@ -126,7 +127,7 @@ const SearchBar = () => {
               <div>
                 <h3>Artists:</h3>
                 <ul>
-                  {artistsData.map((artist) => (
+                {artistsData.slice(0, 3).map((artist) => (
                     <li
                     className="border-b-2 border-purple-500 hover:text-purple-500"
                     key={artist.id}
@@ -146,7 +147,7 @@ const SearchBar = () => {
               <div>
                 <h3>Events:</h3>
                 <ul>
-                  {eventsData.map((event) => (
+                {eventsData.slice(0, 3).map((event) => (
                     <li
                     className="border-b-2 border-purple-500 hover:text-purple-500"
                     key={event.id}
