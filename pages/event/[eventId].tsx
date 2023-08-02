@@ -421,7 +421,6 @@ export default function ArtistRouteById() {
                       <ScaleLoader color="#d3dddb" height={4} width={4} />
                     ) : (
                       <span className="drop-shadow-lg">Track This Event</span>
-                      
                     )}
                   </div>
                 </Button>
