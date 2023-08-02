@@ -43,13 +43,7 @@ export default function AboutRoute() {
               intuitive interface ensures that navigating through the platform
               is a breeze.
             </p>
-            <p className="w-full md:w-[60rem] md:pl-6 p-4 text-justify">
-              No complicated menus or confusing options - just a straightforward
-              and enjoyable experience from start to finish. Whether you`re a
-              tech enthusiast, a foodie, a sports fanatic, an art lover, or
-              anything in between, our platform will be your loyal companion in
-              finding the events that resonate with your passions.
-            </p>
+
             <img
               src="https://wallpaperaccess.com/full/1538619.jpg"
               alt="artist-photo"
