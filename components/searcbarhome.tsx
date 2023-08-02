@@ -55,11 +55,15 @@ export default function SearchBarHome() {
     const query = event.target.value;
     setSearchQuery(query.toLowerCase()); // Convert ke lowercase sebelum menyimpan
   };
-
   const handleCityInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const city = event.target.value;
-    setSelectedCity(city.toLowerCase()); // Convert ke lowercase sebelum menyimpan
+    const userInput = event.target.value.toLowerCase();
+    const matchingCity = cities.find(city => city.toLowerCase().startsWith(userInput));
+    setSelectedCity(userInput.length >= 3 ? matchingCity || null : null);
   };
+
+
+
+
 
   return (
     <div className="items-center justify-center w-full p-4 my-3 bg-white lg:w-11/12 max-md:mx-auto md:items-start md:justify-items-start rounded-xl">
@@ -67,7 +71,7 @@ export default function SearchBarHome() {
         <div className="relative w-full mb-5 md:w-1/2 lg:w-2/3 md:mb-0 md:flex-1">
           <i className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2 fas fa-search"></i>
           <Input
-            className="w-full pl-10 font-thin text-center border-0 shadow lg:font-normal xl:text-base hover:border-collapse placeholder:text-slate-500 bg-stone-50 rounded-xl font-poppins"
+            className="w-full font-thin text-center border-0 shadow lg:font-normal xl:text-base hover:border-collapse placeholder:text-slate-500 bg-stone-50 rounded-xl font-poppins"
             placeholder="Search event"
             value={searchQuery}
             onChange={handleSearchInputChange}
@@ -82,7 +86,7 @@ export default function SearchBarHome() {
           <Input
             className="font-thin text-center border-0 shadow xl:text-base lg:font-normal hover:border-collapse placeholder:text-slate-500 bg-stone-50 font-poppins rounded-xl"
             placeholder="Select a city"
-            value={selectedCity || ''}
+            value={selectedCity || ""}
             onChange={handleCityInputChange}
             list="city-suggestions" // Referencing the datalist id
           />

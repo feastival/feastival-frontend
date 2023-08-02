@@ -8,7 +8,6 @@ import ContentForm from './form/ContentForm';
 import { Input } from './ui/input';
 import { useRouter } from 'next/router';
 import SearchBar from './searchbar';
-import { classNames } from '../templates/LandingPage/utils/class-names';
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
@@ -320,4 +319,3 @@ export default function Navbar() {
     </div>
   );
 }
-

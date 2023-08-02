@@ -27,7 +27,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onClose, children }) => {
   return (
     <Modal isOpen={true} className="fixed inset-0 flex items-center justify-center bg-transparent bg:opacity-0 backdrop-blur-lg">
       <div
-        ref={popupRef} onBlur={onClose}
+        ref={popupRef} 
         className="max-w-[600px] min-h-[300px] rounded-lg flex flex-col items-center justify-center"
         >
         <button

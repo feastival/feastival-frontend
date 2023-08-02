@@ -68,11 +68,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
   }, [router.query]);
 
   return (
-    <PopupForm
-    onClose={() => {
-      router.push({ query: {} });
-    }}
-  >
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
       <h2 className="text-2xl font-bold text-center text-purple-500 font-poppins">
         {isRegisterForm ? 'Register' : 'Login'} to
@@ -83,7 +78,8 @@ const ContentForm: React.FC<ContentFormProps> = ({
       <div>
         <form onSubmit={handleSubmit}>
         {isRegisterForm && (
-          <label className="flex flex-col mt-2">
+          <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+            Username
             <input
               className="mt-1 border-[1px] text-sm border-gray-400 px-2 text-center py-3 rounded-xl font-poppins"
               type="text"
@@ -96,7 +92,8 @@ const ContentForm: React.FC<ContentFormProps> = ({
             <span className="mt-1 ml-2 text-sm text-red-600"></span>
           </label>
           )}
-            <label className="flex flex-col mt-2">
+             <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+              Email
               <input
                 className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl font-poppins"
                 type="email"
@@ -111,7 +108,8 @@ const ContentForm: React.FC<ContentFormProps> = ({
               </span>
             </label>
         
-          <label className="flex flex-col mt-2">
+            <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
+              Password
             <input
               className="mt-1 border-[1px] text-center text-sm border-gray-400 px-2 py-3 rounded-xl"
               type="password"
@@ -162,7 +160,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
         </div>
       </div>
     </div>
-    </PopupForm>
   );
 };
 
