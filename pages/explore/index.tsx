@@ -63,6 +63,15 @@ export default function ExploreRoute() {
     }
   };
 
+  const fetchArtists = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/artists`);
+      return response.data;
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   // pakai tanstack query untuk caching
   const {
     data: events,
@@ -71,6 +80,15 @@ export default function ExploreRoute() {
   } = useQuery({
     queryKey: ['events'],
     queryFn: fetchEvents,
+  });
+
+  const {
+    data: artists,
+    isError: artistErrorPage,
+    isLoading: artistLoadingPage,
+  } = useQuery({
+    queryKey: ['artists'],
+    queryFn: fetchArtists,
   });
 
   for (const index in events) {
@@ -82,7 +100,7 @@ export default function ExploreRoute() {
   };
 
   return (
-    <div className="mt-32">
+    <div className="mt-32 flex justify-evenly">
       <Head>
         <link
           rel="stylesheet"
@@ -93,13 +111,19 @@ export default function ExploreRoute() {
         />
         <title>Explore</title>
       </Head>
-      <Sidebar handleClick={handleClick} selected={selected} />
+      <div className="flex flex-col xl:basis-96">
+        <Sidebar handleClick={handleClick} selected={selected} />
+      </div>
       {selected === 'Event' ? (
-        <>
+        <div className="">
           <Card events={events} isLoading={isLoading} isError={isError} />
-        </>
+        </div>
       ) : (
-        <Artists />
+        <Artists
+          artists={artists}
+          isLoading={artistLoadingPage}
+          isError={artistErrorPage}
+        />
       )}
     </div>
   );

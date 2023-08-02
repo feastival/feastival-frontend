@@ -74,6 +74,8 @@ export default function ArtistRouteById() {
   const [userLocation, setUserLocation] = useState<[number, number] | null>(
     null,
   );
+  const [activeTab1, setActiveTab1] = useState('Event Detail');
+  const [activeTab2, setActiveTab2] = useState('Fan Review');
 
   const token = getCookie('token');
   const dateOptionsHour = {
@@ -219,6 +221,13 @@ export default function ArtistRouteById() {
     }
   };
 
+  const handleTab1Click = (tabName: string) => {
+    setActiveTab1(tabName);
+  };
+  const handleTab2Click = (tabName: string) => {
+    setActiveTab2(tabName);
+  };
+
   useEffect(() => {
     fetchEvent();
   }, [eventId]);
@@ -238,10 +247,8 @@ export default function ArtistRouteById() {
       minimumFractionDigits: 0,
     }).format(data);
   };
-
   return (
     <>
-      {/* NEW */}
       <Head>
         <link
           rel="stylesheet"
@@ -251,25 +258,154 @@ export default function ArtistRouteById() {
           referrerPolicy="no-referrer"
         />
       </Head>
-      <div className="pt-32 bg-black">
-        <div className="mx-auto">
-          <main className="mt-10">
-            <HeroEvent
-              name={event.name}
-              artist={artists}
-              image={event.imageUrl}
-            />
+      <section className="text-gray-600 body-font overflow-hidden mt-36 font-poppins">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="lg:w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="w-full h-[300px] lg:h-[500px] object-cover object-center rounded">
+              <img
+                alt="Artist photo"
+                className="w-full h-full object-cover"
+                src={event.imageUrl}
+              />
+            </div>
+            <div className="lg:w-full lg:pl-10 lg:py-6">
+              <h2 className="text-sm title-font text-gray-500 tracking-widest mb-2">
+                {event.status}
+                {event.status === 'Upcoming' && (
+                  <span>
+                    {' '}
+                    in <Countdown date={timer} />
+                  </span>
+                )}
+              </h2>
 
-            {/* NANTI DI CUT SAMPAI SINI */}
-
-            <div className="w-full pt-5 bg-white">
-              <div className="md:w-[1000px] md-px-0 px-2 w-full flex flex-inline justify-between mx-auto mb-6">
-                <div className="text-5xl font-bebasNeue leading-[64px] text-[#2e2e2e] mt-px shrink-0">
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">
+                {event.name}
+              </h1>
+              <div className="flex mb-4">
+                <a
+                  onClick={() => setActiveTab1('Event Detail')}
+                  className={`flex-grow border-b-2 ${
+                    activeTab1 === 'Event Detail'
+                      ? 'text-indigo-500 border-indigo-500'
+                      : 'text-gray-500 border-gray-300'
+                  } py-2 text-lg px-1 cursor-pointer`}
+                >
                   Event Detail
+                </a>
+                <a
+                  onClick={() => setActiveTab1('Location')}
+                  className={`flex-grow border-b-2 ${
+                    activeTab1 === 'Location'
+                      ? 'text-indigo-500 border-indigo-500'
+                      : 'text-gray-500 border-gray-300'
+                  } py-2 text-lg px-1 cursor-pointer`}
+                >
+                  Location
+                </a>
+                <a
+                  onClick={() => setActiveTab1('Lineup')}
+                  className={`flex-grow border-b-2 ${
+                    activeTab1 === 'Lineup'
+                      ? 'text-indigo-500 border-indigo-500'
+                      : 'text-gray-500 border-gray-300'
+                  } py-2 text-lg px-1 cursor-pointer`}
+                >
+                  Lineup
+                </a>
+              </div>
+
+              {activeTab1 === 'Event Detail' && (
+                <>
+                  <p className="leading-relaxed mb-4"> {event.description}</p>
+                  <div className="flex border-t border-gray-200 py-2">
+                    <span className="text-gray-500">Date</span>
+                    <span className="ml-auto text-gray-900">
+                      {formattedTime
+                        ? formattedTime.toLocaleString('en-gb', dateOptionsDay)
+                        : 'Sedang di update..'}
+                    </span>
+                  </div>
+                  <div className="flex border-t border-gray-200 py-2">
+                    <span className="text-gray-500">Time</span>
+                    <span className="ml-auto text-gray-900">
+                      {formattedTime
+                        ? formattedTime.toLocaleString('id-ID', dateOptionsHour)
+                        : 'Sedang di update..'}{' '}
+                      WIB
+                    </span>
+                  </div>
+                  <div className="flex border-t border-gray-200 py-2">
+                    <span className="text-gray-500">Starting At Price</span>
+                    <span className="ml-auto text-gray-900">
+                      {formatToIDR(event.price)}
+                    </span>
+                  </div>
+                  <div className="flex border-t border-gray-200 py-2">
+                    <span className="text-gray-500">Organizer</span>
+                    <span className="ml-auto text-gray-900">
+                      {organizer?.username}
+                    </span>
+                  </div>
+                </>
+              )}
+              {activeTab1 === 'Location' && (
+                <>
+                  <div className="flex  border-gray-200 py-2">
+                    <span className="text-gray-500">Venue</span>
+                    <span className="ml-auto text-gray-900">
+                      {' '}
+                      {location?.venue}
+                    </span>
+                  </div>
+                  <div className="flex border-t border-gray-200 py-2">
+                    <span className="text-gray-500">Address</span>
+                    <span
+                      className="ml-auto text-gray-900 text-right"
+                      style={{ maxWidth: '70%', overflowWrap: 'break-word' }}
+                    >
+                      {location?.address}
+                    </span>
+                  </div>
+
+                  <div className="flex border-t border-gray-200 py-2">
+                    <span className="text-gray-500">City</span>
+                    <span className="ml-auto text-gray-900">
+                      {' '}
+                      {location?.city}
+                    </span>
+                  </div>
+                  <div className="flex border-t border-gray-200 py-2">
+                    <span className="text-gray-500">Province</span>
+                    <span className="ml-auto text-gray-900">
+                      {' '}
+                      {location?.province}
+                    </span>
+                  </div>
+                </>
+              )}
+              {activeTab1 === 'Lineup' && (
+                <div>
+                  {event &&
+                    event.artists &&
+                    event.artists
+                      .slice(0, 3)
+                      .map((artist: any, index: number) => (
+                        <div
+                          key={index}
+                          className="mt-3 flex select-none flex-wrap items-center gap-1 "
+                        >
+                          <div className="mt-4 items-left px-2 flex items-center gap-4">
+                            <p className="font-medium text">{artist}</p>
+                          </div>
+                        </div>
+                      ))}
                 </div>
+              )}
+              <div className="flex justify-end mt-4">
                 <Button
                   onClick={() => handleSaveEvent(eventId)}
-                  className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-6 mt-4 rounded-xl"
+                  className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-3 mt-4 rounded-xl"
                 >
                   <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
                     {submitLoading ? (
@@ -280,140 +416,83 @@ export default function ArtistRouteById() {
                   </div>
                 </Button>
               </div>
+            </div>
 
-              {/* TIMER */}
-              <div className="flex flex-col justify-center items-center p-4 font-poppins">
-                <h1 className="text-xl font-bold mb-4">
-                  kapan konser dimulai?
-                </h1>
+            <div className="lg:col-span-3 ">
+              <div className="border-b border-gray-300">
+                <nav className="flex gap-4">
+                  <button
+                    onClick={() => handleTab2Click('Fan Review')}
+                    title=""
+                    className={`border-b-2 py-4 text-sm font-medium ${
+                      activeTab2 === 'Fan Review'
+                        ? 'border-purple-500 text-purple-500'
+                        : 'border-transparent text-gray-600'
+                    }`}
+                  >
+                    Fan Review
+                  </button>
 
-                <Countdown date={timer} />
+                  <button
+                    onClick={() => handleTab2Click('Map Detail')}
+                    title=""
+                    className={`border-b-2 py-4 text-sm font-medium ${
+                      activeTab2 === 'Map Detail'
+                        ? 'border-purple-500 text-purple-500'
+                        : 'border-transparent text-gray-600'
+                    }`}
+                  >
+                    Map Detail
+                  </button>
+                </nav>
               </div>
 
-              {/* NANTI DI CUT SAMPAI SINI */}
-
-              <div className="flex justify-center mt-10 font-poppins">
-                <div className="relative overflow-x-auto sm:rounded-lg font-poppins">
-                  <table className="w-full text-sm text-left dark:text-gray-400">
-                    <thead className="text-2xl font-bold text-center ">
-                      <tr>
-                        <th scope="col" className="px-6">
-                          Date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Time
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Location
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Venue
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Genre
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Organizer
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        key={event.id}
-                        className="text-base text-center bg-white"
-                      >
-                        <td className="px-6 py-2 ">
-                          {formattedTime
-                            ? formattedTime.toLocaleString(
-                                'en-gb',
-                                dateOptionsDay,
-                              )
-                            : 'Sedang di update..'}
-                        </td>
-                        <td className="px-6 py-2 ">
-                          {formattedTime
-                            ? formattedTime.toLocaleString(
-                                'id-ID',
-                                dateOptionsHour,
-                              )
-                            : 'Sedang di update..'}
-                        </td>
-                        <td className="px-6 py-2 ">{location?.city}</td>
-                        <td className="px-6 py-2 ">{location?.venue}</td>
-                        <td className="px-6 py-2 ">
-                          {genre ? genre.join(', ') : 'Sedang di update..'}
-                        </td>
-                        <td className="px-6 py-2 ">{organizer?.username}</td>
-                      </tr>
-                    </tbody>
-                    <thead className="text-2xl font-bold text-center">
-                      <tr>
-                        <th scope="col" className="px-6">
-                          Ticket Price
-                        </th>
-
-                        <th scope="col" className="px-6 py-3">
-                          Status
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        key={event.id}
-                        className="text-base bg-white text-center"
-                      >
-                        <td className="px-6 py-2 ">
-                          {formatToIDR(event.price)}
-                        </td>
-                        <td className="px-6 py-2 ">{event.status}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* NANTI DI CUT SAMPAI SINI */}
-
-              <div className="md:w-[1000px] pb-10 md:pb-20 mt-12 w-full flex items-center justify-center mx-auto">
-                <div className="items-start text-lg leading-relaxed text-gray-700 md:mx-auto justisfy-center">
-                  <p className="mx-auto leading-[32px] pr-0 md:pr-20">
-                    {' '}
-                    {event.description}
-                  </p>
-                </div>
-                <div className="m-auto mb-30 md:w-1/3">
-                  <div className="p-4">
-                    <p className="py-1 text-sm font-semibold text-gray-700">
-                      Lineup
-                    </p>
-                    <div className="flex py-2">
-                      <img
-                        src="https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg"
-                        className="object-cover w-12 h-12 mr-2 rounded-full"
-                      />
-                      <div>
-                        <p className="py-1 text-sm font-semibold text-gray-700">
-                          {artists}
-                        </p>
-                        <p className="text-xs font-semibold text-gray-600"></p>
-                        <p className="py-1 text-sm font-semibold text-gray-700"></p>
-                      </div>
+              {activeTab2 === 'Fan Review' && (
+                <div className="">
+                  <div className="">
+                    <div className="flow-root">
+                      <h2>This Fan Review</h2>
                     </div>
                   </div>
                 </div>
-              </div>
-              {distance && (
-                <p className=" text-center text-lg">
-                  Jarak Anda ke lokasi konser: {distance.toFixed(2)} kilometer
-                </p>
               )}
-              <div className="flex flex-col items-center h-[50vh] w-full  bg-white">
-                <div id="map" className="w-[500px] h-full my-auto pt-10" />
-              </div>
+
+              {activeTab2 === 'Map Detail' && (
+                <div className="">
+                  <div className="">
+                    <div className="flow-root">
+                      {/* <div>
+                        {distance && (
+                          <p className=" text-center text-lg">
+                            Jarak Anda ke lokasi konser: {distance.toFixed(2)}{' '}
+                            kilometer
+                          </p>
+                        )}
+                        <div className="flex flex-col items-center h-[50vh] w-full  bg-white">
+                          <div
+                            id="map"
+                            className="w-[500px] h-full my-auto pt-10"
+                          />
+                        </div>
+                      </div> */}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          </main>
+          </div>
         </div>
-      </div>
+        <div>
+          {distance && (
+            <p className=" text-center text-lg">
+              Jarak Anda ke lokasi konser: {distance.toFixed(2)} kilometer
+            </p>
+          )}
+          <div className="flex flex-col items-center h-[50vh] w-full  bg-white">
+            <div id="map" className="w-[500px] h-full my-auto pt-10" />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

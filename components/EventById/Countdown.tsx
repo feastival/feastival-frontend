@@ -1,35 +1,72 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 interface CountdownProps {
   date: string;
 }
 
 interface TimeLeft {
-  [key: string]: number | undefined;
-  days?: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
+  [key: string]: number;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  months: number;
 }
 
 const Countdown: React.FC<CountdownProps> = ({ date }) => {
   const calculateTimeLeft = useCallback((): TimeLeft => {
-    let year = new Date(date);
-    let difference = +year - +new Date();
+    let targetDate = new Date(date);
+    let currentDate = new Date();
+
     let timeLeft: TimeLeft = {
+      years: 0,
+      months: 0,
+      weeks: 0,
       days: 0,
       hours: 0,
       minutes: 0,
       seconds: 0,
     };
 
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
+    if (targetDate > currentDate) {
+      // Calculate difference in years
+      let yearsDifference =
+        targetDate.getFullYear() - currentDate.getFullYear();
+      timeLeft.years = yearsDifference;
+
+      // Calculate difference in months
+      timeLeft.months = yearsDifference * 12;
+      timeLeft.months -= currentDate.getMonth();
+      timeLeft.months += targetDate.getMonth();
+      if (targetDate.getDate() < currentDate.getDate()) {
+        timeLeft.months--;
+      }
+
+      // Calculate difference in weeks and days
+      let copyCurrentDate = new Date(currentDate.getTime());
+      if (targetDate.getDate() < currentDate.getDate()) {
+        copyCurrentDate.setMonth(copyCurrentDate.getMonth() + 1);
+      }
+      copyCurrentDate.setMonth(copyCurrentDate.getMonth() + timeLeft.months);
+      timeLeft.days = Math.floor(
+        (targetDate.getTime() - copyCurrentDate.getTime()) /
+          (1000 * 60 * 60 * 24),
+      );
+      timeLeft.weeks = Math.floor(timeLeft.days / 7);
+      timeLeft.days %= 7;
+
+      // Calculate difference in hours, minutes, and seconds
+      timeLeft.hours = Math.floor(
+        ((targetDate.getTime() - copyCurrentDate.getTime()) /
+          (1000 * 60 * 60)) %
+          24,
+      );
+      timeLeft.minutes = Math.floor(
+        ((targetDate.getTime() - copyCurrentDate.getTime()) / (1000 * 60)) % 60,
+      );
+      timeLeft.seconds = Math.floor(
+        ((targetDate.getTime() - copyCurrentDate.getTime()) / 1000) % 60,
+      );
     }
 
     return timeLeft;
@@ -44,26 +81,34 @@ const Countdown: React.FC<CountdownProps> = ({ date }) => {
     return () => clearInterval(timer);
   }, [calculateTimeLeft]);
 
-  return (
-    <div className="flex font-poppins">
-      <div className="flex gap-3 sm:gap-1 flex-row bg-black h-36 rounded-2xl overflow-hidden pt-5 pr-3 sm:pt-0 sm:pr-0">
-        {Object.keys(timeLeft).map((key) => (
-          <div key={key} className="flex flex-col bg-black p-8 sm:w-32 w-16">
-            <div className="h-16 sm:h-20 bg-[#2A303C]">
-              <div className="h-[60px] flex justify-center bg-black sm:text-3xl text-xl text-white">
-                {timeLeft[key]}
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <span className="text-lg sm:text-2xl text-center text-white">
-                {timeLeft[key] === 1 ? key.slice(0, -1) : key}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  const formatTimeLeft = (timeLeft: TimeLeft) => {
+    const intervals = [
+      'years',
+      'months',
+      'weeks',
+      'days',
+      'hours',
+      'minutes',
+      'seconds',
+    ];
+    let duration = '';
+
+    for (let i = 0; i < intervals.length; i++) {
+      const interval = intervals[i];
+      if (timeLeft[interval]) {
+        duration = `${timeLeft[interval]} ${
+          timeLeft[interval] === 1 ? interval.slice(0, -1) : interval
+        }`;
+        break;
+      }
+    }
+
+    return duration;
+  };
+
+  const duration = formatTimeLeft(timeLeft);
+
+  return duration ? <span>{duration}</span> : null;
 };
 
 export default Countdown;

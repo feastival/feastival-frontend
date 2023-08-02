@@ -1,5 +1,11 @@
+import { API_URL } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ScaleLoader from 'react-spinners/ScaleLoader';
+import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 
 // type Event = {
 //   Lineup: string;
@@ -58,6 +64,8 @@ interface CardProps {
   handleDeleteEvent?: (eventId: string) => void;
   isLoading?: boolean;
   isError?: boolean;
+  isErrorMyEvent?: boolean;
+  isLoadingMyEvent?: boolean;
 }
 
 const eventsCoba: any = [
@@ -134,12 +142,92 @@ const eventsCoba: any = [
       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
   },
 ];
-const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
+const EventCard: React.FC<CardProps> = ({
+  events,
+  isLoading,
+  isError,
+  isErrorMyEvent,
+  isLoadingMyEvent,
+}) => {
+  const [loveButton, setLoveButton] = useState(false);
+  const [isLoveProcessing, setLoveProcessing] = useState(false);
+  // const [currentUserEvent, setCurrentUserEvent] = useState<string[]>([]);
+  const currentUserEvent: any = [];
+
+  const token = getCookie('token');
+
   const dateOptions = {
     hour12: false,
     day: '2-digit' as const,
     month: 'long' as const,
     year: 'numeric' as const,
+  };
+
+  //fetch currrent user dengan user/me
+
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/user/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data.trackedEvents;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const {
+    data: userTrackedEvents,
+    isError: errorFetchUserTrackedEvents,
+    isLoading: loadingFetchUserTrackedEvents,
+  } = useQuery({
+    queryKey: ['user'],
+    queryFn: fetchCurrentUser,
+  });
+
+  const handleLoveClick = async (eventId: string, event: React.MouseEvent) => {
+    event.preventDefault();
+    if (isLoveProcessing) {
+      // If the previous click is still being processed, return early to avoid overlapping clicks
+      return;
+    }
+
+    setLoveProcessing(true);
+    try {
+      // Check if the event is already loved by the user
+      const isLoved = currentUserEvent.includes(eventId);
+      if (isLoved) {
+        // Untrack the event
+        await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert('Untrack Event Success');
+      } else {
+        // Track the event
+        await axios.post(
+          `${API_URL}/user/me/track-event`,
+          { eventId }, // Replace this with the correct property name for your API
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+        alert('Track Event Success');
+      }
+      // Fetch the updated user tracked events after the API call
+      const updatedUserTrackedEvents = await fetchCurrentUser();
+
+      // Update the currentUserEvent state with the updated user tracked events
+      for (const index in updatedUserTrackedEvents) {
+        const event = updatedUserTrackedEvents[index];
+        currentUserEvent.push(event.id);
+      }
+
+      // Toggle the love button state
+      setLoveButton((prevLoveButton) => !prevLoveButton);
+    } catch (error) {
+      alert('An error occurred, Make sure you have register and login first.');
+    } finally {
+      // Reset the love processing state after the operation is done
+      setLoveProcessing(false);
+    }
   };
 
   const formatToIDR = (data: number) => {
@@ -150,16 +238,37 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
     }).format(data);
   };
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   if (isError) {
     return <p>Error occurred while fetching data.</p>;
   }
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center mt-10 mb-20">
+        <ScaleLoader color="#d3dddb" height={20} width={20} />
+      </div>
+    );
+  }
 
+  if (isErrorMyEvent) {
+    return <p>Error occurred while fetching data.</p>;
+  }
+  if (isLoadingMyEvent) {
+    return (
+      <div className="flex justify-center items-center mt-28">
+        <ScaleLoader color="#d3dddb" height={20} width={20} />
+      </div>
+    );
+  }
+  // Extracting the array of event IDs from current logged in user to compare with even.id from props
+  if (userTrackedEvents) {
+    for (const index in userTrackedEvents) {
+      const event = userTrackedEvents[index];
+      currentUserEvent.push(event.id);
+    }
+  }
+  console.log(currentUserEvent);
   return (
-    <section className="container mx-auto p-10 md:p-20 antialiased grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
+    <section className="container mx-auto p-5 antialiased grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
       {events.map((event) => (
         <Link key={event.id} href={`/event/${event.id}`} passHref>
           <article className="bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer transform duration-500 hover:-translate-y-1">
@@ -168,40 +277,70 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
                 className="bg-cover bg-center h-48 p-4"
                 style={{ backgroundImage: `url(${event.imageUrl})` }}
               >
-                <div className="flex justify-end text-white group">
+                <div
+                  onClick={(preventLoading) => {
+                    handleLoveClick(event.id, preventLoading);
+                    return false;
+                  }}
+                  className={`flex justify-end ${
+                    currentUserEvent.includes(event.id)
+                      ? 'text-red-500'
+                      : 'text-white'
+                  }  group`}
+                >
+                  {/* {isLoveProcessing ? (
+                    <ScaleLoader color="#d3dddb" height={16} width={2} />
+                  ) : (
+                    <>
+                      {' '} */}
                   <svg
                     className="w-6 h-6 ml-2 place-items-end group-hover:animate-ping absolute "
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
+                    fill={currentUserEvent.includes(event.id) ? 'red' : 'none'}
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    stroke={
+                      currentUserEvent.includes(event.id)
+                        ? 'red'
+                        : 'currentColor'
+                    }
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                     />
                   </svg>
                   <svg
                     className="w-6 h-6 ml-2 place-items-end relative"
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
+                    fill={currentUserEvent.includes(event.id) ? 'red' : 'none'}
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    stroke={
+                      currentUserEvent.includes(event.id)
+                        ? 'red'
+                        : 'currentColor'
+                    }
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                     />
                   </svg>
+
+                  {/* </>
+                  )} */}
                 </div>
               </div>
               <div className="p-4 py-5 overflow-y-auto">
                 <p className=" tracking-wide text-sm font-regular text-gray-700 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                  {event.artists.slice(0, 3).join(' • ')}
+                  {event.artists ? (
+                    event.artists.slice(0, 3).join(' • ')
+                  ) : (
+                    <></>
+                  )}
                 </p>
                 <p className="text-lg font-bold text-black-900 mt-1.5 mb-1.5 overflow-hidden overflow-ellipsis whitespace-nowrap">
                   {event.name}
@@ -245,7 +384,7 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                     <p className="text-sm pl-1 whitespace-nowrap">
-                      {event.location.city}
+                      {event.location ? event.location.city : <></>}
                     </p>
                   </div>
                 </div>
@@ -262,7 +401,7 @@ const EventCard: React.FC<CardProps> = ({ events, isLoading, isError }) => {
                   ></div>
                   <div>
                     <p className="font-semibold text-gray-900 text-sm">
-                      {event.organizer.username}
+                      {event.organizer ? event.organizer.username : <></>}
                     </p>
                   </div>
                 </div>

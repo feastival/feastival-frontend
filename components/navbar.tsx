@@ -140,10 +140,10 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/profile"
+              href="/event/my-event"
               className="block px-4 py-2 text-white rounded md:hover:bg-transparent hover:bg-purple-500 hover:text-purple-500 font-poppins"
             >
-              Profile
+              My Event
             </Link>
           </li>
         </ul>
