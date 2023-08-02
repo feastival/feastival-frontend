@@ -129,15 +129,19 @@ export default function ArtistRouteById() {
       }
     }
   };
-
   useEffect(() => {
-    if (typeof window !== 'undefined' && destination) {
+    console.log('activeTab2:', activeTab2);
+    console.log('destination:', destination);
+    if (
+      activeTab2 === 'Map Detail' &&
+      typeof window !== 'undefined' &&
+      destination
+    ) {
       const MapboxGL = require('mapbox-gl');
       MapboxGL.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
       const MapboxDirections = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
 
-      //  dapetin lokasi user
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           const userLocation: [number, number] = [
@@ -147,12 +151,12 @@ export default function ArtistRouteById() {
           setUserLocation(userLocation);
 
           const mapContainer = document.getElementById('map');
+          console.log('mapContainer:', mapContainer);
           if (mapContainer && !mapContainer.childNodes.length) {
             const map = new MapboxGL.Map({
               container: 'map',
               style: 'mapbox://styles/mapbox/streets-v11',
               center: userLocation,
-              zoom: 12,
             });
 
             const directions = new MapboxDirections({
@@ -170,6 +174,10 @@ export default function ArtistRouteById() {
             map.on('load', () => {
               directions.setOrigin(userLocation);
               directions.setDestination(destination);
+
+              map.fitBounds([userLocation, destination], {
+                padding: 50, // padding around the bounds
+              });
             });
           }
         });
@@ -177,7 +185,7 @@ export default function ArtistRouteById() {
         console.error('Geolocation is not supported by this browser.');
       }
     }
-  }, [destination]);
+  }, [destination, activeTab2]);
 
   useEffect(() => {
     if (userLocation && destination) {
@@ -461,7 +469,7 @@ export default function ArtistRouteById() {
                 <div className="">
                   <div className="">
                     <div className="flow-root">
-                      {/* <div>
+                      <div>
                         {distance && (
                           <p className=" text-center text-lg">
                             Jarak Anda ke lokasi konser: {distance.toFixed(2)}{' '}
@@ -474,22 +482,12 @@ export default function ArtistRouteById() {
                             className="w-[500px] h-full my-auto pt-10"
                           />
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                 </div>
               )}
             </div>
-          </div>
-        </div>
-        <div>
-          {distance && (
-            <p className=" text-center text-lg">
-              Jarak Anda ke lokasi konser: {distance.toFixed(2)} kilometer
-            </p>
-          )}
-          <div className="flex flex-col items-center h-[50vh] w-full  bg-white">
-            <div id="map" className="w-[500px] h-full my-auto pt-10" />
           </div>
         </div>
       </section>
