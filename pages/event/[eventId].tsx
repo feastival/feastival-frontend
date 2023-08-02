@@ -331,7 +331,8 @@ export default function ArtistRouteById() {
                     <span className="ml-auto text-gray-900">
                       {formattedTime
                         ? formattedTime.toLocaleString('id-ID', dateOptionsHour)
-                        : 'Sedang di update..'}
+                        : 'Sedang di update..'}{' '}
+                      WIB
                     </span>
                   </div>
                   <div className="flex border-t border-gray-200 py-2">
