@@ -317,6 +317,7 @@ export default function ArtistRouteById() {
                 width={500}
                 height={300}
                 onClick={() => openModal(event.imageUrl)}
+                style={{ maxWidth: '100%', height: 'auto' }}
               />
 
               <Modal
