@@ -4,11 +4,12 @@ const nextConfig = {
   images: {
     domains: [
       'via.placeholder.com',
-      'assets.ayobandung.com',
       'res.cloudinary.com',
       'images.unsplash.com',
       'cdn.sanity.io',
       'www.exscribe.com',
+      's3-ap-southeast-1.amazonaws.com',
+      's-light.tiket.photos',
     ],
   },
 };

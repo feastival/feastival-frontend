@@ -299,8 +299,8 @@ export default function ArtistRouteById() {
                 alt="Artist photo"
                 className="w-full h-full object-cover"
                 src={event.imageUrl}
-                width={500} 
-                height={500} 
+                width={500}
+                height={500}
               />
             </div>
             <div className="lg:w-full lg:pl-10 lg:py-6">
@@ -438,8 +438,9 @@ export default function ArtistRouteById() {
                                   : 'https://www.exscribe.com/wp-content/uploads/2021/08/placeholder-image-person-jpg.jpg'
                               }
                               alt={artist.name}
-                              className="rounded-full object-cover w-12 h-12" width={50} 
-                              height={50} 
+                              className="rounded-full object-cover w-12 h-12"
+                              width={50}
+                              height={50}
                             />
                             <p
                               className="font-medium text cursor-pointer"
