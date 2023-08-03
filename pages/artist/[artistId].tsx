@@ -39,7 +39,7 @@ export default function ArtistRoute() {
     return <p className="mt-48">Error Fetching Data...</p>;
   }
 
-  console.log(artist);
+
 
   return (
     <div className="pt-32">

@@ -41,7 +41,7 @@ export default function MyEventRoute() {
     );
   }
 
-  console.log(userEvents);
+
   return (
     <div className="mt-40 flex flex-col justify-center items-center">
       <h2 className="font-bold text-4xl">My Upcoming Events 🎉</h2>
