@@ -94,15 +94,15 @@ const SearchBar = () => {
   }, []);
 
   return (
-    <div ref={searchContainerRef} className="relative">
+    <div className="relative">
       {' '}
       <Input
         type="text"
         id="search-navbar-mobile"
         className="block md:w-full font-poppins z-40 py-6 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search here..."
-        value={query}
         onClick={toggleSearchBar}
+        readOnly
       />
       {/* Search icon */}
       <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer left-3 top-1/2 fas fa-search"></i>

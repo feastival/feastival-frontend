@@ -15,29 +15,6 @@ interface ArtistsProps {
 }
 
 export default function Artists({ artists, isLoading, isError }: ArtistsProps) {
-  // const artists = [
-  //   {
-  //     name: 'NIKI',
-  //     imageUrl1:
-  //       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/feastival/wp7368797_fkmyhv.jpg',
-  //   },
-  //   {
-  //     name: 'Tulus',
-  //     imageUrl1:
-  //       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690554521/feastival/9fa29001b374bc2847c663eaafe6c416_uk21zd.jpg',
-  //   },
-  //   {
-  //     name: 'Chvrches',
-  //     imageUrl1:
-  //       'https://res.cloudinary.com/djudfrj8s/image/upload/v1688051265/week-20/2018-11-06-chvrches-live-music-hall-koeln_027_rj6wim.jpg',
-  //   },
-  //   {
-  //     name: 'Travis Scott',
-  //     imageUrl1:
-  //       'https://res.cloudinary.com/djudfrj8s/image/upload/v1690554442/feastival/travis_scott_wallpaper_desktop_by_simbler5_de24ofh-fullview_puv3ns.jpg',
-  //   },
-  // ];
-
   if (isLoading) {
     return <ScaleLoader color="#d3dddb" height={4} width={4} />;
   }
