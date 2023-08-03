@@ -77,6 +77,7 @@ export default function ArtistRouteById() {
   );
   const [activeTab1, setActiveTab1] = useState('Event Detail');
   const [activeTab2, setActiveTab2] = useState('Discussion');
+  const [trackedEvents, setTrackedEvents] = useState<EventId[]>([]);
 
   const token = getCookie('token');
   const dateOptionsHour = {
@@ -96,6 +97,17 @@ export default function ArtistRouteById() {
     day: '2-digit' as const,
     month: 'long' as const,
     year: 'numeric' as const,
+  };
+
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/user/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTrackedEvents(response.data.trackedEvents);
+    } catch (error) {
+      setTrackedEvents([]);
+    }
   };
 
   const fetchEvent = async () => {
@@ -221,12 +233,33 @@ export default function ArtistRouteById() {
         { headers: { Authorization: `Bearer ${token}` } },
       );
       setSubmitLoading(false);
+      setTrackedEvents([...trackedEvents, event]);
       alert('Save Event Success!!!');
-      router.push('/profile');
+      //router.push('/profile');
     } catch (error) {
       alert('Please register or login first.');
       setSubmitLoading(false);
-      router.push('/');
+      //router.push('/');
+    }
+  };
+
+  const handleUntrackEvent = async () => {
+    setSubmitLoading(true);
+    try {
+      await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSubmitLoading(false);
+      const updatedTrackedEvents = trackedEvents.filter(
+        (event) => event.id !== eventId,
+      );
+      setTrackedEvents(updatedTrackedEvents);
+      alert('Untrack Event Success!!!');
+      //router.push('/profile');
+    } catch (error) {
+      alert('Please register or login first.');
+      setSubmitLoading(false);
+      //router.push('/');
     }
   };
 
@@ -240,6 +273,10 @@ export default function ArtistRouteById() {
   useEffect(() => {
     fetchEvent();
   }, [eventId]);
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
 
   if (!event) {
     return <div>Loading...</div>;
@@ -267,8 +304,8 @@ export default function ArtistRouteById() {
           referrerPolicy="no-referrer"
         />
       </Head>
-      <section className="text-gray-600 body-font overflow-hidden mt-36 font-poppins">
-        <div className="container px-5 py-24 mx-auto">
+      <section className="text-gray-600 body-font overflow-hidden mt-32 font-poppins">
+        <div className="container px-5 py-14 mx-auto">
           <div className="lg:w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="w-full h-[300px] lg:h-[500px] object-cover object-center rounded">
               <img
@@ -277,6 +314,7 @@ export default function ArtistRouteById() {
                 src={event.imageUrl}
               />
             </div>
+
             <div className="lg:w-full lg:pl-10 lg:py-6">
               <h2 className="text-sm title-font text-gray-500 tracking-widest mb-2">
                 {event.status}
@@ -288,9 +326,48 @@ export default function ArtistRouteById() {
                 )}
               </h2>
 
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">
-                {event.name}
-              </h1>
+              <div className="flex flex-wrap justify-between items-end">
+                <div className="text-gray-900 text-3xl title-font font-medium mb-2">
+                  {event.name}
+                </div>
+
+                <div className="mb-2">
+                  {!trackedEvents.some(
+                    (trackedEvent) => trackedEvent.id === eventId,
+                  ) ? (
+                    <Button
+                      onClick={() => handleSaveEvent(eventId)}
+                      className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-3 rounded-xl"
+                    >
+                      <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
+                        {submitLoading ? (
+                          <ScaleLoader color="#d3dddb" height={4} width={4} />
+                        ) : (
+                          <span className="drop-shadow-lg">
+                            Track This Event
+                          </span>
+                        )}
+                      </div>
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleUntrackEvent()}
+                      className="bg-[#9b0000] hover:bg-[#700202] self-start flex flex-col justify-center h-12 px-3 rounded-xl"
+                    >
+                      <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
+                        {submitLoading ? (
+                          <ScaleLoader color="#d3dddb" height={4} width={4} />
+                        ) : (
+                          <span className="drop-shadow-lg">
+                            Untrack This Event
+                          </span>
+                        )}
+                      </div>
+                    </Button>
+                  )}
+                </div>
+              </div>
+
               <div className="flex mb-4">
                 <a
                   onClick={() => setActiveTab1('Event Detail')}
@@ -411,7 +488,7 @@ export default function ArtistRouteById() {
                       ))}
                 </div>
               )}
-              <div className="flex justify-end mt-4">
+              {/* <div className="flex justify-end mt-4">
                 <Button
                   onClick={() => handleSaveEvent(eventId)}
                   className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-3 mt-4 rounded-xl"
@@ -424,7 +501,7 @@ export default function ArtistRouteById() {
                     )}
                   </div>
                 </Button>
-              </div>
+              </div> */}
             </div>
 
             <div className="lg:col-span-3 ">
