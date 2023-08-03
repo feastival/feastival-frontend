@@ -1,22 +1,12 @@
 import { API_URL } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import { getCookie } from 'cookies-next';
-import { useRouter } from 'next/router';
-
-// type Event = {
-//   Lineup: string;
-//   LineupImg: string;
-//   event: string;
-//   price: string;
-//   date: string;
-//   location: string;
-//   organizer: string;
-//   OrganizerImg: string;
-// };
+import { useRouter } from 'next/navigation';
+import { toast } from './ui/use-toast';
 
 interface Location {
   id: string;
@@ -68,80 +58,6 @@ interface CardProps {
   isLoadingMyEvent?: boolean;
 }
 
-const eventsCoba: any = [
-  {
-    Lineup: 'Chvrches',
-    LineupImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690506223/feastival/867104_xnbla7.jpg',
-    event: 'Luxury Disease Asia Tour 2023',
-    price: 'Rp. 200.000',
-    date: '13 Agustus 2023',
-    location: 'Jakarta',
-    organizer: 'Ismaya Live',
-    OrganizerImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
-  },
-  {
-    Lineup: 'Niki, Vierratale, Sheila On 7, Rich Brian',
-    LineupImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/feastival/wp7368797_fkmyhv.jpg',
-    event: 'We The Fest 2024',
-    price: 'Rp. 500.000',
-    date: '16 Desember 2024',
-    location: 'Bali',
-    organizer: 'Ismaya Live',
-    OrganizerImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
-  },
-  {
-    Lineup: 'Chvrches',
-    LineupImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690506223/feastival/867104_xnbla7.jpg',
-    event: 'ONE OK ROCK Luxury Disease Asia Tour 2023',
-    price: 'Rp. 200.000',
-    date: '13 Agustus 2023',
-    location: 'Jakarta',
-    organizer: 'Ismaya Live',
-    OrganizerImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
-  },
-  {
-    Lineup: 'Niki, Vierratale, Sheila On 7 Sheila On 7 Sheila On 7, Rich Brian',
-    LineupImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/feastival/wp7368797_fkmyhv.jpg',
-    event: 'We The Fest 2024',
-    price: 'Rp. 500.000',
-    date: '16 Desember 2024',
-    location: 'Bali',
-    organizer: 'Ismaya Live',
-    OrganizerImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
-  },
-  {
-    Lineup: 'Chvrches Chvrches Chvrches Chvrches',
-    LineupImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690506223/feastival/867104_xnbla7.jpg',
-    event: 'ONE OK ROCK Luxury Disease Asia Tour 2023',
-    price: 'Rp. 200.000',
-    date: '13 Agustus 2023',
-    location: 'Jakarta',
-    organizer: 'Ismaya Live',
-    OrganizerImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
-  },
-  {
-    Lineup: 'Niki, Vierratale, Sheila On 7, Rich Brian',
-    LineupImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690547059/feastival/wp7368797_fkmyhv.jpg',
-    event: 'We The Fest 2024',
-    price: 'Rp. 500.000',
-    date: '25 september 2024',
-    location: 'Bali',
-    organizer: 'Ismaya Live',
-    OrganizerImg:
-      'https://res.cloudinary.com/djudfrj8s/image/upload/v1690582770/feastival/1489174_zy8q3l.webp',
-  },
-];
 const EventCard: React.FC<CardProps> = ({
   events,
   isLoading,
@@ -151,9 +67,9 @@ const EventCard: React.FC<CardProps> = ({
 }) => {
   const [loveButton, setLoveButton] = useState(false);
   const [isLoveProcessing, setLoveProcessing] = useState(false);
-  // const [currentUserEvent, setCurrentUserEvent] = useState<string[]>([]);
-  const currentUserEvent: any = [];
-
+  const [currentUserEvent, setCurrentUserEvent] = useState<string[]>([]);
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const token = getCookie('token');
 
   const dateOptions = {
@@ -162,8 +78,6 @@ const EventCard: React.FC<CardProps> = ({
     month: 'long' as const,
     year: 'numeric' as const,
   };
-
-  //fetch currrent user dengan user/me
 
   const fetchCurrentUser = async () => {
     try {
@@ -187,12 +101,7 @@ const EventCard: React.FC<CardProps> = ({
 
   const handleLoveClick = async (eventId: string, event: React.MouseEvent) => {
     event.preventDefault();
-    if (isLoveProcessing) {
-      // If the previous click is still being processed, return early to avoid overlapping clicks
-      return;
-    }
 
-    setLoveProcessing(true);
     try {
       // Check if the event is already loved by the user
       const isLoved = currentUserEvent.includes(eventId);
@@ -201,34 +110,47 @@ const EventCard: React.FC<CardProps> = ({
         await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        alert('Untrack Event Success');
+        queryClient.invalidateQueries();
+        toast({
+          className: 'bg-black text-white rounded-xl',
+          description: 'Untrack Event Successfully 📝',
+        });
       } else {
         // Track the event
         await axios.post(
           `${API_URL}/user/me/track-event`,
-          { eventId }, // Replace this with the correct property name for your API
+          { eventId },
           { headers: { Authorization: `Bearer ${token}` } },
         );
-        alert('Track Event Success');
+        queryClient.invalidateQueries();
+        toast({
+          className: 'bg-black text-white rounded-xl',
+          title: 'Ta-daa!!',
+          description: 'Congratulations! Event Successfully Tracked! 😎',
+        });
       }
-      // Fetch the updated user tracked events after the API call
-      const updatedUserTrackedEvents = await fetchCurrentUser();
+      // // Fetch the updated user tracked events after the API call
+      // const updatedUserTrackedEvents = await fetchCurrentUser();
 
-      // Update the currentUserEvent state with the updated user tracked events
-      for (const index in updatedUserTrackedEvents) {
-        const event = updatedUserTrackedEvents[index];
-        currentUserEvent.push(event.id);
-      }
+      // // Update the currentUserEvent state with the updated user tracked events
+      // for (const index in updatedUserTrackedEvents) {
+      //   const event = updatedUserTrackedEvents[index];
+      //   currentUserEvent.push(event.id);
+      // }
 
       // Toggle the love button state
       setLoveButton((prevLoveButton) => !prevLoveButton);
     } catch (error) {
       alert('An error occurred, Make sure you have register and login first.');
-    } finally {
-      // Reset the love processing state after the operation is done
-      setLoveProcessing(false);
     }
   };
+
+  useEffect(() => {
+    if (userTrackedEvents) {
+      const trackedEventIds = userTrackedEvents.map((event: any) => event.id);
+      setCurrentUserEvent(trackedEventIds);
+    }
+  }, [userTrackedEvents]);
 
   const formatToIDR = (data: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -259,13 +181,7 @@ const EventCard: React.FC<CardProps> = ({
       </div>
     );
   }
-  // Extracting the array of event IDs from current logged in user to compare with even.id from props
-  if (userTrackedEvents) {
-    for (const index in userTrackedEvents) {
-      const event = userTrackedEvents[index];
-      currentUserEvent.push(event.id);
-    }
-  }
+
   console.log(currentUserEvent);
   return (
     <section className="container mx-auto p-5 antialiased grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6">

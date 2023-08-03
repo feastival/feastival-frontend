@@ -8,6 +8,7 @@ import Navbar from '@/components/navbar';
 import Head from 'next/head';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { Toaster } from '@/components/ui/toaster';
 import 'mapbox-gl/dist/mapbox-gl.css';
 const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = React.useState(() => new QueryClient());
@@ -34,6 +35,7 @@ NEAR YOU"
         <Navbar />
         <Component {...pageProps} />
         <Footer />
+        <Toaster />
         <ToastContainer />
       </QueryClientProvider>
     </>
