@@ -15,6 +15,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { DiscussionEmbed } from 'disqus-react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
+import Modal from 'react-modal';
 
 interface Location {
   id: string;
@@ -79,6 +80,8 @@ export default function ArtistRouteById() {
   );
   const [activeTab1, setActiveTab1] = useState('Event Detail');
   const [activeTab2, setActiveTab2] = useState('Discussion');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
 
   const token = getCookie('token');
   const dateOptionsHour = {
@@ -98,6 +101,11 @@ export default function ArtistRouteById() {
     day: '2-digit' as const,
     month: 'long' as const,
     year: 'numeric' as const,
+  };
+
+  const closeModal = () => {
+    setSelectedImage('');
+    setModalIsOpen(false);
   };
 
   const fetchEvent = useCallback(async () => {
@@ -133,7 +141,6 @@ export default function ArtistRouteById() {
     }
   }, [eventId]);
   useEffect(() => {
-
     if (
       activeTab2 === 'Map Detail' &&
       typeof window !== 'undefined' &&
@@ -189,6 +196,10 @@ export default function ArtistRouteById() {
     }
   }, [destination, activeTab2]);
 
+  const openModal = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    setModalIsOpen(true);
+  };
   useEffect(() => {
     if (userLocation && destination) {
       const calculateDistance = async () => {
@@ -210,6 +221,12 @@ export default function ArtistRouteById() {
       calculateDistance();
     }
   }, [userLocation, destination]);
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      Modal.setAppElement('#__next');
+    }
+  }, []);
 
   const handleSaveEvent = async (id: string | string[] | undefined) => {
     setSubmitLoading(true);
@@ -295,12 +312,21 @@ export default function ArtistRouteById() {
           <div className="lg:w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="w-full h-[300px] lg:h-[500px] object-cover object-center rounded">
               <Image
-                alt="Artist photo"
-                className="w-full h-full object-cover"
                 src={event.imageUrl}
+                alt={event.name}
                 width={500}
-                height={500}
+                height={300}
+                onClick={() => openModal(event.imageUrl)}
               />
+
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Event Image Modal"
+              >
+                {selectedImage && <img src={selectedImage} alt={event.name} />}
+                <button onClick={closeModal}>Close</button>
+              </Modal>
             </div>
             <div className="lg:w-full lg:pl-10 lg:py-6">
               <h2 className="text-sm title-font text-gray-500 tracking-widest mb-2">
