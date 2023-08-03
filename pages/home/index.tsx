@@ -14,9 +14,9 @@ export default function Home() {
             className="mb-4 text-5xl font-semibold text-center text-white md:text-left md:text-6xl font-bebasNeue"
             style={{ lineHeight: '1.5' }}
           >
-            DISCOVER AMAZING MUSIC EVENT
+            DISCOVER AMAZING 
             <br />
-            NEAR YOU
+            MUSIC EVENT NEAR YOU
           </h1>
           <p className="text-xl font-normal text-left text-white font-poppins md:w-2/3">
             {

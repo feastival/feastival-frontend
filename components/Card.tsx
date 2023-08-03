@@ -6,7 +6,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { toast } from './ui/use-toast';
+import { toast } from 'react-toastify';
 
 interface Location {
   id: string;
@@ -111,10 +111,16 @@ const EventCard: React.FC<CardProps> = ({
           headers: { Authorization: `Bearer ${token}` },
         });
         queryClient.invalidateQueries();
-        toast({
-          className: 'bg-black text-white rounded-xl',
-          description: 'Untrack Event Successfully 📝',
-        });
+        toast.success('Untrack Event Successfully 📝', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       } else {
         // Track the event
         await axios.post(
@@ -123,11 +129,16 @@ const EventCard: React.FC<CardProps> = ({
           { headers: { Authorization: `Bearer ${token}` } },
         );
         queryClient.invalidateQueries();
-        toast({
-          className: 'bg-black text-white rounded-xl',
-          title: 'Ta-daa!!',
-          description: 'Congratulations! Event Successfully Tracked! 😎',
-        });
+        toast.success('Event Successfully Tracked! 😎', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       }
       // // Fetch the updated user tracked events after the API call
       // const updatedUserTrackedEvents = await fetchCurrentUser();
@@ -141,7 +152,16 @@ const EventCard: React.FC<CardProps> = ({
       // Toggle the love button state
       setLoveButton((prevLoveButton) => !prevLoveButton);
     } catch (error) {
-      alert('An error occurred, Make sure you have register and login first.');
+      toast.error('An error occurred, Make sure you have register and login first.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   };
 
@@ -165,7 +185,7 @@ const EventCard: React.FC<CardProps> = ({
   }
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center mt-10 mb-20">
+      <div className="flex items-center justify-center mt-10 mb-20">
         <ScaleLoader color="#d3dddb" height={20} width={20} />
       </div>
     );
@@ -176,7 +196,7 @@ const EventCard: React.FC<CardProps> = ({
   }
   if (isLoadingMyEvent) {
     return (
-      <div className="flex justify-center items-center mt-28">
+      <div className="flex items-center justify-center mt-28">
         <ScaleLoader color="#d3dddb" height={20} width={20} />
       </div>
     );
@@ -184,13 +204,13 @@ const EventCard: React.FC<CardProps> = ({
 
   console.log(currentUserEvent);
   return (
-    <section className="container mx-auto p-5 antialiased grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
+    <section className="container grid grid-cols-1 gap-6 p-5 mx-auto antialiased sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
       {events.map((event) => (
         <Link key={event.id} href={`/event/${event.id}`} passHref>
-          <article className="bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer transform duration-500 hover:-translate-y-1">
-            <div className="flex flex-col bg-white shadow-xl rounded-lg overflow-hidden">
+          <article className="overflow-hidden duration-500 transform bg-white rounded-lg shadow-xl cursor-pointer hover:-translate-y-1">
+            <div className="flex flex-col overflow-hidden bg-white rounded-lg shadow-xl">
               <div
-                className="bg-cover bg-center h-48 p-4"
+                className="h-48 p-4 bg-center bg-cover"
                 style={{ backgroundImage: `url(${event.imageUrl})` }}
               >
                 <div
@@ -210,7 +230,7 @@ const EventCard: React.FC<CardProps> = ({
                     <>
                       {' '} */}
                   <svg
-                    className="w-6 h-6 ml-2 place-items-end group-hover:animate-ping absolute "
+                    className="absolute w-6 h-6 ml-2 place-items-end group-hover:animate-ping "
                     xmlns="http://www.w3.org/2000/svg"
                     fill={currentUserEvent.includes(event.id) ? 'red' : 'none'}
                     viewBox="0 0 24 24"
@@ -228,7 +248,7 @@ const EventCard: React.FC<CardProps> = ({
                     />
                   </svg>
                   <svg
-                    className="w-6 h-6 ml-2 place-items-end relative"
+                    className="relative w-6 h-6 ml-2 place-items-end"
                     xmlns="http://www.w3.org/2000/svg"
                     fill={currentUserEvent.includes(event.id) ? 'red' : 'none'}
                     viewBox="0 0 24 24"
@@ -251,7 +271,7 @@ const EventCard: React.FC<CardProps> = ({
                 </div>
               </div>
               <div className="p-4 py-5 overflow-y-auto">
-                <p className=" tracking-wide text-sm font-regular text-gray-700 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                <p className="overflow-hidden text-sm tracking-wide text-gray-700 font-regular overflow-ellipsis whitespace-nowrap">
                   {event.artists ? (
                     event.artists.slice(0, 3).join(' • ')
                   ) : (
@@ -262,12 +282,12 @@ const EventCard: React.FC<CardProps> = ({
                   {event.name}
                 </p>
 
-                <p className="text-gray-700 text-sm">
+                <p className="text-sm text-gray-700">
                   {formatToIDR(event.price)}
                 </p>
               </div>
-              <div className="flex py-3 px-2 border-t border-gray-200 text-gray-700 justify-around">
-                <div className="flex-1 inline-flex items-center">
+              <div className="flex justify-around px-2 py-3 text-gray-700 border-t border-gray-200">
+                <div className="inline-flex items-center flex-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -283,7 +303,7 @@ const EventCard: React.FC<CardProps> = ({
                   </p>
                 </div>
                 <div className="">
-                  <div className="flex-1 inline-flex items-center">
+                  <div className="inline-flex items-center flex-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -299,24 +319,24 @@ const EventCard: React.FC<CardProps> = ({
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
-                    <p className="text-sm pl-1 whitespace-nowrap">
+                    <p className="pl-1 text-sm whitespace-nowrap">
                       {event.location ? event.location.city : <></>}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="px-4 pt-3 pb-4 border-t border-gray-200 bg-gray-100">
-                <div className="text-xs font-semibold text-gray-600 tracking-wide ">
+              <div className="px-4 pt-3 pb-4 bg-gray-100 border-t border-gray-200">
+                <div className="text-xs font-semibold tracking-wide text-gray-600 ">
                   Organizer
                 </div>
                 <div className="flex items-center pt-2">
                   <div
-                    className="bg-cover bg-center w-5 h-5 rounded-full mr-3"
+                    className="w-5 h-5 mr-3 bg-center bg-cover rounded-full"
                     style={{ backgroundImage: `url(${event.imageUrl})` }}
                   ></div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-sm">
+                    <p className="text-sm font-semibold text-gray-900">
                       {event.organizer ? event.organizer.username : <></>}
                     </p>
                   </div>
