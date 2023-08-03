@@ -4,15 +4,6 @@ import React from 'react';
 export default function AboutRoute() {
   return (
     <>
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-          integrity="sha512-..."
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-      </Head>
       <div className="pt-32">
         <div className="mx-auto">
           <h1 className="text-5xl font-bold text-center">
