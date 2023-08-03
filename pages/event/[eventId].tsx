@@ -79,6 +79,7 @@ export default function ArtistRouteById() {
   );
   const [activeTab1, setActiveTab1] = useState('Event Detail');
   const [activeTab2, setActiveTab2] = useState('Discussion');
+  const [trackedEvents, setTrackedEvents] = useState<EventId[]>([]);
 
   const token = getCookie('token');
   const dateOptionsHour = {
@@ -132,8 +133,19 @@ export default function ArtistRouteById() {
       }
     }
   }, [eventId]);
-  useEffect(() => {
 
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/user/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTrackedEvents(response.data.trackedEvents);
+    } catch (error) {
+      setTrackedEvents([]);
+    }
+  };
+
+  useEffect(() => {
     if (
       activeTab2 === 'Map Detail' &&
       typeof window !== 'undefined' &&
@@ -222,6 +234,7 @@ export default function ArtistRouteById() {
         { headers: { Authorization: `Bearer ${token}` } },
       );
       setSubmitLoading(false);
+      setTrackedEvents([...trackedEvents, event]);
       toast.success('Event Successfully Tracked! 😎', {
         position: 'top-center',
         autoClose: 3000,
@@ -233,7 +246,7 @@ export default function ArtistRouteById() {
         theme: 'colored',
       });
 
-      router.push('/event/my-event');
+      //router.push('/event/my-event'); // stay at this page
     } catch (error) {
       toast.error(
         'Make sure you have register and login first before tracking an event ✨.',
@@ -253,6 +266,43 @@ export default function ArtistRouteById() {
     }
   };
 
+  const handleUntrackEvent = async () => {
+    setSubmitLoading(true);
+    try {
+      await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSubmitLoading(false);
+      const updatedTrackedEvents = trackedEvents.filter(
+        (event) => event.id !== eventId,
+      );
+      setTrackedEvents(updatedTrackedEvents);
+      toast.info('Event has been removed from tracked list! 👋', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    } catch (error) {
+      toast.error('Oops! Something went wrong, please try again later. 🙏', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      setSubmitLoading(false);
+      router.push(`/event/${eventId}`);
+    }
+  };
+
   const handleTab1Click = (tabName: string) => {
     setActiveTab1(tabName);
   };
@@ -263,6 +313,10 @@ export default function ArtistRouteById() {
   useEffect(() => {
     fetchEvent();
   }, [fetchEvent]);
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
 
   if (!event) {
     return <div>Loading...</div>;
@@ -290,8 +344,8 @@ export default function ArtistRouteById() {
           referrerPolicy="no-referrer"
         />
       </Head>
-      <section className="text-gray-600 body-font overflow-hidden mt-36 font-poppins">
-        <div className="container px-5 py-24 mx-auto">
+      <section className="text-gray-600 body-font overflow-hidden mt-32 font-poppins">
+        <div className="container px-5 py-14 mx-auto">
           <div className="lg:w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="w-full h-[300px] lg:h-[500px] object-cover object-center rounded">
               <Image
@@ -313,9 +367,48 @@ export default function ArtistRouteById() {
                 )}
               </h2>
 
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">
-                {event.name}
-              </h1>
+              <div className="flex flex-row lg:flex-col flex-wrap justify-between">
+                <h1 className="text-gray-900 text-3xl title-font font-medium mb-2">
+                  {event.name}
+                </h1>
+
+                <div className="mb-2">
+                  {!trackedEvents.some(
+                    (trackedEvent) => trackedEvent.id === eventId,
+                  ) ? (
+                    <Button
+                      onClick={() => handleSaveEvent(eventId)}
+                      className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-3 rounded-xl"
+                    >
+                      <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
+                        {submitLoading ? (
+                          <ScaleLoader color="#d3dddb" height={4} width={4} />
+                        ) : (
+                          <span className="drop-shadow-lg">
+                            Track This Event
+                          </span>
+                        )}
+                      </div>
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleUntrackEvent()}
+                      className="bg-[#9b0000] hover:bg-[#700202] self-start flex flex-col justify-center h-12 px-3 rounded-xl"
+                    >
+                      <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
+                        {submitLoading ? (
+                          <ScaleLoader color="#d3dddb" height={4} width={4} />
+                        ) : (
+                          <span className="drop-shadow-lg">
+                            Untrack This Event
+                          </span>
+                        )}
+                      </div>
+                    </Button>
+                  )}
+                </div>
+              </div>
+
               <div className="flex mb-4">
                 <a
                   onClick={() => setActiveTab1('Event Detail')}
@@ -454,21 +547,6 @@ export default function ArtistRouteById() {
                       ))}
                 </div>
               )}
-
-              <div className="flex justify-end mt-4">
-                <Button
-                  onClick={() => handleSaveEvent(eventId)}
-                  className="bg-[#9747ff] hover:bg-purple-900 self-start flex flex-col justify-center h-12 px-3 mt-4 rounded-xl"
-                >
-                  <div className="whitespace-nowrap font-poppins leading-[24px] text-white">
-                    {submitLoading ? (
-                      <ScaleLoader color="#d3dddb" height={4} width={4} />
-                    ) : (
-                      <span className="drop-shadow-lg">Track This Event</span>
-                    )}
-                  </div>
-                </Button>
-              </div>
             </div>
 
             <div className="lg:col-span-3 ">
