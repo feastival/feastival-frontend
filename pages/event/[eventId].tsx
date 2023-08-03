@@ -421,13 +421,22 @@ export default function ArtistRouteById() {
                   {event &&
                     event.artists &&
                     event.artists
-                      .slice(0, 3)
+                      .slice(0, 4)
                       .map((artist: any, index: number) => (
                         <div
                           key={index}
                           className="mt-3 flex select-none flex-wrap items-center gap-1 "
                         >
                           <div className="mt-4 items-left px-2 flex items-center gap-4">
+                            <img
+                              src={
+                                artist.imageUrl
+                                  ? artist.imageUrl
+                                  : 'https://www.exscribe.com/wp-content/uploads/2021/08/placeholder-image-person-jpg.jpg'
+                              }
+                              alt={artist.name}
+                              className="rounded-full object-cover w-12 h-12"
+                            />
                             <p
                               className="font-medium text cursor-pointer"
                               onClick={() =>
