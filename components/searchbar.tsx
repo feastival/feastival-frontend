@@ -115,21 +115,20 @@ const SearchBar = () => {
         >
           <div
             onBlur={toggleSearchBar}
-            className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-md top-1/2 left-1/2"
+            className="fixed z-50 w-2/3 mx-auto transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 backdrop-blur-md"
           >
             <div className="relative w-92">
               <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer bg left-3 top-1/2 fas fa-search"></i>
               <Input
                 type="text"
                 id="search-navbar-mobile"
-                className="block font-poppins w-full py-4 my-2 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block font-poppins w-full py-6 my-4 pl-10 pr-3 text-sm text-white border border-gray-300 rounded-xl bg-[#272727] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search here..."
                 value={query}
                 onChange={handleInputChange}
               />
             </div>
-            <div className="">{/* Search input */}</div>
-            <div className="z-50 p-4 text-white bg-black shadow-lg opacity-80 font-poppins rounded-xl w-80">
+            <div className="z-50 w-full p-4 text-white bg-black shadow-lg opacity-80 font-poppins rounded-xl">
               {/* Render artistsData and eventsData here in a table format */}
               {artistsData && (
                 <div>
