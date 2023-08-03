@@ -133,8 +133,7 @@ export default function ArtistRouteById() {
     }
   }, [eventId]);
   useEffect(() => {
-    console.log('activeTab2:', activeTab2);
-    console.log('destination:', destination);
+
     if (
       activeTab2 === 'Map Detail' &&
       typeof window !== 'undefined' &&
@@ -154,7 +153,7 @@ export default function ArtistRouteById() {
           setUserLocation(userLocation);
 
           const mapContainer = document.getElementById('map');
-          console.log('mapContainer:', mapContainer);
+
           if (mapContainer && !mapContainer.childNodes.length) {
             const map = new MapboxGL.Map({
               container: 'map',
