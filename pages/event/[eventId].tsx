@@ -428,12 +428,13 @@ export default function ArtistRouteById() {
                           className="mt-3 flex select-none flex-wrap items-center gap-1 "
                         >
                           <div className="mt-4 items-left px-2 flex items-center gap-4">
-                            <p className="font-medium text">{artist}</p>
+                            <p className="font-medium text">{artist.name}</p>
                           </div>
                         </div>
                       ))}
                 </div>
               )}
+
               <div className="flex justify-end mt-4">
                 <Button
                   onClick={() => handleSaveEvent(eventId)}
