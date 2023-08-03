@@ -13,6 +13,7 @@ import HeroEvent from '@/components/Event/HeroEvent';
 import Countdown from '@/components/EventById/Countdown';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { DiscussionEmbed } from 'disqus-react';
+import { toast } from 'react-toastify';
 
 interface Location {
   id: string;
@@ -221,12 +222,34 @@ export default function ArtistRouteById() {
         { headers: { Authorization: `Bearer ${token}` } },
       );
       setSubmitLoading(false);
-      alert('Save Event Success!!!');
-      router.push('/profile');
+      toast.success('Event Successfully Tracked! 😎', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      router.push('/event/my-event');
     } catch (error) {
-      alert('Please register or login first.');
+      toast.error(
+        'Make sure you have register and login first before tracking an event ✨.',
+        {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        },
+      );
       setSubmitLoading(false);
-      router.push('/');
+      router.push(`/event/${eventId}`);
     }
   };
 

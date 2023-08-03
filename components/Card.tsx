@@ -112,15 +112,15 @@ const EventCard: React.FC<CardProps> = ({
         });
         queryClient.invalidateQueries();
         toast.success('Untrack Event Successfully 📝', {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
-          });
+          theme: 'light',
+        });
       } else {
         // Track the event
         await axios.post(
@@ -130,15 +130,15 @@ const EventCard: React.FC<CardProps> = ({
         );
         queryClient.invalidateQueries();
         toast.success('Event Successfully Tracked! 😎', {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
-          });
+          theme: 'colored',
+        });
       }
       // // Fetch the updated user tracked events after the API call
       // const updatedUserTrackedEvents = await fetchCurrentUser();
@@ -152,16 +152,19 @@ const EventCard: React.FC<CardProps> = ({
       // Toggle the love button state
       setLoveButton((prevLoveButton) => !prevLoveButton);
     } catch (error) {
-      toast.error('An error occurred, Make sure you have register and login first.', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        });
+      toast.error(
+        'Make sure you have register and login first before tracking an event ✨.',
+        {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        },
+      );
     }
   };
 
@@ -202,7 +205,9 @@ const EventCard: React.FC<CardProps> = ({
     );
   }
 
-  console.log(currentUserEvent);
+  // console.log(currentUserEvent);
+  // console.log(events.artists);
+
   return (
     <section className="container grid grid-cols-1 gap-6 p-5 mx-auto antialiased sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
       {events.map((event) => (
@@ -273,7 +278,10 @@ const EventCard: React.FC<CardProps> = ({
               <div className="p-4 py-5 overflow-y-auto">
                 <p className="overflow-hidden text-sm tracking-wide text-gray-700 font-regular overflow-ellipsis whitespace-nowrap">
                   {event.artists ? (
-                    event.artists.slice(0, 3).join(' • ')
+                    event.artists
+                      .slice(0, 3)
+                      .map((artist: any) => artist.name)
+                      .join(' • ')
                   ) : (
                     <></>
                   )}
