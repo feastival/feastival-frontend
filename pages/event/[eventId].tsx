@@ -428,7 +428,14 @@ export default function ArtistRouteById() {
                           className="mt-3 flex select-none flex-wrap items-center gap-1 "
                         >
                           <div className="mt-4 items-left px-2 flex items-center gap-4">
-                            <p className="font-medium text">{artist.name}</p>
+                            <p
+                              className="font-medium text cursor-pointer"
+                              onClick={() =>
+                                router.push(`/artist/${artist.id}`)
+                              }
+                            >
+                              {artist.name}
+                            </p>
                           </div>
                         </div>
                       ))}
