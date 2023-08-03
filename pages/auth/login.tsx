@@ -42,19 +42,21 @@ const Login: React.FC = () => {
       setCookie('token', response.data.accessToken);
       if (response.data) {
         setLoading(false);
-        router.push('/event/my-event').then(() => {
-          router.reload();
-        });
         toast.success('Login Successful!', {
           position: 'top-center',
-          autoClose: 3000,
+          autoClose: 40000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
+          progress: 2,
           theme: 'colored',
         });
+        router.push('/event/my-event').then(() => {
+          setTimeout(() => {
+        router.reload();
+      }, 100); // Adjust the delay as needed
+    });
       } else {
         setError('Invalid email or password');
         setLoading(false);
