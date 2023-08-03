@@ -23,8 +23,6 @@ export default function Artists({ artists, isLoading, isError }: ArtistsProps) {
     return <p>Error Fetching Data...</p>;
   }
 
-
-
   return (
     <div className="flex flex-wrap gap-3 justify-center mb-40  max-w-[74rem]">
       {artists.map((artist) => (
