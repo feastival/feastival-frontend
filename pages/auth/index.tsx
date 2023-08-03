@@ -4,7 +4,6 @@ import axios from 'axios';
 import { API_URL } from '@/lib/api';
 import { setCookie } from 'cookies-next';
 import router, { useRouter } from 'next/router';
-import PopupForm from './PopupForm';
 
 interface ContentFormProps {
   formData: {
@@ -17,16 +16,19 @@ interface ContentFormProps {
   emailError: string;
 }
 
-const ContentForm: React.FC<ContentFormProps> = ({
-  formData,
-  onChange,
-  onSubmit,
-  emailError,
-}) => {
+const ContentForm: React.FC<ContentFormProps> = ({ emailError }) => {
   const [isRegisterForm, setIsRegisterForm] = useState(false); // Use useState for the form type
   const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    username: '',
+  });
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -38,16 +40,14 @@ const ContentForm: React.FC<ContentFormProps> = ({
           password: formData.password,
         });
         alert('Registration Successful');
-        router.push({ query: { form: 'login' } });
       } else {
         // Handle login form
         const response = await axios.post(`${API_URL}/auth/login`, {
-          email: formData.email || formData.username,
+          email: formData.email,
           password: formData.password,
         });
 
         // Set the cookie on the server
-        setCookie('token', response.data.accessToken);
 
         // // Redirect to the home page or do something else
         // router.push('/');
@@ -57,15 +57,48 @@ const ContentForm: React.FC<ContentFormProps> = ({
     } catch (error) {
       alert(error);
     }
-
-    onSubmit();
   };
-  useEffect(() => {
-    {
-      const { form } = router.query;
-      setIsRegisterForm(form === 'register');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const validateEmail = (email: string) => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      setEmailError('Invalid email format');
+      return false;
+    } else {
+      setEmailError('');
+      return true;
     }
-  }, [router.query]);
+  };
+
+  const handleFormSubmit = async () => {
+    const isValidEmail = validateEmail(formData.email);
+
+    if (
+      formData.email.trim() === '' ||
+      formData.username.trim() === '' ||
+      formData.password.trim() === ''
+    ) {
+      setEmailError('All fields are required');
+      return;
+    }
+    if (!isValidEmail) {
+      return;
+    }
+    try {
+      localStorage.setItem('formData', JSON.stringify(formData));
+      setFormData({
+        email: '',
+        username: '',
+        password: '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="md:w-[500px] bg-black min-h-[300px] fixed z-50 mt-10 px-12 py-6 rounded-xl">
@@ -76,7 +109,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
         FEASTIVAL
       </h1>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           {isRegisterForm && (
             <label className="flex flex-col mt-2 text-base text-center text-white font-poppins">
               Username
@@ -134,7 +167,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 className="ml-1 text-blue-600 underline"
                 onClick={() => {
                   setIsRegisterForm(false);
-                  router.push({ query: { form: 'login' } });
                 }}
               >
                 Login
@@ -147,7 +179,6 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 className="ml-1 text-blue-600 underline"
                 onClick={() => {
                   setIsRegisterForm(true);
-                  router.push({ query: { form: 'register' } });
                 }}
                 // Use setIsRegisterForm to toggle to register form
               >
