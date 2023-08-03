@@ -86,8 +86,11 @@ export default function Navbar() {
           {isLoggedIn ? (
             <button
               onClick={handleLogout} // Add the logout function here (implement handleLogout)
-              className="ml-4 gap-2 items-center justify-center mx-auto lg:flex bg-red-500 text-white font-poppins rounded-xl hover:bg-red-900 w-[120px] h-[50px] hidden"
+              className="ml-4 text-lg gap-2 items-center justify-center lg:flex bg-red-500 text-white mx-auto font-poppins rounded-xl hover:bg-red-900 w-[150px] h-[50px] hidden"
             >
+              <div className='w-8 h-8'>
+             <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17 16 4-4m0 0-4-4m4 4H7m6 4v1a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="stroke-374151"></path></svg>
+              </div>
               Logout
             </button>
           ) : (

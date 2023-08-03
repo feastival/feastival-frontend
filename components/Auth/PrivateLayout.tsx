@@ -14,7 +14,7 @@ const PrivateLayout = ({ children }: PrivateLayoutProps) => {
       // User is not authenticated, redirect to login page or access denied page
       router.push('/');
     }
-  }, []);
+  }, [router]);
 
   // User is authenticated, render the private route
   return children;

@@ -111,7 +111,7 @@ const SearchBar = () => {
         <Modal
           isOpen={isOpen}
           onRequestClose={toggleSearchBar}
-          className="fixed inset-0 flex items-center justify-center backdrop-blur-lg"
+          className="fixed inset-0 flex items-center justify-center pt-20 backdrop-blur-lg"
         >
           <div
             onBlur={toggleSearchBar}

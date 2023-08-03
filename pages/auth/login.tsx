@@ -1,10 +1,10 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 import { API_URL } from '@/lib/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import router from 'next/router';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
@@ -15,6 +15,7 @@ interface FormProps {
   email: string;
   password: string;
 }
+
 
 const Login: React.FC = () => {
   const [error, setError] = useState<string>('');
@@ -41,21 +42,21 @@ const Login: React.FC = () => {
       });
       setCookie('token', response.data.accessToken);
       if (response.data) {
-        setLoading(false);
         toast.success('Login Successful!', {
           position: 'top-center',
-          autoClose: 40000,
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: 2,
+          progress: undefined,
           theme: 'colored',
         });
+        setLoading(false);
         router.push('/event/my-event').then(() => {
           setTimeout(() => {
         router.reload();
-      }, 100); // Adjust the delay as needed
+      }, 1000); // Adjust the delay as needed
     });
       } else {
         setError('Invalid email or password');

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { object, string } from 'yup';
 import { API_URL } from '@/lib/api';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { getCookie } from 'cookies-next';
 const Register: React.FC = () => {
   const validationSchema = object().shape({
     username: string()
@@ -23,7 +24,6 @@ const Register: React.FC = () => {
         'Password must contain at least 8 characters, including at least one letter and one number',
       ),
   });
-
   const {
     register,
     handleSubmit,
