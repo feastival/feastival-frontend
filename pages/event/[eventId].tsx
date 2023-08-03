@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { API_URL } from '@/lib/api';
@@ -14,6 +14,7 @@ import Countdown from '@/components/EventById/Countdown';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { DiscussionEmbed } from 'disqus-react';
 import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 interface Location {
   id: string;
@@ -99,7 +100,7 @@ export default function ArtistRouteById() {
     year: 'numeric' as const,
   };
 
-  const fetchEvent = async () => {
+  const fetchEvent = useCallback(async () => {
     if (eventId) {
       try {
         const response = await axios.get(`${API_URL}/events/${eventId}`);
@@ -130,7 +131,7 @@ export default function ArtistRouteById() {
         console.error('Error fetching event data:', error);
       }
     }
-  };
+  }, [eventId]);
   useEffect(() => {
     console.log('activeTab2:', activeTab2);
     console.log('destination:', destination);
@@ -262,7 +263,7 @@ export default function ArtistRouteById() {
 
   useEffect(() => {
     fetchEvent();
-  }, [eventId]);
+  }, [fetchEvent]);
 
   if (!event) {
     return <div>Loading...</div>;
@@ -294,10 +295,12 @@ export default function ArtistRouteById() {
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="w-full h-[300px] lg:h-[500px] object-cover object-center rounded">
-              <img
+              <Image
                 alt="Artist photo"
                 className="w-full h-full object-cover"
                 src={event.imageUrl}
+                width={500} 
+                height={500} 
               />
             </div>
             <div className="lg:w-full lg:pl-10 lg:py-6">
@@ -428,14 +431,15 @@ export default function ArtistRouteById() {
                           className="mt-3 flex select-none flex-wrap items-center gap-1 "
                         >
                           <div className="mt-4 items-left px-2 flex items-center gap-4">
-                            <img
+                            <Image
                               src={
                                 artist.imageUrl
                                   ? artist.imageUrl
                                   : 'https://www.exscribe.com/wp-content/uploads/2021/08/placeholder-image-person-jpg.jpg'
                               }
                               alt={artist.name}
-                              className="rounded-full object-cover w-12 h-12"
+                              className="rounded-full object-cover w-12 h-12" width={50} 
+                              height={50} 
                             />
                             <p
                               className="font-medium text cursor-pointer"

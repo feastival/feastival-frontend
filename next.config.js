@@ -8,6 +8,7 @@ const nextConfig = {
       'res.cloudinary.com',
       'images.unsplash.com',
       'cdn.sanity.io',
+      'www.exscribe.com',
     ],
   },
 };
