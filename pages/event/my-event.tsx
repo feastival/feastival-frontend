@@ -83,6 +83,7 @@ export default function MyEventRoute() {
   if (!token || !Array.isArray(userEvents) || userEvents.length === 0) {
     return (
       <h2 className="font-bold text-center text-4xl mt-52 mb-56 ">
+        <UserProfile />
         You have no tracked event`s
       </h2>
     );

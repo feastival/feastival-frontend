@@ -43,6 +43,10 @@ export default function UserProfile() {
     fetchUserMe();
   }, []);
 
+  if (!userProfile) {
+    return <></>;
+  }
+
   if (isLoading) {
     return (
       <div className="mb-10">

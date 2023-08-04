@@ -116,7 +116,7 @@ const Login: React.FC = () => {
             type="submit"
             disabled={loading}
           >
-            {loading ? 'Loading...' : 'Submit'}
+            {loading ? 'Loading...' : 'Login'}
           </Button>
         </form>
         <p className="flex items-center justify-center mt-2 text-center text-white">

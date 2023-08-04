@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { object, string } from 'yup';
 import { API_URL } from '@/lib/api';
@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { getCookie } from 'cookies-next';
 const Register: React.FC = () => {
+  const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const validationSchema = object().shape({
     username: string()
       .required('Username is required')
@@ -38,6 +40,7 @@ const Register: React.FC = () => {
     password: string;
   }> = async (data) => {
     try {
+      setLoading(true);
       const response = await axios.post(`${API_URL}/auth/register`, data);
       router.push('/auth/login');
       toast.success('Register Successful!', {
@@ -50,6 +53,7 @@ const Register: React.FC = () => {
         progress: undefined,
         theme: 'colored',
       });
+      setLoading(false);
     } catch (error: any) {
       if (error.response && error.response.status === 409) {
         const errorMessage = 'Email or Username already exists';
@@ -63,8 +67,10 @@ const Register: React.FC = () => {
           progress: undefined,
           theme: 'colored',
         });
+        setLoading(false);
       } else {
         console.error(error);
+        setLoading(false);
       }
     }
   };
@@ -134,8 +140,9 @@ const Register: React.FC = () => {
           <Button
             className="mt-4 text-white w-full bg-purple-500 hover:bg-purple-800 hover:text-white cursor-pointer border-none px-6 text-md font-semibold py-3 top-[3px] right-[3px] rounded-xl duration-200"
             type="submit"
+            disabled={loading}
           >
-            Submit
+            {loading ? 'Loading...' : 'Register'}
           </Button>
         </form>
         <p className="flex items-center justify-center mt-2 text-center text-white">
@@ -146,6 +153,7 @@ const Register: React.FC = () => {
             Login here
           </Link>
         </p>
+        {error && <p className="mb-4 text-center text-red-500">{error}</p>}
       </div>
     </div>
   );
