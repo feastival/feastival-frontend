@@ -13,13 +13,13 @@ const Sidebar: React.FC<SidebarProps> = ({ handleClick, selected }) => {
           <div className="p-2">
             <h2
               className={`text-lg  text-center cursor-pointer hover:border-r-4 hover:border-[#9747FF] ${
-                selected === 'Event'
+                selected === 'Events'
                   ? 'font-bold border-r-4 border-[#9747FF] px-2'
                   : ''
               }`}
-              onClick={() => handleClick('Event')}
+              onClick={() => handleClick('Events')}
             >
-              Event
+              Events
             </h2>
           </div>
         </div>
@@ -29,13 +29,13 @@ const Sidebar: React.FC<SidebarProps> = ({ handleClick, selected }) => {
           <div className="p-2">
             <h2
               className={`lg:text-lg text-center cursor-pointer hover:border-r-4 hover:border-[#9747FF] ${
-                selected === 'Artist'
+                selected === 'Artists'
                   ? 'font-bold border-r-4 border-[#9747FF] px-2'
                   : ''
               }`}
-              onClick={() => handleClick('Artist')}
+              onClick={() => handleClick('Artists')}
             >
-              Artist
+              Artists
             </h2>
           </div>
         </div>

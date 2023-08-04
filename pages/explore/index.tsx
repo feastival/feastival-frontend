@@ -52,7 +52,7 @@ interface Event {
 
 export default function ExploreRoute() {
   // const [events, setEvents] = useState<Event[]>([]);
-  const [selected, setSelected] = useState('Event');
+  const [selected, setSelected] = useState('Events');
 
   // pakai axios untuk fetch
   const fetchEvents = async () => {
@@ -122,7 +122,7 @@ export default function ExploreRoute() {
           <div className="flex flex-col xl:basis-96">
             <Sidebar handleClick={handleClick} selected={selected} />
           </div>
-          {selected === 'Event' ? (
+          {selected === 'Events' ? (
             <div className="">
               <Card events={events} isLoading={isLoading} isError={isError} />
             </div>
