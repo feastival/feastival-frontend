@@ -69,7 +69,6 @@ const SearchBar = () => {
     const newIsOpen = !isOpen;
     setIsOpen(newIsOpen);
     updateModalStatus(newIsOpen);
-    
 
     const currentQuery = { ...router.query };
     if (!newIsOpen) {
