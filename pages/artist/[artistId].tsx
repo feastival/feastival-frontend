@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { API_URL } from '@/lib/api';
@@ -6,37 +6,31 @@ import { useQuery } from '@tanstack/react-query';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
 export default function ArtistRoute() {
+  const [artist, setArtist] = useState<any>();
   const router = useRouter();
   const { artistId } = router.query;
 
   const fetchArtist = async () => {
-    const response = await axios.get(`${API_URL}/artists/${artistId}`);
-    return response.data;
+    if (artistId) {
+      try {
+        const response = await axios.get(`${API_URL}/artists/${artistId}`);
+        setArtist(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
-  // pakai tanstack query untuk caching
-  const {
-    data: artist,
-    isError,
-    isLoading,
-  } = useQuery({
-    queryKey: ['artist'],
-    queryFn: fetchArtist,
-  });
+  useEffect(() => {
+    fetchArtist();
+  }, [artistId]);
 
-  if (isLoading) {
+  if (!artist) {
     return (
-      <ScaleLoader
-        className="mt-32 flex justify-center items-center"
-        color="#d3dddb"
-        height={20}
-        width={20}
-      />
+      <div className="flex justify-center items-center mt-44 mb-28">
+        <ScaleLoader color="#a63be0" height={20} width={20} />
+      </div>
     );
-  }
-
-  if (isError) {
-    return <p className="mt-48">Error Fetching Data...</p>;
   }
 
   return (

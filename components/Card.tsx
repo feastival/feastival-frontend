@@ -188,8 +188,8 @@ const EventCard: React.FC<CardProps> = ({
   }
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center mt-10 mb-20">
-        <ScaleLoader color="#d3dddb" height={20} width={20} />
+      <div className="flex items-center justify-center mt-20  mb-20">
+        <ScaleLoader color="#a63be0" height={20} width={20} />
       </div>
     );
   }
@@ -200,7 +200,7 @@ const EventCard: React.FC<CardProps> = ({
   if (isLoadingMyEvent) {
     return (
       <div className="flex items-center justify-center mt-28">
-        <ScaleLoader color="#d3dddb" height={20} width={20} />
+        <ScaleLoader color="#a63be0" height={20} width={20} />
       </div>
     );
   }
@@ -226,11 +226,6 @@ const EventCard: React.FC<CardProps> = ({
                       : 'text-white'
                   }  group`}
                 >
-                  {/* {isLoveProcessing ? (
-                    <ScaleLoader color="#d3dddb" height={16} width={2} />
-                  ) : (
-                    <>
-                      {' '} */}
                   <svg
                     className="absolute w-6 h-6 ml-2 place-items-end group-hover:animate-ping "
                     xmlns="http://www.w3.org/2000/svg"
