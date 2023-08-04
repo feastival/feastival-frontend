@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Trending() {
   return (
@@ -24,11 +25,13 @@ export default function Trending() {
                 2023, as part of their record-breaking Music Of The Spheres
                 World Tour.{' '}
               </div>
-              <button className="px-6 py-3.5 bg-purple-500 rounded-xl justify-center items-center gap-2 inline-flex">
-                <div className="text-base font-normal leading-normal text-white">
-                  Discover Event
-                </div>
-              </button>
+              <Link href="/event/05be1cad-148a-448a-9bc7-a48ae4b67ac4">
+                <button className="px-6 py-3.5 bg-purple-500 rounded-xl justify-center items-center gap-2 inline-flex">
+                  <div className="text-base font-normal leading-normal text-white">
+                    Discover Event
+                  </div>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
