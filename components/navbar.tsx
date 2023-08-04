@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import SearchBar from './searchbar';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface NavbarProps {
   handleLogin: (token: string) => void;
@@ -12,6 +13,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const token = getCookie('token');
@@ -26,6 +28,8 @@ export default function Navbar() {
     deleteCookie('token');
     setIsLoggedIn(false);
     router.push('/auth/login');
+    router.reload();
+    queryClient.invalidateQueries();
   };
 
   const toggleMenu = () => {

@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import UserProfile from '@/components/UserProfile';
 
 export default function MyEventRoute() {
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -38,14 +39,12 @@ export default function MyEventRoute() {
   });
 
   const handleUntrackEvent = async (eventId: string) => {
-    // Update the loading state for the card with the specified eventId to true
     setCardLoading((prevLoading) => new Map(prevLoading).set(eventId, true));
     try {
-      // Make the API call to delete the event
       await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // Reset the loading state for the card with the specified eventId to false
+
       queryClient.invalidateQueries();
       setCardLoading((prevLoading) => new Map(prevLoading).set(eventId, false));
       toast.info('Event has been removed from tracked list! 👋', {
@@ -108,6 +107,7 @@ export default function MyEventRoute() {
         </div>
       ) : (
         <div className="mt-40 mb-9 flex flex-col justify-center items-center">
+          <UserProfile />
           <h2 className="font-bold text-3xl">My Upcoming Events 🎉</h2>
 
           <Card
