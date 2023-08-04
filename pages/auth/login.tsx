@@ -52,7 +52,7 @@ const Login: React.FC = () => {
           theme: 'colored',
         });
         setLoading(false);
-        router.push('/event/my-event').then(() => {
+        router.push('/').then(() => {
           setTimeout(() => {
             router.reload();
           }, 1000); // Adjust the delay as needed

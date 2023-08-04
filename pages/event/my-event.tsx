@@ -39,14 +39,12 @@ export default function MyEventRoute() {
   });
 
   const handleUntrackEvent = async (eventId: string) => {
-    // Update the loading state for the card with the specified eventId to true
     setCardLoading((prevLoading) => new Map(prevLoading).set(eventId, true));
     try {
-      // Make the API call to delete the event
       await axios.delete(`${API_URL}/user/me/track-event/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // Reset the loading state for the card with the specified eventId to false
+
       queryClient.invalidateQueries();
       setCardLoading((prevLoading) => new Map(prevLoading).set(eventId, false));
       toast.info('Event has been removed from tracked list! 👋', {
