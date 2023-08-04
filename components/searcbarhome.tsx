@@ -134,8 +134,8 @@ export default function SearchBarHome() {
             )
           ) : (
             <div className="flex items-center justify-center mt-20 mb-20">
-            <ScaleLoader color="#a63be0" height={20} width={20} />
-          </div>
+              <ScaleLoader color="#a63be0" height={20} width={20} />
+            </div>
           )}
         </div>
       )}
