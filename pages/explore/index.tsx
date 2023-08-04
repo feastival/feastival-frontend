@@ -8,6 +8,7 @@ import { API_URL } from '@/lib/api';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Card from '@/components/Card';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 // import { Event } from '@/lib/eventsInterface';
 
 interface Location {
@@ -101,29 +102,38 @@ export default function ExploreRoute() {
 
   return (
     <div className="mt-32 flex justify-evenly">
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-          integrity="sha512-..."
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-        <title>Explore</title>
-      </Head>
-      <div className="flex flex-col xl:basis-96">
-        <Sidebar handleClick={handleClick} selected={selected} />
-      </div>
-      {selected === 'Event' ? (
-        <div className="">
-          <Card events={events} isLoading={isLoading} isError={isError} />
+      {isLoading ? (
+        <div className="flex items-center justify-center mt-20   mb-28">
+          <ScaleLoader color="#a63be0" height={20} width={20} />
         </div>
       ) : (
-        <Artists
-          artists={artists}
-          isLoading={artistLoadingPage}
-          isError={artistErrorPage}
-        />
+        <>
+          {' '}
+          <Head>
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+              integrity="sha512-..."
+              crossOrigin="anonymous"
+              referrerPolicy="no-referrer"
+            />
+            <title>Explore</title>
+          </Head>
+          <div className="flex flex-col xl:basis-96">
+            <Sidebar handleClick={handleClick} selected={selected} />
+          </div>
+          {selected === 'Event' ? (
+            <div className="">
+              <Card events={events} isLoading={isLoading} isError={isError} />
+            </div>
+          ) : (
+            <Artists
+              artists={artists}
+              isLoading={artistLoadingPage}
+              isError={artistErrorPage}
+            />
+          )}
+        </>
       )}
     </div>
   );

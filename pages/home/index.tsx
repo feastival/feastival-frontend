@@ -20,7 +20,7 @@ export default function Home() {
           </h1>
           <p className="text-xl font-normal text-left text-white font-poppins md:w-2/3">
             {
-              "Dive into Feastival, where music takes center stage. your ultimate music event guide. We bring the world's happenings to your fingertips. Start exploring, start celebrating!"
+              "Dive into Feastival, where music takes center stage. Your ultimate music event discovery website. We bring the world's happenings to your fingertips. Start exploring, start celebrating!"
             }
           </p>
           <SearchBarHome />

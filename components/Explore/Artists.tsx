@@ -16,7 +16,7 @@ interface ArtistsProps {
 
 export default function Artists({ artists, isLoading, isError }: ArtistsProps) {
   if (isLoading) {
-    return <ScaleLoader color="#d3dddb" height={4} width={4} />;
+    return <ScaleLoader color="#a63be0" height={4} width={4} />;
   }
 
   if (isError) {
