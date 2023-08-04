@@ -29,8 +29,12 @@ export default function MyEventRoute() {
     queryFn: fetchUserEvents,
   });
 
-  for (const index in userEvents) {
-    userEvents[index].startedAt = new Date(userEvents[index].startedAt);
+  // Convert 'startedAt' and 'finishedAt' to Date objects
+  if (userEvents) {
+    for (const index in userEvents) {
+      userEvents[index].startedAt = new Date(userEvents[index].startedAt);
+      userEvents[index].finishedAt = new Date(userEvents[index].finishedAt);
+    }
   }
 
   if (!token || !Array.isArray(userEvents) || userEvents.length === 0) {
@@ -41,12 +45,30 @@ export default function MyEventRoute() {
     );
   }
 
+  // Filter past events based on 'finishedAt' date
+  const currentDate = new Date();
+  const pastEvents = userEvents.filter(
+    (event) => event.finishedAt < currentDate,
+  );
+
+  // Filter upcoming events based on 'finishedAt' date
+  const upcomingEvents = userEvents.filter(
+    (event) => event.finishedAt >= currentDate,
+  );
+
   return (
     <div className="mt-40 flex flex-col justify-center items-center">
-      <h2 className="font-bold text-4xl">My Upcoming Events 🎉</h2>
+      <h2 className="font-bold text-3xl">My Upcoming Events 🎉</h2>
 
       <Card
-        events={userEvents}
+        events={upcomingEvents}
+        isErrorMyEvent={isError}
+        isLoading={isLoading}
+      />
+
+      <h2 className="font-bold text-3xl mt-8">My Past Events 📝</h2>
+      <Card
+        events={pastEvents}
         isErrorMyEvent={isError}
         isLoading={isLoading}
       />
