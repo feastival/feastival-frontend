@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import useSWR from 'swr';
 import { Input } from '@/components/ui/input';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 import Link from 'next/link';
 interface EventData {
   id: string;
@@ -132,7 +133,9 @@ export default function SearchBarHome() {
               <p className="mt-2 text-center">No matching events found.</p>
             )
           ) : (
-            <p className="mt-2 text-center">Loading events...</p>
+            <div className="flex items-center justify-center mt-20 mb-20">
+            <ScaleLoader color="#a63be0" height={20} width={20} />
+          </div>
           )}
         </div>
       )}
