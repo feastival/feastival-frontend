@@ -133,7 +133,6 @@ export default function ArtistRouteById() {
     }
   }, [eventId]);
   useEffect(() => {
-
     if (
       activeTab2 === 'Map Detail' &&
       typeof window !== 'undefined' &&

@@ -39,8 +39,6 @@ export default function ArtistRoute() {
     return <p className="mt-48">Error Fetching Data...</p>;
   }
 
-
-
   return (
     <div className="pt-32">
       <div className="mx-auto">

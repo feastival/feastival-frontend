@@ -16,7 +16,6 @@ interface FormProps {
   password: string;
 }
 
-
 const Login: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -55,9 +54,9 @@ const Login: React.FC = () => {
         setLoading(false);
         router.push('/event/my-event').then(() => {
           setTimeout(() => {
-        router.reload();
-      }, 1000); // Adjust the delay as needed
-    });
+            router.reload();
+          }, 1000); // Adjust the delay as needed
+        });
       } else {
         setError('Invalid email or password');
         setLoading(false);

@@ -108,9 +108,7 @@ const SearchBar = () => {
       <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer left-3 top-1/2 fas fa-search"></i>
       {/* Popup */}
       {isOpen && (
-        <div
-          className="fixed inset-0 flex items-center justify-center pt-20 backdrop-blur-lg"
-        >
+        <div className="fixed inset-0 flex items-center justify-center pt-20 backdrop-blur-lg">
           <div
             onBlur={toggleSearchBar}
             className="fixed z-50 w-2/3 mx-auto transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 backdrop-blur-md"
