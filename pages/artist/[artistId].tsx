@@ -9,7 +9,6 @@ export default function ArtistRoute() {
   const [artist, setArtist] = useState<any>();
   const router = useRouter();
   const { artistId } = router.query;
-  console.log(artistId);
 
   const fetchArtist = async () => {
     if (artistId) {
