@@ -59,7 +59,7 @@ export default function ExploreRoute() {
       const response = await axios.get(`${API_URL}/events`);
       return response.data;
     } catch (error) {
-      alert(error);
+      console.error(error);
     }
   };
 
@@ -68,7 +68,7 @@ export default function ExploreRoute() {
       const response = await axios.get(`${API_URL}/artists`);
       return response.data;
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

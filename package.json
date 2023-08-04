@@ -40,6 +40,7 @@
     "disqus-react": "^1.1.5",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
+    "imagekit": "^4.1.3",
     "jsonwebtoken": "^9.0.1",
     "jwt-decode": "^3.1.2",
     "lucide-react": "^0.263.1",
