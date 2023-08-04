@@ -4,6 +4,7 @@ import { useState, ChangeEvent, useRef, useEffect } from 'react';
 import useSWR from 'swr';
 import { Input } from './ui/input';
 import Modal from 'react-modal';
+import { Button } from './ui/button';
 interface EventData {
   id: string;
   name: string;
@@ -38,12 +39,11 @@ const fetcher = async (url: string) => {
 const SearchBar = () => {
   const [query, setQuery] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   // Fetch artists data
-  const { data: artistsData, error: artistsError } = useSWR<any[]>(
+  const { data: artistsData, error: artistsError } = useSWR(
     isOpen && query
       ? `https://feastival-api.up.railway.app/artists?q=${query}`
       : null,
@@ -51,7 +51,7 @@ const SearchBar = () => {
   );
 
   // Fetch events data
-  const { data: eventsData, error: eventsError } = useSWR<EventData[]>(
+  const { data: eventsData, error: eventsError } = useSWR(
     isOpen && query
       ? `https://feastival-api.up.railway.app/events?name=${query}`
       : null,
@@ -60,22 +60,26 @@ const SearchBar = () => {
 
   // Function to handle input change
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setQuery(value);
-    setIsOpen(value !== '');
+    const query = e.target.value;
+    setQuery(query.toLowerCase());
   };
 
   // Function to handle open and close of the search bar
   const toggleSearchBar = () => {
-    setIsOpen(!isOpen);
-    updateModalStatus(!isOpen); // Update status modal saat toggle
-    if (!isOpen) {
-      router.push({ pathname: router.pathname, query: { search: 'true' } }); // Tambahkan query 'search' ke URL saat membuka modal
-    } else {
-      router.push({ pathname: router.pathname, query: {} }); // Hapus query 'search' dari URL saat menutup modal
-    }
-  };
+    const newIsOpen = !isOpen;
+    setIsOpen(newIsOpen);
+    updateModalStatus(newIsOpen);
+    
 
+    const currentQuery = { ...router.query };
+    if (!newIsOpen) {
+      delete currentQuery.search;
+    } else {
+      currentQuery.search = 'true';
+    }
+
+    router.push({ pathname: router.pathname, query: currentQuery });
+  };
   // Function to update modal status in localStorage
   const updateModalStatus = (status: boolean) => {
     localStorage.setItem('modalOpen', status.toString());
@@ -109,10 +113,13 @@ const SearchBar = () => {
       {/* Popup */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center pt-20 backdrop-blur-lg">
-          <div
-            onBlur={toggleSearchBar}
-            className="fixed z-50 w-2/3 mx-auto transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 backdrop-blur-md"
-          >
+          <div className="fixed z-50 w-2/3 mx-auto transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 backdrop-blur-md">
+            <Button
+              onClick={toggleSearchBar}
+              className="text-white rounded-full shadow font-poppins hover:bg-black h-7 w-7"
+            >
+              ❌
+            </Button>
             <div className="relative w-92">
               <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer bg left-3 top-1/2 fas fa-search"></i>
               <Input
@@ -130,7 +137,7 @@ const SearchBar = () => {
                 <div>
                   <h3>Artists:</h3>
                   <ul>
-                    {artistsData.slice(0, 3).map((artist) => (
+                    {artistsData.slice(0, 3).map((artist: EventData) => (
                       <li
                         className="border-b-2 border-purple-500 hover:text-purple-500"
                         key={artist.id}
@@ -150,7 +157,7 @@ const SearchBar = () => {
                 <div>
                   <h3>Events:</h3>
                   <ul>
-                    {eventsData.slice(0, 3).map((event) => (
+                    {eventsData.slice(0, 3).map((event: EventData) => (
                       <li
                         className="border-b-2 border-purple-500 hover:text-purple-500"
                         key={event.id}
