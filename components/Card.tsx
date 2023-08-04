@@ -49,9 +49,9 @@ interface Event {
 
 interface CardProps {
   events: Event[]; // Updated to accept the events prop
-  isProfilePage?: boolean; // New prop to indicate if user is on the profile page
-  submitLoading?: boolean;
-  handleDeleteEvent?: (eventId: string) => void;
+  isMyEventPage?: boolean; // New prop to indicate if user is on the profile page
+  submitLoading?: any;
+  handleUntrackEvent?: (eventId: string) => void;
   isLoading?: boolean;
   isError?: boolean;
   isErrorMyEvent?: boolean;
@@ -64,6 +64,9 @@ const EventCard: React.FC<CardProps> = ({
   isError,
   isErrorMyEvent,
   isLoadingMyEvent,
+  isMyEventPage,
+  handleUntrackEvent,
+  submitLoading,
 }) => {
   const [loveButton, setLoveButton] = useState(false);
   const [isLoveProcessing, setLoveProcessing] = useState(false);
@@ -111,7 +114,7 @@ const EventCard: React.FC<CardProps> = ({
           headers: { Authorization: `Bearer ${token}` },
         });
         queryClient.invalidateQueries();
-        toast.success('Untrack Event Successfully 📝', {
+        toast.info('Event has been removed from tracked list! 👋', {
           position: 'top-center',
           autoClose: 3000,
           hideProgressBar: false,
@@ -119,7 +122,7 @@ const EventCard: React.FC<CardProps> = ({
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: 'colored',
         });
       } else {
         // Track the event
@@ -206,145 +209,174 @@ const EventCard: React.FC<CardProps> = ({
   }
 
   return (
-    <section className="container grid grid-cols-1 gap-6 p-5 mx-auto antialiased sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
+    <section
+      className={`container grid grid-cols-1 ${
+        isMyEventPage ? 'gap-8' : 'gap-6'
+      } p-5 mx-auto antialiased sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4`}
+    >
       {events.map((event) => (
-        <Link key={event.id} href={`/event/${event.id}`} passHref>
-          <article className="overflow-hidden duration-500 transform bg-white rounded-lg shadow-xl cursor-pointer hover:-translate-y-1">
-            <div className="flex flex-col overflow-hidden bg-white rounded-lg shadow-xl">
-              <div
-                className="h-48 p-4 bg-center bg-cover"
-                style={{ backgroundImage: `url(${event.imageUrl})` }}
-              >
+        <div
+          key={event.id}
+          className={`flex flex-col ${
+            isMyEventPage
+              ? 'duration-500 transform hover:-translate-y-1 mt-5'
+              : ''
+          }`}
+        >
+          <Link key={event.id} href={`/event/${event.id}`} passHref>
+            <article className="overflow-hidden duration-500 transform bg-white rounded-lg shadow-xl cursor-pointer hover:-translate-y-1">
+              <div className="flex flex-col overflow-hidden bg-white rounded-lg shadow-xl">
                 <div
-                  onClick={(preventLoading) => {
-                    handleLoveClick(event.id, preventLoading);
-                    return false;
-                  }}
-                  className={`flex justify-end ${
-                    currentUserEvent.includes(event.id)
-                      ? 'text-red-500'
-                      : 'text-white'
-                  }  group`}
+                  className="h-48 p-4 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${event.imageUrl})` }}
                 >
-                  <svg
-                    className="absolute w-6 h-6 ml-2 place-items-end group-hover:animate-ping "
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill={currentUserEvent.includes(event.id) ? 'red' : 'none'}
-                    viewBox="0 0 24 24"
-                    stroke={
+                  <div
+                    onClick={(preventLoading) => {
+                      handleLoveClick(event.id, preventLoading);
+                      return false;
+                    }}
+                    className={`flex justify-end ${
                       currentUserEvent.includes(event.id)
-                        ? 'red'
-                        : 'currentColor'
-                    }
+                        ? 'text-red-500'
+                        : 'text-white'
+                    }  group`}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </svg>
-                  <svg
-                    className="relative w-6 h-6 ml-2 place-items-end"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill={currentUserEvent.includes(event.id) ? 'red' : 'none'}
-                    viewBox="0 0 24 24"
-                    stroke={
-                      currentUserEvent.includes(event.id)
-                        ? 'red'
-                        : 'currentColor'
-                    }
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </svg>
+                    <svg
+                      className="absolute w-6 h-6 ml-2 place-items-end group-hover:animate-ping "
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill={
+                        currentUserEvent.includes(event.id) ? 'red' : 'none'
+                      }
+                      viewBox="0 0 24 24"
+                      stroke={
+                        currentUserEvent.includes(event.id)
+                          ? 'red'
+                          : 'currentColor'
+                      }
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                    <svg
+                      className="relative w-6 h-6 ml-2 place-items-end"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill={
+                        currentUserEvent.includes(event.id) ? 'red' : 'none'
+                      }
+                      viewBox="0 0 24 24"
+                      stroke={
+                        currentUserEvent.includes(event.id)
+                          ? 'red'
+                          : 'currentColor'
+                      }
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
 
-                  {/* </>
+                    {/* </>
                   )} */}
+                  </div>
                 </div>
-              </div>
-              <div className="p-4 py-5 overflow-y-auto">
-                <p className="overflow-hidden text-sm tracking-wide text-gray-700 font-regular overflow-ellipsis whitespace-nowrap">
-                  {event.artists ? (
-                    event.artists
-                      .slice(0, 3)
-                      .map((artist: any) => artist.name)
-                      .join(' • ')
-                  ) : (
-                    <></>
-                  )}
-                </p>
-                <p className="text-lg font-bold text-black-900 mt-1.5 mb-1.5 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                  {event.name}
-                </p>
+                <div className="p-4 py-5 overflow-y-auto">
+                  <p className="overflow-hidden text-sm tracking-wide text-gray-700 font-regular overflow-ellipsis whitespace-nowrap">
+                    {event.artists ? (
+                      event.artists
+                        .slice(0, 3)
+                        .map((artist: any) => artist.name)
+                        .join(' • ')
+                    ) : (
+                      <></>
+                    )}
+                  </p>
+                  <p className="text-lg font-bold text-black-900 mt-1.5 mb-1.5 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                    {event.name}
+                  </p>
 
-                <p className="text-sm text-gray-700">
-                  {formatToIDR(event.price)}
-                </p>
-              </div>
-              <div className="flex justify-around px-2 py-3 text-gray-700 border-t border-gray-200">
-                <div className="inline-flex items-center flex-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-calendar4"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z" />
-                  </svg>
-                  <p className="pl-2 text-sm whitespace-nowrap">
-                    {event.startedAt.toLocaleString('en-gb', dateOptions)}
+                  <p className="text-sm text-gray-700">
+                    {formatToIDR(event.price)}
                   </p>
                 </div>
-                <div className="">
+                <div className="flex justify-around px-2 py-3 text-gray-700 border-t border-gray-200">
                   <div className="inline-flex items-center flex-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="feather feather-map-pin"
+                      fill="currentColor"
+                      className="bi bi-calendar4"
+                      viewBox="0 0 16 16"
                     >
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
+                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z" />
                     </svg>
-                    <p className="pl-1 text-sm whitespace-nowrap">
-                      {event.location ? event.location.city : <></>}
+                    <p className="pl-2 text-sm whitespace-nowrap">
+                      {event.startedAt.toLocaleString('en-gb', dateOptions)}
                     </p>
                   </div>
+                  <div className="">
+                    <div className="inline-flex items-center flex-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="feather feather-map-pin"
+                      >
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <p className="pl-1 text-sm whitespace-nowrap">
+                        {event.location ? event.location.city : <></>}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="px-4 pt-3 pb-4 bg-gray-100 border-t border-gray-200">
-                <div className="text-xs font-semibold tracking-wide text-gray-600 ">
-                  Organizer
-                </div>
-                <div className="flex items-center pt-2">
-                  <div
-                    className="w-5 h-5 mr-3 bg-center bg-cover rounded-full"
-                    style={{ backgroundImage: `url(${event.imageUrl})` }}
-                  ></div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900">
-                      {event.organizer ? event.organizer.username : <></>}
-                    </p>
+                <div className="px-4 pt-3 pb-4 bg-gray-100 border-t border-gray-200">
+                  <div className="text-xs font-semibold tracking-wide text-gray-600 ">
+                    Organizer
+                  </div>
+                  <div className="flex items-center pt-2">
+                    <div
+                      className="w-5 h-5 mr-3 bg-center bg-cover rounded-full"
+                      style={{ backgroundImage: `url(${event.imageUrl})` }}
+                    ></div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900">
+                        {event.organizer ? event.organizer.username : <></>}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </article>
-        </Link>
+            </article>
+          </Link>
+          {isMyEventPage && handleUntrackEvent && (
+            <button
+              onClick={() => handleUntrackEvent(event.id)}
+              className="px-4 py-2 -my-3.5 z-20 font-bold text-white bg-red-500 hover:bg-red-700 rounded-b-2xl"
+            >
+              {submitLoading.get(event.id) ? ( // Access the loading state for the specific card
+                <ScaleLoader color="#d3dddb" height={4} width={4} />
+              ) : (
+                <span className="drop-shadow-lg">Untrack Event</span>
+              )}
+            </button>
+          )}
+        </div>
       ))}
     </section>
   );
