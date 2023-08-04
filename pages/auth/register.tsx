@@ -39,7 +39,6 @@ const Register: React.FC = () => {
   }> = async (data) => {
     try {
       const response = await axios.post(`${API_URL}/auth/register`, data);
-      console.log(response.data);
       router.push('/auth/login');
       toast.success('Register Successful!', {
         position: 'top-center',

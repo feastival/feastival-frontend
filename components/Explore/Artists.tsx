@@ -24,7 +24,7 @@ export default function Artists({ artists, isLoading, isError }: ArtistsProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-3 justify-center mb-40  max-w-[74rem]">
+    <div className="flex flex-wrap gap-3 justify-center mb-40 p-3 sm:p-0 sm:max-w-[74rem]">
       {artists.map((artist) => (
         <Link
           key={artist.id}

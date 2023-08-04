@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Card from '@/components/Card';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import BottomNavbar from '@/components/Explore/BottomNavbar';
 // import { Event } from '@/lib/eventsInterface';
 
 interface Location {
@@ -103,7 +104,7 @@ export default function ExploreRoute() {
   return (
     <div className="mt-32 flex justify-evenly">
       {isLoading ? (
-        <div className="flex items-center justify-center mt-20   mb-28">
+        <div className="flex items-center justify-center mt-20  mb-28">
           <ScaleLoader color="#a63be0" height={20} width={20} />
         </div>
       ) : (
@@ -119,7 +120,7 @@ export default function ExploreRoute() {
             />
             <title>Explore</title>
           </Head>
-          <div className="flex flex-col xl:basis-96">
+          <div className="hidden sm:flex flex-col xl:basis-96">
             <Sidebar handleClick={handleClick} selected={selected} />
           </div>
           {selected === 'Events' ? (
@@ -133,6 +134,9 @@ export default function ExploreRoute() {
               isError={artistErrorPage}
             />
           )}
+          <div className="sm:hidden">
+            <BottomNavbar handleClick={handleClick} selected={selected} />
+          </div>
         </>
       )}
     </div>
