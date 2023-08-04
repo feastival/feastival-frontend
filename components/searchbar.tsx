@@ -94,7 +94,7 @@ const SearchBar = () => {
   }, []);
 
   return (
-    <div className="relative">
+    <div ref={searchContainerRef} className="relative">
       {' '}
       <Input
         type="text"
@@ -108,9 +108,7 @@ const SearchBar = () => {
       <i className="absolute text-gray-400 transform -translate-y-1/2 cursor-pointer left-3 top-1/2 fas fa-search"></i>
       {/* Popup */}
       {isOpen && (
-        <Modal
-          isOpen={isOpen}
-          onRequestClose={toggleSearchBar}
+        <div
           className="fixed inset-0 flex items-center justify-center pt-20 backdrop-blur-lg"
         >
           <div
@@ -174,7 +172,7 @@ const SearchBar = () => {
               {eventsError && <div>Error loading events data.</div>}
             </div>
           </div>
-        </Modal>
+        </div>
       )}
     </div>
   );

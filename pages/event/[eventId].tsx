@@ -281,29 +281,20 @@ export default function ArtistRouteById() {
   };
   return (
     <>
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-          integrity="sha512-..."
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-      </Head>
-      <section className="text-gray-600 body-font overflow-hidden mt-36 font-poppins">
+      <section className="overflow-hidden text-gray-600 body-font mt-36 font-poppins">
         <div className="container px-5 py-24 mx-auto">
-          <div className="lg:w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 mx-auto lg:w-4/5 lg:grid-cols-2">
             <div className="w-full h-[300px] lg:h-[500px] object-cover object-center rounded">
               <Image
                 alt="Artist photo"
-                className="w-full h-full object-cover"
+                className="object-cover w-full h-full"
                 src={event.imageUrl}
                 width={500}
                 height={500}
               />
             </div>
             <div className="lg:w-full lg:pl-10 lg:py-6">
-              <h2 className="text-sm title-font text-gray-500 tracking-widest mb-2">
+              <h2 className="mb-2 text-sm tracking-widest text-gray-500 title-font">
                 {event.status}
                 {event.status === 'Upcoming' && (
                   <span>
@@ -313,7 +304,7 @@ export default function ArtistRouteById() {
                 )}
               </h2>
 
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">
+              <h1 className="mb-4 text-3xl font-medium text-gray-900 title-font">
                 {event.name}
               </h1>
               <div className="flex mb-4">
@@ -351,8 +342,8 @@ export default function ArtistRouteById() {
 
               {activeTab1 === 'Event Detail' && (
                 <>
-                  <p className="leading-relaxed mb-4"> {event.description}</p>
-                  <div className="flex border-t border-gray-200 py-2">
+                  <p className="mb-4 leading-relaxed"> {event.description}</p>
+                  <div className="flex py-2 border-t border-gray-200">
                     <span className="text-gray-500">Date</span>
                     <span className="ml-auto text-gray-900">
                       {formattedTime
@@ -360,7 +351,7 @@ export default function ArtistRouteById() {
                         : 'Sedang di update..'}
                     </span>
                   </div>
-                  <div className="flex border-t border-gray-200 py-2">
+                  <div className="flex py-2 border-t border-gray-200">
                     <span className="text-gray-500">Time</span>
                     <span className="ml-auto text-gray-900">
                       {formattedTime
@@ -369,13 +360,13 @@ export default function ArtistRouteById() {
                       WIB
                     </span>
                   </div>
-                  <div className="flex border-t border-gray-200 py-2">
+                  <div className="flex py-2 border-t border-gray-200">
                     <span className="text-gray-500">Starting At Price</span>
                     <span className="ml-auto text-gray-900">
                       {formatToIDR(event.price)}
                     </span>
                   </div>
-                  <div className="flex border-t border-gray-200 py-2">
+                  <div className="flex py-2 border-t border-gray-200">
                     <span className="text-gray-500">Organizer</span>
                     <span className="ml-auto text-gray-900">
                       {organizer?.username}
@@ -385,31 +376,31 @@ export default function ArtistRouteById() {
               )}
               {activeTab1 === 'Location' && (
                 <>
-                  <div className="flex  border-gray-200 py-2">
+                  <div className="flex py-2 border-gray-200">
                     <span className="text-gray-500">Venue</span>
                     <span className="ml-auto text-gray-900">
                       {' '}
                       {location?.venue}
                     </span>
                   </div>
-                  <div className="flex border-t border-gray-200 py-2">
+                  <div className="flex py-2 border-t border-gray-200">
                     <span className="text-gray-500">Address</span>
                     <span
-                      className="ml-auto text-gray-900 text-right"
+                      className="ml-auto text-right text-gray-900"
                       style={{ maxWidth: '70%', overflowWrap: 'break-word' }}
                     >
                       {location?.address}
                     </span>
                   </div>
 
-                  <div className="flex border-t border-gray-200 py-2">
+                  <div className="flex py-2 border-t border-gray-200">
                     <span className="text-gray-500">City</span>
                     <span className="ml-auto text-gray-900">
                       {' '}
                       {location?.city}
                     </span>
                   </div>
-                  <div className="flex border-t border-gray-200 py-2">
+                  <div className="flex py-2 border-t border-gray-200">
                     <span className="text-gray-500">Province</span>
                     <span className="ml-auto text-gray-900">
                       {' '}
@@ -427,9 +418,9 @@ export default function ArtistRouteById() {
                       .map((artist: any, index: number) => (
                         <div
                           key={index}
-                          className="mt-3 flex select-none flex-wrap items-center gap-1 "
+                          className="flex flex-wrap items-center gap-1 mt-3 select-none "
                         >
-                          <div className="mt-4 items-left px-2 flex items-center gap-4">
+                          <div className="flex items-center gap-4 px-2 mt-4 items-left">
                             <Image
                               src={
                                 artist.imageUrl
@@ -437,12 +428,12 @@ export default function ArtistRouteById() {
                                   : 'https://www.exscribe.com/wp-content/uploads/2021/08/placeholder-image-person-jpg.jpg'
                               }
                               alt={artist.name}
-                              className="rounded-full object-cover w-12 h-12"
+                              className="object-cover w-12 h-12 rounded-full"
                               width={50}
                               height={50}
                             />
                             <p
-                              className="font-medium text cursor-pointer"
+                              className="font-medium cursor-pointer text"
                               onClick={() =>
                                 router.push(`/artist/${artist.id}`)
                               }
@@ -525,9 +516,9 @@ export default function ArtistRouteById() {
                 <div className="">
                   <div className="">
                     <div className="flow-root">
-                      <div className=" flex-row">
+                      <div className="flex-row ">
                         {distance && (
-                          <p className=" flex text-center text-lg">
+                          <p className="flex text-lg text-center ">
                             Jarak Anda ke lokasi konser: {distance.toFixed(2)}{' '}
                             kilometer
                           </p>
